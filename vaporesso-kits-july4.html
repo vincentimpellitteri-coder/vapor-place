@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vaporesso Kits — Independence Edition — The Vapor Place</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;600;700&family=Pirata+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ── Patriotic palette ──
+       Red:   #B22234  (Old Glory Red)
+       Blue:  #002868  (Old Glory Blue)
+       Light Blue: #3A6FC4
+       White: #F5F5F0
+    */
+
+    body#inner-page {
+      background: #04091A;
+    }
+
+    /* Override header/nav to navy */
+    header {
+      background: #020714 !important;
+      border-bottom: 1px solid #B2223444 !important;
+    }
+    nav a { color: #8899bb !important; }
+    nav a:hover, nav a.active { color: #F5F5F0 !important; }
+
+    .kits-hero {
+      text-align: center;
+      padding: 64px 20px 36px;
+      position: relative;
+    }
+    /* Stars background strip */
+    .kits-hero::before {
+      content: '★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★';
+      display: block;
+      font-size: 0.7rem;
+      letter-spacing: 0.5em;
+      color: #002868;
+      margin-bottom: 20px;
+    }
+
+    .kits-hero .brand-tag {
+      display: inline-block;
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      color: #F5F5F0;
+      text-transform: uppercase;
+      border: 1px solid #B2223466;
+      background: rgba(178,34,52,0.15);
+      padding: 5px 18px;
+      border-radius: 4px;
+      margin-bottom: 18px;
+    }
+    .kits-hero h1 {
+      font-family: 'Pirata One', cursive;
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      letter-spacing: 0.08em;
+      background: linear-gradient(135deg, #B22234 20%, #F5F5F0 50%, #002868 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+      line-height: 1;
+    }
+    .kits-hero p {
+      color: #6677aa;
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.3rem;
+      letter-spacing: 0.1em;
+      max-width: 500px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Red/white/blue stripe divider */
+    .stripe-bar {
+      display: flex;
+      height: 4px;
+      max-width: 1200px;
+      margin: 32px auto;
+    }
+    .stripe-bar span:nth-child(1) { flex: 1; background: #B22234; }
+    .stripe-bar span:nth-child(2) { flex: 1; background: #F5F5F0; }
+    .stripe-bar span:nth-child(3) { flex: 1; background: #002868; }
+
+    .series-heading {
+      font-family: 'Pirata One', cursive;
+      font-size: 2.8rem;
+      letter-spacing: 0.16em;
+      color: #F5F5F0;
+      border-left: 4px solid #B22234;
+      padding-left: 20px;
+      max-width: 1200px;
+      margin: 48px auto 0;
+      padding-left: 38px;
+    }
+
+    .xros-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+      max-width: 1200px;
+      margin: 32px auto;
+      padding: 0 24px;
+    }
+
+    .xros-card {
+      background: rgba(0, 10, 30, 0.7);
+      border: 1px solid rgba(58, 111, 196, 0.25);
+      border-top: 2px solid #B22234;
+      border-radius: 8px;
+      overflow: hidden;
+      backdrop-filter: blur(6px);
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+    .xros-card:hover {
+      border-color: rgba(178, 34, 52, 0.6);
+      box-shadow: 0 4px 24px rgba(178,34,52,0.15);
+      transform: translateY(-3px);
+    }
+    .xros-card img {
+      width: 100%;
+      display: block;
+      background: #020714;
+    }
+    .xros-card-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .xros-card-body h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      letter-spacing: 0.1em;
+      background: linear-gradient(135deg, #B22234, #F5F5F0, #3A6FC4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 6px;
+    }
+    .xros-tagline {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      color: #445577;
+      font-style: italic;
+      margin-bottom: 14px;
+    }
+    .xros-specs {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 16px;
+    }
+    .xros-specs li {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1rem;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .xros-specs li:last-child { border-bottom: none; }
+    .xros-specs li span:first-child { color: #445577; flex-shrink: 0; }
+    .xros-specs li span:last-child { color: #ccd0e0; text-align: right; }
+
+    .xros-features {
+      margin: 0 0 18px;
+      padding: 0;
+      list-style: none;
+      flex: 1;
+    }
+    .xros-features li {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1rem;
+      color: #7788aa;
+      padding: 3px 0 3px 16px;
+      position: relative;
+    }
+    .xros-features li::before {
+      content: '★';
+      position: absolute;
+      left: 0;
+      color: #B22234;
+      font-size: 0.55rem;
+      top: 6px;
+    }
+
+    .xros-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+      padding-top: 14px;
+      border-top: 1px solid rgba(178,34,52,0.2);
+    }
+    .xros-price {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.2rem;
+      letter-spacing: 0.06em;
+      background: linear-gradient(135deg, #B22234, #F5F5F0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .xros-btn {
+      display: inline-block;
+      background: transparent;
+      border: 1px solid #B22234;
+      color: #B22234;
+      border-radius: 4px;
+      padding: 9px 18px;
+      font-family: 'Oswald', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+    .xros-btn:hover {
+      background: #B22234;
+      color: #F5F5F0;
+    }
+
+    .back-link {
+      display: inline-block;
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.95rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #334466;
+      text-decoration: none;
+      padding: 0 24px;
+      margin-top: 12px;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: #B22234; }
+
+    .divider {
+      border: none;
+      height: 4px;
+      background: linear-gradient(90deg, #B22234, #F5F5F0, #002868);
+      max-width: 1200px;
+      margin: 48px auto;
+      border-radius: 2px;
+    }
+
+    .smt-note {
+      max-width: 900px;
+      margin: 0 auto 56px;
+      padding: 0 24px;
+    }
+    .smt-note-inner {
+      background: rgba(0,10,30,0.8);
+      border: 1px solid #002868;
+      border-left: 4px solid #3A6FC4;
+      border-radius: 6px;
+      padding: 20px 24px;
+    }
+    .smt-note-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.2em;
+      color: #3A6FC4;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .smt-note p {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.05rem;
+      color: #556688;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    footer {
+      border-top: 1px solid #B2223433 !important;
+      color: #334466 !important;
+    }
+
+    /* ── Series tab bar ── */
+    .series-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      padding: 0 24px 32px;
+    }
+    .series-tab {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.16em;
+      text-decoration: none;
+      padding: 10px 32px;
+      border-radius: 4px;
+      border: 2px solid #B22234;
+      color: #F5F5F0;
+      background: rgba(178,34,52,0.12);
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .series-tab:hover {
+      background: #B22234;
+      color: #F5F5F0;
+    }
+    .series-tab.eco {
+      border-color: #002868;
+      background: rgba(0,40,104,0.15);
+    }
+    .series-tab.eco:hover {
+      background: #002868;
+      color: #F5F5F0;
+    }
+
+    @media (max-width: 600px) {
+      .kits-hero h1 { font-size: 3rem; }
+      .xros-grid { padding: 0 12px; }
+      .series-tab { font-size: 1.1rem; padding: 9px 20px; }
+    }
+  </style>
+</head>
+<body id="inner-page">
+
+  <div style="position:relative;z-index:1;">
+
+  <header>
+    <div class="header-inner">
+      <a href="home.html" class="logo-link">
+        <img src="images/logo.png" alt="The Vapor Place" class="logo-img">
+      </a>
+      <span class="badge-21">21+</span>
+    </div>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="hours.html">Hours</a>
+      <a href="menu.html">Menu</a>
+      <a href="featured.html">Featured</a>
+      <a href="top-sellers.html">Top Sellers</a>
+      <a href="locations.html">Locations</a>
+      <a href="contact.html">Contact</a>
+      <a href="info.html">Info</a>
+      <a href="rewards.html">Rewards</a>
+      <a href="kits.html">Kits</a>
+    </nav>
+  </header>
+
+  <div class="kits-hero">
+    <div class="brand-tag">★ Vaporesso ★ Independence Edition ★</div>
+    <h1>VAPORESSO KITS</h1>
+    <p>XROS Series &amp; ECO Nano Series — all available in-store</p>
+  </div>
+  <a href="kits.html" class="back-link">← Back to All Brands</a>
+
+  <div class="series-tabs">
+    <a href="#xros-series" class="series-tab">★ XROS Series</a>
+    <a href="#eco-series" class="series-tab eco">ECO Nano Series ★</a>
+  </div>
+
+  <div class="stripe-bar"><span></span><span></span><span></span></div>
+
+  <div class="series-heading" id="xros-series">XROS Series</div>
+  <div class="xros-grid">
+
+      <div class="xros-card">
+        <img src="images/xros/xros5-mini.jpg" alt="Vaporesso XROS 5 Mini">
+        <div class="xros-card-body">
+          <h2>XROS 5 MINI</h2>
+          <div class="xros-tagline">"Cross the limits, Cross super charging"</div>
+          <ul class="xros-specs">
+            <li><span>Battery</span><span>1500mAh · 2A Fast Charge</span></li>
+            <li><span>Output</span><span>5 – 30W</span></li>
+            <li><span>Size</span><span>110.5 × 24.2 × 14.1mm</span></li>
+            <li><span>Weight</span><span>65.2g (SMT) · 50.2g (Al)</span></li>
+            <li><span>Pod</span><span>3mL · 0.4 – 1.2Ω</span></li>
+            <li><span>Activation</span><span>Auto Draw</span></li>
+          </ul>
+          <ul class="xros-features">
+            <li>COREX 3.0 — 40% richer aroma</li>
+            <li>Hidden tidal LED battery indicator</li>
+            <li>Adjustable airflow</li>
+            <li>SSS leak-resistant technology</li>
+            <li>Magnetic pod connection</li>
+          </ul>
+          <div class="xros-card-footer">
+            <div class="xros-price">$29.99</div>
+            <a href="xros5mini.html" class="xros-btn">Learn More</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="xros-card">
+        <img src="images/xros/xros5.jpg" alt="Vaporesso XROS 5">
+        <div class="xros-card-body">
+          <h2>XROS 5</h2>
+          <div class="xros-tagline">"Cross the limits, Cross super charging"</div>
+          <ul class="xros-specs">
+            <li><span>Battery</span><span>1500mAh · 3A Fast Charge</span></li>
+            <li><span>Output</span><span>15 – 30W</span></li>
+            <li><span>Size</span><span>120 × 24.5 × 14.5mm</span></li>
+            <li><span>Weight</span><span>73.7g</span></li>
+            <li><span>Pod</span><span>3mL · 0.4 – 1.2Ω</span></li>
+            <li><span>Screen</span><span>0.88" HD · 6 themes</span></li>
+          </ul>
+          <ul class="xros-features">
+            <li>COREX 3.0 technology</li>
+            <li>80% charge in just 20 minutes</li>
+            <li>Power / Normal / Eco modes</li>
+            <li>0.5W precision adjustment</li>
+            <li>MTL to RDL adjustable airflow</li>
+            <li>Auto draw + button activation</li>
+          </ul>
+          <div class="xros-card-footer">
+            <div class="xros-price">$39.99</div>
+            <a href="xros5.html" class="xros-btn">Learn More</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="xros-card">
+        <img src="images/xros/xros5-nano.webp" alt="Vaporesso XROS 5 Nano">
+        <div class="xros-card-body">
+          <h2>XROS 5 NANO</h2>
+          <div class="xros-tagline">"Touch On, Trend On"</div>
+          <ul class="xros-specs">
+            <li><span>Battery</span><span>1600mAh · 2A Fast Charge</span></li>
+            <li><span>Size</span><span>80.1 × 54.3 × 22.2mm</span></li>
+            <li><span>Weight</span><span>86g</span></li>
+            <li><span>Pod</span><span>3mL · 0.4 – 1.2Ω</span></li>
+            <li><span>Screen</span><span>1.09" Touch · 311 PPI</span></li>
+          </ul>
+          <ul class="xros-features">
+            <li>29 customizable UI themes</li>
+            <li>COREX 3.0 technology</li>
+            <li>Full charge in 45 minutes</li>
+            <li>Smart puff tracking &amp; reminders</li>
+            <li>SSS leak-resistant technology</li>
+          </ul>
+          <div class="xros-card-footer">
+            <div class="xros-price">$39.99</div>
+            <a href="xros5nano.html" class="xros-btn">Learn More</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="xros-card">
+        <img src="images/xros/xros-pro2.jpg" alt="Vaporesso XROS Pro 2">
+        <div class="xros-card-body">
+          <h2>XROS PRO 2 KIT</h2>
+          <div class="xros-tagline">"The ultimate balance of power and portability."</div>
+          <ul class="xros-specs">
+            <li><span>Battery</span><span>2000mAh · 30-min charge</span></li>
+            <li><span>Output</span><span>30W Max</span></li>
+            <li><span>Size</span><span>125.6 × 25.7 × 18.4mm</span></li>
+            <li><span>Weight</span><span>65g</span></li>
+            <li><span>Pod</span><span>3mL · 0.4 – 1.2Ω</span></li>
+            <li><span>Screen</span><span>0.96" TFT · 6 themes</span></li>
+          </ul>
+          <ul class="xros-features">
+            <li>Aerospace magnesium alloy — lightest 2000mAh pod</li>
+            <li>COREX 3.0 + Super Pulse mode</li>
+            <li>Ultra-precise 0.5W increments</li>
+            <li>Lock switch, puff tracking &amp; reminders</li>
+            <li>SSS leak-resistant technology</li>
+          </ul>
+          <div class="xros-card-footer">
+            <div class="xros-price">$42.99</div>
+            <a href="xros-pro2.html" class="xros-btn">Learn More</a>
+          </div>
+        </div>
+      </div>
+
+  </div>
+
+  <div class="stripe-bar"><span></span><span></span><span></span></div>
+
+  <div class="series-heading" id="eco-series">ECO Nano Series</div>
+  <div class="xros-grid">
+
+      <div class="xros-card">
+        <img src="images/eco/eco-nano-2.jpg" alt="Vaporesso ECO Nano 2">
+        <div class="xros-card-body">
+          <h2>ECO NANO 2</h2>
+          <div class="xros-tagline">"Go Smoother, Go Further"</div>
+          <ul class="xros-specs">
+            <li><span>Battery</span><span>1000mAh · Type-C 1A</span></li>
+            <li><span>Pod</span><span>6mL · 0.6 – 1.2Ω</span></li>
+            <li><span>Size</span><span>44.7 × 18.0 × 77.0mm</span></li>
+            <li><span>Indicator</span><span>4-Level LED</span></li>
+            <li><span>Mode</span><span>Pulse Mode</span></li>
+            <li><span>Fill</span><span>Bottom-Fill</span></li>
+          </ul>
+          <ul class="xros-features">
+            <li>COREX Smooth heating — richer, smoother flavor</li>
+            <li>Pulse mode for consistent power delivery</li>
+            <li>6mL 0.6Ω Lush Mesh pod included</li>
+            <li>Compatible with all ECO Nano pods</li>
+            <li>9 color options</li>
+          </ul>
+          <div class="xros-card-footer">
+            <div class="xros-price">$18.99</div>
+            <a href="eco-nano-2.html" class="xros-btn">Learn More</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="xros-card">
+        <img src="images/eco/eco-nano-pro.webp" alt="Vaporesso ECO Nano Pro">
+        <div class="xros-card-body">
+          <h2>ECO NANO PRO</h2>
+          <div class="xros-tagline">"Born For Pro"</div>
+          <ul class="xros-specs">
+            <li><span>Battery</span><span>1000mAh · Type-C 1A</span></li>
+            <li><span>Pod</span><span>6mL · 0.6 – 1.2Ω</span></li>
+            <li><span>Size</span><span>44.7 × 18.0 × 87.8mm</span></li>
+            <li><span>Weight</span><span>65g</span></li>
+            <li><span>Display</span><span>Dynamic Animated Screen</span></li>
+            <li><span>Modes</span><span>ECO / Power</span></li>
+          </ul>
+          <ul class="xros-features">
+            <li>COREX Smooth heating — optimized cotton structure</li>
+            <li>ECO mode for longer battery · Power mode for flavor</li>
+            <li>6mL 0.6Ω Lush Mesh pod included</li>
+            <li>Precise % battery indicator</li>
+            <li>Single-switch airflow + output control</li>
+            <li>8 color options</li>
+          </ul>
+          <div class="xros-card-footer">
+            <div class="xros-price">$24.99</div>
+            <a href="eco-nano-pro.html" class="xros-btn">Learn More</a>
+          </div>
+        </div>
+      </div>
+
+  </div>
+
+  <div class="divider"></div>
+  <div class="smt-note">
+    <div class="smt-note-inner">
+      <div class="smt-note-title">★ What is SMT? ★</div>
+      <p><strong style="color:#8899cc;">Surface Mount Technology (SMT)</strong> enables high-quality, durable electronics by mounting components directly onto PCB surfaces via automated, precise reflow soldering. This technique improves mechanical reliability, boosts performance with smaller components, and allows for higher-density, compact designs that are more resistant to vibration and thermal stress compared to traditional methods — making it ideal for a device you carry every day.</p>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2026 The Vapor Place &mdash; Must be 21+ to purchase.
+  </footer>
+
+  </div>
+</body>
+</html>

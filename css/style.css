@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&family=Comfortaa:wght@400;700&family=Nunito:wght@300;400;600;700;800&display=swap');
 
 *, *::before, *::after {
   box-sizing: border-box;
@@ -20,7 +20,7 @@
 body {
   background: var(--dark);
   color: var(--text);
-  font-family: 'Rajdhani', system-ui, sans-serif;
+  font-family: 'Nunito', system-ui, sans-serif;
   font-size: 1.05rem;
   min-height: 100vh;
 }
@@ -113,9 +113,9 @@ main {
 }
 
 h1 {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 1.8rem;
-  font-weight: 900;
+  font-family: 'Comfortaa', sans-serif;
+  font-size: 2.6rem;
+  font-weight: 700;
   background: var(--grad);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -308,7 +308,7 @@ p {
 
 .placeholder-note {
   margin-top: 10px;
-  color: #555;
+  color: #999;
   font-style: italic;
   font-size: 0.9rem;
 }

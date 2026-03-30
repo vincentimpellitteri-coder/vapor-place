@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kits — The Vapor Place</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ── Mode toggle button ── */
+    .mode-toggle {
+      position: fixed;
+      top: 16px;
+      right: 20px;
+      z-index: 999;
+      background: rgba(0,0,0,0.4);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 50px;
+      padding: 8px 18px;
+      cursor: pointer;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      color: #ccc;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.3s, border-color 0.3s, color 0.3s;
+      backdrop-filter: blur(6px);
+    }
+    .mode-toggle:hover { border-color: rgba(255,255,255,0.4); color: #fff; }
+    .mode-toggle .toggle-icon { font-size: 1rem; }
+
+    /* ── Shared layout ── */
+    .kits-hero {
+      text-align: center;
+      padding: 72px 20px 48px;
+    }
+    .kits-hero h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      margin-bottom: 12px;
+    }
+    .kits-hero p {
+      font-size: 1.1rem;
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+    .brand-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+      max-width: 1100px;
+      margin: 56px auto 80px;
+      padding: 0 24px;
+    }
+    .brand-tile {
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      border-radius: 16px;
+      overflow: hidden;
+      text-align: center;
+      backdrop-filter: blur(6px);
+      transition: border-color 0.25s, transform 0.25s, background 0.25s;
+    }
+    .brand-tile-logo {
+      height: 140px;
+      padding: 28px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .brand-tile-body {
+      padding: 28px 32px 36px;
+      flex: 1;
+    }
+    .brand-tile:hover { transform: translateY(-4px); }
+    .brand-tile h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.7rem;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      margin-bottom: 16px;
+    }
+    .brand-tile p {
+      font-size: 0.85rem;
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+    .brand-tile .tile-count {
+      display: inline-block;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      border-radius: 20px;
+      padding: 5px 16px;
+    }
+
+    /* ══ NIGHT MODE (default) ══ */
+    body.night .kits-hero h1 {
+      background: linear-gradient(135deg, #00e5ff, #aaff00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    body.night .kits-hero p { color: #999; }
+    body.night .brand-tile {
+      background: rgba(0,0,0,0.45);
+      border: 1px solid rgba(0,229,255,0.15);
+    }
+    body.night .brand-tile-logo {
+      background: rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(0,229,255,0.1);
+    }
+    body.night .brand-tile-body { background: transparent; }
+    body.night .brand-tile:hover {
+      border-color: rgba(0,229,255,0.5);
+      background: rgba(0,229,255,0.04);
+    }
+    body.night .brand-tile h2 {
+      background: linear-gradient(135deg, #00e5ff, #aaff00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    body.night .brand-tile p { color: #999; }
+    body.night .brand-tile .tile-count { color: #00e5ff; border: 1px solid #00e5ff44; }
+    body.night .mode-toggle { background: rgba(0,0,0,0.4); border-color: rgba(255,255,255,0.15); color: #ccc; }
+    body.night #bg-video { display: block; }
+
+    /* ══ DAY MODE ══ */
+    body.day { background: #fff; }
+    body.day header { background: #f0f0f0 !important; border-bottom-color: #ddd !important; }
+    body.day nav a { color: #444 !important; }
+    body.day nav a:hover { color: #000 !important; }
+    body.day .kits-hero h1 {
+      background: linear-gradient(135deg, #0099bb, #337700);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    body.day .kits-hero p { color: #444; }
+    body.day .brand-tile {
+      background: #f5f5f5;
+      border: 1px solid #ddd;
+    }
+    body.day .brand-tile-logo {
+      background: #ebebeb;
+      border-bottom: 1px solid #ddd;
+    }
+    body.day .brand-tile-body { background: #fff; }
+    body.day .brand-tile:hover {
+      border-color: #0099bb;
+      background: #eef9ff;
+    }
+    body.day .brand-tile h2 {
+      background: linear-gradient(135deg, #0099bb, #337700);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    body.day .brand-tile p { color: #444; }
+    body.day .brand-tile .tile-count { color: #0099bb; border: 1px solid #0099bb55; }
+    body.day .mode-toggle { background: rgba(255,255,255,0.8); border-color: #ccc; color: #333; }
+    body.day #bg-video { display: none; }
+    body.day footer { color: #666 !important; border-top-color: #ddd !important; }
+
+    /* Vaporesso logo: invert in night, normal in day */
+    body.night .vaporesso-logo { filter: invert(1); }
+    body.day .vaporesso-logo { filter: none; }
+
+    @media (max-width: 600px) {
+      .kits-hero h1 { font-size: 2rem; }
+      .brand-grid { padding: 0 16px; }
+      .mode-toggle { top: 12px; right: 12px; }
+    }
+  </style>
+</head>
+<body id="inner-page" class="night">
+
+
+  <!-- Day / Night toggle -->
+  <button class="mode-toggle" onclick="toggleMode()" aria-label="Toggle day/night mode">
+    <span class="toggle-icon">🌙</span>
+    <span class="toggle-label">NIGHT</span>
+  </button>
+
+  <div style="position:relative;z-index:1;">
+
+  <header>
+    <div class="header-inner">
+      <a href="home.html" class="logo-link">
+        <img src="images/logo.png" alt="The Vapor Place" class="logo-img">
+      </a>
+      <span class="badge-21">21+</span>
+    </div>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="hours.html">Hours</a>
+      <a href="menu.html">Menu</a>
+      <a href="featured.html">Featured</a>
+      <a href="top-sellers.html">Top Sellers</a>
+      <a href="locations.html">Locations</a>
+      <a href="contact.html">Contact</a>
+      <a href="info.html">Info</a>
+      <a href="rewards.html">Rewards</a>
+      <a href="kits.html">Kits</a>
+    </nav>
+  </header>
+
+  <div class="kits-hero">
+    <h1>KITS</h1>
+    <p>Select a brand to explore our full kit lineup — all available in-store.</p>
+  </div>
+
+  <div class="brand-grid">
+
+    <a href="vaporesso-kits.html" class="brand-tile">
+      <div class="brand-tile-logo">
+        <img src="images/vaporesso-logo.jpg" alt="Vaporesso" class="vaporesso-logo" style="height:60px;object-fit:contain;">
+      </div>
+      <div class="brand-tile-body">
+        <h2>VAPORESSO</h2>
+        <p>XROS Series · ECO Nano Series<br>Compact pods to full-featured kits.</p>
+        <span class="tile-count">6 Kits</span>
+      </div>
+    </a>
+
+    <a href="geekvape-kits.html" class="brand-tile">
+      <div class="brand-tile-logo">
+        <img src="images/geekvape/geekvape-logo.png" alt="GeekVape" style="height:60px;object-fit:contain;">
+      </div>
+      <div class="brand-tile-body">
+        <h2>GEEKVAPE</h2>
+        <p>Aegis Series<br>Built tough — waterproof, dustproof, shockproof.</p>
+        <span class="tile-count">1 Kit</span>
+      </div>
+    </a>
+
+    <a href="smoktech-kits.html" class="brand-tile">
+      <div class="brand-tile-logo">
+        <span style="font-family:'Orbitron',sans-serif;font-size:1.6rem;font-weight:900;letter-spacing:0.1em;background:linear-gradient(135deg,#00e5ff,#aaff00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">SMOK</span>
+      </div>
+      <div class="brand-tile-body">
+        <h2>SMOK</h2>
+        <p>Novo Series<br>Simple, powerful, everyday carry.</p>
+        <span class="tile-count">2 Kits</span>
+      </div>
+    </a>
+
+  </div>
+
+  <footer>
+    &copy; 2026 The Vapor Place &mdash; Must be 21+ to purchase.
+  </footer>
+
+  </div>
+
+  <script>
+    function toggleMode() {
+      const body = document.body;
+      const icon = document.querySelector('.toggle-icon');
+      const label = document.querySelector('.toggle-label');
+      if (body.classList.contains('night')) {
+        body.classList.replace('night', 'day');
+        icon.textContent = '☀️';
+        label.textContent = 'DAY';
+        localStorage.setItem('kitsMode', 'day');
+      } else {
+        body.classList.replace('day', 'night');
+        icon.textContent = '🌙';
+        label.textContent = 'NIGHT';
+        localStorage.setItem('kitsMode', 'night');
+      }
+    }
+
+    // Restore saved preference on load
+    const saved = localStorage.getItem('kitsMode');
+    if (saved === 'day') {
+      document.body.classList.replace('night', 'day');
+      document.querySelector('.toggle-icon').textContent = '☀️';
+      document.querySelector('.toggle-label').textContent = 'DAY';
+    }
+  </script>
+
+</body>
+</html>

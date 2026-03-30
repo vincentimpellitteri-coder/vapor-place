@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SMOK Novo Eco Kit — The Vapor Place</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .mini-hero {
+      text-align: center;
+      padding: 52px 20px 32px;
+    }
+    .mini-hero .brand-tag {
+      display: inline-block;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: #00e5ff;
+      text-transform: uppercase;
+      border: 1px solid #00e5ff44;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+    .mini-hero h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      background: linear-gradient(135deg, #00e5ff, #aaff00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 12px;
+    }
+    .mini-hero .tagline {
+      font-size: 1rem;
+      color: #999;
+      font-style: italic;
+      margin-bottom: 28px;
+    }
+    .mini-hero-img {
+      max-width: 420px;
+      margin: 0 auto 32px;
+      display: block;
+    }
+    .mini-hero-img img {
+      width: 100%;
+      border-radius: 16px;
+      border: 1px solid #1e1e1e;
+    }
+    .hero-badges {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 4px;
+    }
+    .hero-badge {
+      background: #111;
+      border: 1px solid #2a2a2a;
+      border-radius: 30px;
+      padding: 8px 18px;
+      font-size: 0.8rem;
+      color: #888;
+    }
+    .hero-badge strong { color: #00e5ff; }
+
+    .mini-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 24px;
+    }
+    .mini-section-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #00e5ff;
+      border-left: 3px solid #00e5ff;
+      padding-left: 14px;
+      margin-bottom: 28px;
+    }
+    .divider { border: none; border-top: 1px solid #1e1e1e; }
+
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 14px;
+    }
+    .spec-card {
+      background: #111;
+      border: 1px solid #1e1e1e;
+      border-radius: 10px;
+      padding: 18px 20px;
+    }
+    .spec-card .spec-icon { font-size: 1.3rem; margin-bottom: 6px; }
+    .spec-card .spec-label {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #444;
+      margin-bottom: 4px;
+    }
+    .spec-card .spec-val {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #e0e0e0;
+    }
+
+    .features-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 10px;
+    }
+    .features-list li {
+      background: #111;
+      border: 1px solid #1e1e1e;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 0.88rem;
+      color: #aaa;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .features-list li::before {
+      content: '›';
+      color: #00e5ff;
+      font-size: 1.2rem;
+      line-height: 1.1;
+      flex-shrink: 0;
+    }
+
+    .cta-bar {
+      text-align: center;
+      padding: 52px 24px;
+      background: #0a0a0a;
+      border-top: 1px solid #1e1e1e;
+    }
+    .cta-bar h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.1rem;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .cta-bar p { color: #999; font-size: 0.9rem; margin-bottom: 22px; }
+    .cta-btns { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+    .cta-btn {
+      display: inline-block;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 12px 28px;
+      border-radius: 6px;
+      transition: background 0.2s, color 0.2s, transform 0.1s;
+    }
+    .cta-btn-primary {
+      background: transparent;
+      border: 1px solid #00e5ff;
+      color: #00e5ff;
+    }
+    .cta-btn-primary:hover { background: #00e5ff; color: #000; transform: translateY(-2px); }
+    .cta-btn-secondary {
+      background: transparent;
+      border: 1px solid #333;
+      color: #777;
+    }
+    .cta-btn-secondary:hover { border-color: #999; color: #aaa; transform: translateY(-2px); }
+
+    @media (max-width: 600px) {
+      .mini-hero h1 { font-size: 1.7rem; }
+    }
+  </style>
+</head>
+<body id="inner-page">
+
+  <div style="position:relative;z-index:1;">
+
+  <header>
+    <div class="header-inner">
+      <a href="home.html" class="logo-link">
+        <img src="images/logo.png" alt="The Vapor Place" class="logo-img">
+      </a>
+      <span class="badge-21">21+</span>
+    </div>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="hours.html">Hours</a>
+      <a href="menu.html">Menu</a>
+      <a href="featured.html">Featured</a>
+      <a href="top-sellers.html">Top Sellers</a>
+      <a href="locations.html">Locations</a>
+      <a href="contact.html">Contact</a>
+      <a href="info.html">Info</a>
+      <a href="rewards.html">Rewards</a>
+      <a href="kits.html">Kits</a>
+    </nav>
+  </header>
+
+  <!-- ══ HERO ══ -->
+  <div class="mini-hero">
+    <div class="brand-tag">SMOK</div>
+    <h1>NOVO ECO KIT</h1>
+    <p class="tagline">"Eco-friendly power, everyday performance"</p>
+    <div class="mini-hero-img">
+      <img src="images/smok/novo-eco-hero.png" alt="SMOK Novo Eco Kit">
+    </div>
+    <div class="hero-badges">
+      <div class="hero-badge"><strong>1000 mAh</strong> Battery</div>
+      <div class="hero-badge"><strong>30W</strong> Max Output</div>
+      <div class="hero-badge"><strong>2 mL</strong> Pod</div>
+      <div class="hero-badge"><strong>0.6Ω</strong> Meshed Coil</div>
+      <div class="hero-badge"><strong>Auto Draw</strong></div>
+      <div class="hero-badge"><strong>RGB</strong> Indicator</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ══ SPECS ══ -->
+  <div class="mini-section">
+    <div class="mini-section-title">Specifications</div>
+    <div class="specs-grid">
+      <div class="spec-card">
+        <div class="spec-icon">⚡</div>
+        <div class="spec-label">Battery</div>
+        <div class="spec-val">1000 mAh</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-icon">💨</div>
+        <div class="spec-label">Max Output</div>
+        <div class="spec-val">30W</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-icon">🔌</div>
+        <div class="spec-label">Charging</div>
+        <div class="spec-val">Type-C · 0.8A</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-icon">💧</div>
+        <div class="spec-label">Pod Capacity</div>
+        <div class="spec-val">2 mL (PCTG)</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-icon">🔩</div>
+        <div class="spec-label">Coil Options</div>
+        <div class="spec-val">0.6Ω · 0.8Ω</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-icon">📐</div>
+        <div class="spec-label">Dimensions</div>
+        <div class="spec-val">121.3 × 24.4 × 14.4 mm</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-icon">🌬️</div>
+        <div class="spec-label">Resistance Range</div>
+        <div class="spec-val">0.4Ω – 2.5Ω</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-icon">🔋</div>
+        <div class="spec-label">Input Voltage</div>
+        <div class="spec-val">3.3V – 4.35V</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ══ FEATURES ══ -->
+  <div class="mini-section">
+    <div class="mini-section-title">Key Features</div>
+    <ul class="features-list">
+      <li>RGB light indicator — 3-color LED monitors battery status</li>
+      <li>Power mode switch — toggle between Soft and Hard mode</li>
+      <li>Spring-loaded top-fill system — leak-resistant and easy to refill</li>
+      <li>Magnetic pod connection — secure fit, stable contact</li>
+      <li>Adjustable side airflow — supports MTL and RDL styles</li>
+      <li>Eco recyclable battery design — built to last and be responsible</li>
+      <li>Compatible with SMOK Novo, Novo 2, and Novo 2X pods</li>
+      <li>Auto draw activation — no buttons, just inhale</li>
+    </ul>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ══ COLORS ══ -->
+  <div class="mini-section">
+    <div class="mini-section-title">Available Colors</div>
+    <p style="color:#999;line-height:2;">
+      Black &nbsp;·&nbsp; Orange &nbsp;·&nbsp; Pale Blue &nbsp;·&nbsp; Pale Gold &nbsp;·&nbsp;
+      Pink &nbsp;·&nbsp; Purple &nbsp;·&nbsp; Silver
+    </p>
+    <img src="images/smok/novo-eco-colors.jpg" alt="SMOK Novo Eco — Available Colors" style="width:100%;border-radius:10px;display:block;margin-top:16px;">
+  </div>
+
+  <!-- ══ CTA ══ -->
+  <div class="cta-bar">
+    <p style="font-family:'Orbitron',sans-serif;font-size:1.6rem;color:#00e5ff;margin-bottom:4px;">$9.99</p>
+    <h2>Available In-Store</h2>
+    <p>Ask a team member for pricing and availability.</p>
+    <div class="cta-btns">
+      <a href="smoktech-kits.html" class="cta-btn cta-btn-secondary">← Back to SMOK</a>
+      <a href="kits.html" class="cta-btn cta-btn-primary">All Brands</a>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2026 The Vapor Place &mdash; Must be 21+ to purchase.
+  </footer>
+
+  </div>
+</body>
+</html>

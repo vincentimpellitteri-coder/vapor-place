@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GeekVape Aegis Legend 5 — The Vapor Place</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ── Hero ── */
+    .mini-hero {
+      text-align: center;
+      padding: 52px 20px 32px;
+    }
+    .mini-hero .brand-tag {
+      display: inline-block;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: #00e5ff;
+      text-transform: uppercase;
+      border: 1px solid #00e5ff44;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+    .mini-hero h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      background: linear-gradient(135deg, #00e5ff, #aaff00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 12px;
+    }
+    .mini-hero .tagline {
+      font-size: 1rem;
+      color: #666;
+      font-style: italic;
+      margin-bottom: 28px;
+    }
+    .mini-hero-img {
+      max-width: 520px;
+      margin: 0 auto 32px;
+      display: block;
+    }
+    .mini-hero-img img {
+      width: 100%;
+      border-radius: 16px;
+      border: 1px solid #1e1e1e;
+    }
+    .hero-badges {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 4px;
+    }
+    .hero-badge {
+      background: #111;
+      border: 1px solid #2a2a2a;
+      border-radius: 30px;
+      padding: 8px 18px;
+      font-size: 0.8rem;
+      color: #888;
+    }
+    .hero-badge strong { color: #00e5ff; }
+
+    /* ── Section wrapper ── */
+    .mini-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 24px;
+    }
+    .mini-section-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #00e5ff;
+      border-left: 3px solid #00e5ff;
+      padding-left: 14px;
+      margin-bottom: 28px;
+    }
+    .divider { border: none; border-top: 1px solid #1e1e1e; }
+
+    /* ── Specs grid ── */
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 14px;
+    }
+    .spec-card {
+      background: #111;
+      border: 1px solid #1e1e1e;
+      border-radius: 10px;
+      padding: 18px 20px;
+    }
+    .spec-card .spec-icon { font-size: 1.3rem; margin-bottom: 6px; }
+    .spec-card .spec-label {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #444;
+      margin-bottom: 4px;
+    }
+    .spec-card .spec-val {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #e0e0e0;
+    }
+    .spec-card .spec-sub {
+      font-size: 0.75rem;
+      color: #999;
+      margin-top: 3px;
+    }
+
+    /* ── Features ── */
+    .features-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 10px;
+    }
+    .features-list li {
+      background: #111;
+      border: 1px solid #1e1e1e;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 0.88rem;
+      color: #aaa;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .features-list li::before {
+      content: '›';
+      color: #00e5ff;
+      font-size: 1.2rem;
+      line-height: 1.1;
+      flex-shrink: 0;
+    }
+
+    /* ── IP rating callout ── */
+    .ip-bar {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin: 0 0 48px;
+    }
+    .ip-card {
+      background: #0e0e0e;
+      border: 1px solid #1e1e1e;
+      border-left: 3px solid #00e5ff;
+      border-radius: 8px;
+      padding: 18px 24px;
+      text-align: center;
+      flex: 1;
+      min-width: 180px;
+    }
+    .ip-card .ip-icon { font-size: 1.6rem; margin-bottom: 8px; }
+    .ip-card .ip-rating {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1rem;
+      color: #00e5ff;
+      letter-spacing: 0.1em;
+      margin-bottom: 4px;
+    }
+    .ip-card .ip-desc { font-size: 0.78rem; color: #999; }
+
+    /* ── Modes grid ── */
+    .modes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 10px;
+      margin-bottom: 0;
+    }
+    .mode-pill {
+      background: #111;
+      border: 1px solid #1e1e1e;
+      border-radius: 8px;
+      padding: 12px 16px;
+      text-align: center;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      color: #888;
+    }
+
+    /* ── CTA bar ── */
+    .cta-bar {
+      text-align: center;
+      padding: 52px 24px;
+      background: #0a0a0a;
+      border-top: 1px solid #1e1e1e;
+    }
+    .cta-bar h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.1rem;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .cta-bar p { color: #999; font-size: 0.9rem; margin-bottom: 22px; }
+    .cta-btns { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+    .cta-btn {
+      display: inline-block;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 12px 28px;
+      border-radius: 6px;
+      transition: background 0.2s, color 0.2s, transform 0.1s;
+    }
+    .cta-btn-primary {
+      background: transparent;
+      border: 1px solid #00e5ff;
+      color: #00e5ff;
+    }
+    .cta-btn-primary:hover { background: #00e5ff; color: #000; transform: translateY(-2px); }
+    .cta-btn-secondary {
+      background: transparent;
+      border: 1px solid #333;
+      color: #777;
+    }
+    .cta-btn-secondary:hover { border-color: #999; color: #aaa; transform: translateY(-2px); }
+
+    @media (max-width: 600px) {
+      .mini-hero h1 { font-size: 1.7rem; }
+    }
+  </style>
+</head>
+<body id="inner-page">
+
+  <div style="position:relative;z-index:1;">
+
+  <header>
+    <div class="header-inner">
+      <a href="home.html" class="logo-link">
+        <img src="images/logo.png" alt="The Vapor Place" class="logo-img">
+      </a>
+      <span class="badge-21">21+</span>
+    </div>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="hours.html">Hours</a>
+      <a href="menu.html">Menu</a>
+      <a href="featured.html">Featured</a>
+      <a href="top-sellers.html">Top Sellers</a>
+      <a href="locations.html">Locations</a>
+      <a href="contact.html">Contact</a>
+      <a href="info.html">Info</a>
+      <a href="rewards.html">Rewards</a>
+      <a href="kits.html">Kits</a>
+    </nav>
+  </header>
+
+  <!-- ══ HERO ══ -->
+  <div class="mini-hero">
+    <div class="brand-tag">GeekVape</div>
+    <h1>AEGIS LEGEND 5</h1>
+    <p class="tagline">"This is the spirit of geek."</p>
+    <div class="mini-hero-img">
+      <img src="images/geekvape/legend5.jpg" alt="GeekVape Aegis Legend 5">
+    </div>
+    <div class="hero-badges">
+      <div class="hero-badge"><strong>200W</strong> Max Output</div>
+      <div class="hero-badge"><strong>Dual 18650</strong> Batteries</div>
+      <div class="hero-badge"><strong>AS Chip 4.0</strong></div>
+      <div class="hero-badge"><strong>IP68</strong> Waterproof</div>
+      <div class="hero-badge"><strong>1.08"</strong> TFT Color Screen</div>
+      <div class="hero-badge"><strong>0.01s</strong> Firing Speed</div>
+      <div class="hero-badge"><strong>5.5 mL</strong> Tank</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ══ TRI-PROOF CALLOUT ══ -->
+  <div class="mini-section">
+    <div class="mini-section-title">Tri-Proof Protection</div>
+    <div class="ip-bar">
+      <div class="ip-card">
+        <div class="ip-icon">💧</div>
+        <div class="ip-rating">IP68</div>
+        <div class="ip-desc">Waterproof — 1.5m depth for 30 min</div>
+      </div>
+      <div class="ip-card">
+        <div class="ip-icon">🌪️</div>
+        <div class="ip-rating">IP6X</div>
+        <div class="ip-desc">Dustproof — full environments, 120 min</div>
+      </div>
+      <div class="ip-card">
+        <div class="ip-icon">🛡️</div>
+        <div class="ip-rating">Shockproof</div>
+        <div class="ip-desc">1.4m drop, 25 repetitions</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ══ SPECS ══ -->
+  <div class="mini-section">
+    <div class="mini-section-title">Specifications</div>
+    <div class="specs-grid">
+      <div class="spec-card">
+        <div class="spec-icon">🔥</div>
+        <div class="spec-label">Max Wattage</div>
+        <div class="spec-val">200W</div>
+        <div class="spec-sub">Range: 5 – 200W</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-icon">⚡</div>
+        <div class="spec-label">Battery</div>
+        <div class="spec-val">Dual 18650</div>
+        <div class="spec-sub">External · Not included</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-icon">🔌</div>
+        <div class="spec-label">Charging</div>
+        <div class="spec-val">Type-C Fast Charge</div>
+        <div class="spec-sub">Pass-through supported</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-icon">💧</div>
+        <div class="spec-label">Tank Capacity</div>
+        <div class="spec-val">5.5 mL</div>
+        <div class="spec-sub">2 mL TPD edition</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-icon">🔩</div>
+        <div class="spec-label">Coil Range</div>
+        <div class="spec-val">0.1 – 2.0Ω</div>
+        <div class="spec-sub">Z XM coil series</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-icon">📺</div>
+        <div class="spec-label">Screen</div>
+        <div class="spec-val">1.08" TFT Color</div>
+        <div class="spec-sub">+ Dynamic RGB light strips</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-icon">📐</div>
+        <div class="spec-label">Dimensions</div>
+        <div class="spec-val">146 × 55 × 29 mm</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-icon">⚙️</div>
+        <div class="spec-label">Chipset</div>
+        <div class="spec-val">AS Chip 4.0</div>
+        <div class="spec-sub">0.01s firing speed</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-icon">⚡</div>
+        <div class="spec-label">Max Current</div>
+        <div class="spec-val">45A</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-icon">🌡️</div>
+        <div class="spec-label">TC Range</div>
+        <div class="spec-val">100 – 315°C</div>
+        <div class="spec-sub">200 – 600°F</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-icon">🧲</div>
+        <div class="spec-label">Tank Fill</div>
+        <div class="spec-val">Top-Fill</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-icon">🎨</div>
+        <div class="spec-label">Colors</div>
+        <a href="#colors" class="spec-val" style="color:#00e5ff;text-decoration:none;">8 Options ↓</a>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ══ MODES ══ -->
+  <div class="mini-section">
+    <div class="mini-section-title">Output Modes</div>
+    <div class="modes-grid">
+      <div class="mode-pill">ECO</div>
+      <div class="mode-pill">SMART</div>
+      <div class="mode-pill">NORMAL</div>
+      <div class="mode-pill">CUSTOM</div>
+      <div class="mode-pill">TC · Ni200</div>
+      <div class="mode-pill">TC · Ti</div>
+      <div class="mode-pill">TC · SS316</div>
+      <div class="mode-pill">TCR</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ══ FEATURES ══ -->
+  <div class="mini-section">
+    <div class="mini-section-title">Key Features</div>
+    <ul class="features-list">
+      <li>IP68 waterproof · IP6X dustproof · 1.4m shockproof — built for anything</li>
+      <li>200W max output with AS Chip 4.0 — 0.01s firing speed</li>
+      <li>Dual external 18650 batteries for all-day power</li>
+      <li>8 output modes including TC (Ni200, Ti, SS316, TCR)</li>
+      <li>1.08" TFT color display with dynamic RGB light strips</li>
+      <li>A-Lock safety feature — prevents accidental firing</li>
+      <li>Personalized ambient lighting control</li>
+      <li>5.5 mL top-fill Z Sub-Ohm tank included</li>
+      <li>Z XM coils — Z0.15Ω (70–85W) and Z0.4Ω (50–60W) included</li>
+      <li>Compatible with full Z Series coil lineup (0.1–2.0Ω)</li>
+      <li>Type-C fast charging with pass-through support</li>
+      <li>Racing-inspired design — 8 bold color options</li>
+    </ul>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ══ COLORS ══ -->
+  <div class="mini-section" id="colors">
+    <div class="mini-section-title">Available Colors</div>
+    <img src="images/geekvape/legend5-colors.jpg" alt="GeekVape Aegis Legend 5 — Available Colors" style="width:100%;border-radius:10px;display:block;">
+  </div>
+
+  <!-- ══ CTA ══ -->
+  <div class="cta-bar">
+    <p style="font-family:'Orbitron',sans-serif;font-size:1.6rem;color:#00e5ff;margin-bottom:4px;">$64.99</p>
+    <h2>Available In-Store</h2>
+    <p>Ask a team member for pricing and availability. Requires two 18650 batteries (sold separately).</p>
+    <div class="cta-btns">
+      <a href="menu.html" class="cta-btn cta-btn-primary">← Back to Menu</a>
+      <a href="kits.html" class="cta-btn cta-btn-secondary">View All Kits</a>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2026 The Vapor Place &mdash; Must be 21+ to purchase.
+  </footer>
+
+  </div>
+</body>
+</html>

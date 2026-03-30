@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Top Sellers — The Vapor Place</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .ts-hero {
+      text-align: center;
+      padding: 48px 20px 24px;
+    }
+    .ts-hero h1 {
+      font-size: 2.4rem;
+      letter-spacing: 0.12em;
+      background: linear-gradient(135deg, #00e5ff, #aaff00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+    }
+    .ts-hero p {
+      color: #aaa;
+      font-size: 0.95rem;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .ts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+      max-width: 1100px;
+      margin: 40px auto 60px;
+      padding: 0 24px;
+    }
+
+    .ts-card {
+      background: rgba(0,0,0,0.5);
+      border: 1px solid rgba(0,229,255,0.15);
+      border-radius: 12px;
+      overflow: hidden;
+      backdrop-filter: blur(6px);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .ts-card:hover {
+      border-color: rgba(0,229,255,0.45);
+      transform: translateY(-3px);
+    }
+    .ts-card img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+      max-height: 220px;
+      background: #050505;
+    }
+    .ts-card-body {
+      padding: 18px 20px;
+    }
+    .ts-badge {
+      display: inline-block;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.55rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+    .badge-salt { background: rgba(170,255,0,0.12); color: #aaff00; }
+    .badge-sub  { background: rgba(255,170,0,0.12);  color: #ffaa00; }
+    .badge-disp { background: rgba(0,229,255,0.12);  color: #00e5ff; }
+    .badge-kit  { background: rgba(200,100,255,0.12); color: #c864ff; }
+
+    .ts-card-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #f0f0f0;
+      margin-bottom: 4px;
+    }
+    .ts-card-profile {
+      font-size: 0.8rem;
+      color: #777;
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+    .ts-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .ts-card-price {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.1rem;
+      background: linear-gradient(135deg, #00e5ff, #aaff00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .ts-card-link {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.06em;
+      color: #00e5ff;
+      text-decoration: none;
+      border: 1px solid #00e5ff;
+      border-radius: 5px;
+      padding: 6px 12px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .ts-card-link:hover {
+      background: #00e5ff;
+      color: #000;
+    }
+    .ts-section-label {
+      max-width: 1100px;
+      margin: 0 auto 12px;
+      padding: 0 24px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      color: #aaff00;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body id="inner-page">
+
+  <div style="position:relative;z-index:1;">
+  <header>
+    <div class="header-inner">
+      <a href="home.html" class="logo-link">
+        <img src="images/logo.png" alt="The Vapor Place" class="logo-img">
+      </a>
+      <span class="badge-21">21+</span>
+    </div>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="hours.html">Hours</a>
+      <a href="menu.html">Menu</a>
+      <a href="featured.html">Featured</a>
+      <a href="top-sellers.html" class="active">Top Sellers</a>
+      <a href="locations.html">Locations</a>
+      <a href="contact.html">Contact</a>
+      <a href="info.html">Info</a>
+      <a href="rewards.html">Rewards</a>
+      <a href="kits.html">Kits</a>
+    </nav>
+  </header>
+
+  <div class="ts-hero">
+    <h1>TOP SELLERS</h1>
+    <p>Our most popular products — tried, tested, and loved by our customers.</p>
+  </div>
+
+  <!-- E-Liquids -->
+  <div class="ts-section-label">E-Liquids</div>
+  <div class="ts-grid">
+
+    <div class="ts-card">
+      <img src="images/pachamama-fuji.jpg" alt="Pachamama Fuji">
+      <div class="ts-card-body">
+        <span class="ts-badge badge-salt">Salt Nic</span>
+        <div class="ts-card-name">Pachamama Fuji</div>
+        <div class="ts-card-profile">Apple · Strawberry · Nectarine</div>
+        <div class="ts-card-footer">
+          <span class="ts-card-price"></span>
+          <a href="menu.html?q=pachamama+fuji" class="ts-card-link">View in Menu</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="ts-card">
+      <img src="images/pachamama-fuji-apple-strawberry.jpg" alt="Pachamama Fuji Apple Strawberry">
+      <div class="ts-card-body">
+        <span class="ts-badge badge-sub">Sub-Ohm</span>
+        <div class="ts-card-name">Pachamama Fuji Apple Strawberry</div>
+        <div class="ts-card-profile">Apple · Strawberry · Nectarine</div>
+        <div class="ts-card-footer">
+          <span class="ts-card-price"></span>
+          <a href="menu.html?q=pachamama+fuji" class="ts-card-link">View in Menu</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    &copy; 2026 The Vapor Place &mdash; Must be 21+ to purchase.
+  </footer>
+  </div>
+</body>
+</html>

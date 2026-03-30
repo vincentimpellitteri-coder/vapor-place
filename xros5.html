@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vaporesso XROS 5 — The Vapor Place</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .page-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 48px 20px 32px;
+    }
+    .hero .brand {
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      color: #999;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      letter-spacing: 0.14em;
+      color: #00e5ff;
+      margin-bottom: 6px;
+    }
+    .hero .tagline {
+      font-size: 0.82rem;
+      color: #999;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* Hero image */
+    .hero-img {
+      width: 100%;
+      border-radius: 12px;
+      display: block;
+      margin: 32px 0;
+    }
+
+    /* Stats bar */
+    .stats {
+      display: flex;
+      border: 1px solid #1e1e1e;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 48px;
+    }
+    .stat {
+      flex: 1;
+      padding: 22px 12px;
+      text-align: center;
+      background: #111;
+      border-right: 1px solid #1e1e1e;
+    }
+    .stat:last-child { border-right: none; }
+    .stat-val {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.4rem;
+      color: #00e5ff;
+      letter-spacing: 0.04em;
+    }
+    .stat-lbl {
+      font-size: 0.65rem;
+      color: #999;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    /* Section titles */
+    .section-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      color: #00e5ff;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    /* Features grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 14px;
+      margin-bottom: 48px;
+    }
+    .feature-card {
+      background: #111;
+      border: 1px solid #1e1e1e;
+      border-radius: 10px;
+      padding: 18px 20px;
+      transition: border-color 0.2s;
+    }
+    .feature-card:hover { border-color: #00e5ff44; }
+    .feature-card-title {
+      font-size: 0.82rem;
+      color: #00e5ff;
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 0.05em;
+      margin-bottom: 7px;
+    }
+    .feature-card p {
+      font-size: 0.78rem;
+      color: #777;
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    /* Specs table */
+    .specs-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 48px;
+    }
+    .specs-table td {
+      padding: 12px 16px;
+      font-size: 0.85rem;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    .specs-table td:first-child {
+      color: #999;
+      width: 40%;
+    }
+    .specs-table td:last-child { color: #ccc; }
+
+    /* Colors */
+    .colors-section { margin-bottom: 48px; }
+    .color-group-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      color: #444;
+      text-transform: uppercase;
+      margin: 16px 0 10px;
+    }
+    .color-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .color-pill {
+      font-size: 0.78rem;
+      color: #999;
+      background: #111;
+      border: 1px solid #222;
+      border-radius: 20px;
+      padding: 7px 16px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .color-pill:hover {
+      border-color: #00e5ff66;
+      color: #00e5ff;
+    }
+    .color-pill.leather {
+      border-style: dashed;
+    }
+
+    /* Screen themes */
+    .themes-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 48px;
+    }
+    .theme-pill {
+      font-size: 0.78rem;
+      color: #888;
+      background: #0d0d0d;
+      border: 1px solid #1e1e1e;
+      border-radius: 6px;
+      padding: 8px 16px;
+    }
+
+    /* CTA */
+    .cta {
+      text-align: center;
+      padding: 16px 0 56px;
+    }
+    .cta p {
+      color: #999;
+      font-size: 0.82rem;
+      margin-bottom: 16px;
+    }
+    .cta-btn {
+      display: inline-block;
+      border: 1px solid #00e5ff;
+      color: #00e5ff;
+      border-radius: 6px;
+      padding: 12px 28px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      margin: 0 8px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .cta-btn:hover { background: #00e5ff; color: #000; }
+    .cta-btn.secondary {
+      border-color: #333;
+      color: #666;
+    }
+    .cta-btn.secondary:hover { background: #222; color: #ccc; }
+
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 2rem; }
+      .stat-val { font-size: 1rem; }
+      .stats { flex-wrap: wrap; }
+      .stat { min-width: 50%; border-bottom: 1px solid #1e1e1e; }
+    }
+  </style>
+</head>
+<body id="inner-page">
+
+  <div style="position:relative;z-index:1;">
+
+  <header>
+    <div class="header-inner">
+      <a href="home.html" class="logo-link">
+        <img src="images/logo.png" alt="The Vapor Place" class="logo-img">
+      </a>
+      <span class="badge-21">21+</span>
+    </div>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="hours.html">Hours</a>
+      <a href="menu.html">Menu</a>
+      <a href="featured.html">Featured</a>
+      <a href="top-sellers.html">Top Sellers</a>
+      <a href="locations.html">Locations</a>
+      <a href="contact.html">Contact</a>
+      <a href="info.html">Info</a>
+      <a href="rewards.html">Rewards</a>
+      <a href="kits.html">Kits</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <div class="brand">Vaporesso</div>
+    <h1>XROS 5</h1>
+    <div class="tagline">Cross the Limits &nbsp;&middot;&nbsp; Cross Super Charging</div>
+  </div>
+
+  <div class="page-wrap">
+
+    <img src="images/xros/xros5.jpg" alt="Vaporesso XROS 5" class="hero-img">
+
+    <!-- Stats -->
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-val">1500</div>
+        <div class="stat-lbl">mAh Battery</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">3A</div>
+        <div class="stat-lbl">Fast Charge</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">20min</div>
+        <div class="stat-lbl">0→80%</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">30W</div>
+        <div class="stat-lbl">Max Output</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">0.88"</div>
+        <div class="stat-lbl">HD Screen</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">14</div>
+        <div class="stat-lbl">Colors</div>
+      </div>
+    </div>
+
+    <!-- Features -->
+    <div class="section-title">Key Features</div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-card-title">COREX 3.0 Tech</div>
+        <p>Hive mesh structure with nano-microfiber delivers 40% richer aroma and 30% smoother airflow compared to previous generations.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card-title">3A Fast Charging</div>
+        <p>The fastest charging in the XROS lineup. Hit 80% in just 20 minutes via Type-C — enough for a full session in the time it takes to get ready.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card-title">0.88" HD Screen</div>
+        <p>Sharp OLED display with six customizable color themes: Space, Watch, Rainbow, Black, White, and Pink.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card-title">Precision Power Control</div>
+        <p>Fine-tune output in 0.5W increments from 15–30W with the 0.4Ω pod. Power, Normal, and Eco modes available for other resistances.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card-title">MTL to RDL Airflow</div>
+        <p>Fully adjustable airflow lets you dial in a tight mouth-to-lung draw or open it up for a more restricted direct lung hit.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card-title">Auto-Draw + Button</div>
+        <p>Use the auto-draw for hands-free convenience or the button for precise, on-demand activation. Both modes available on the same device.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card-title">XROS Pod Ecosystem</div>
+        <p>Compatible with the full XROS pod series — 0.4Ω through 1.2Ω. SSS leak-resistant technology keeps things clean in your pocket.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card-title">14 Color Options</div>
+        <p>10 standard finishes plus 4 premium leather variants. From Cosmic Black to Jade Green to Brown Leather — there's a XROS 5 for every style.</p>
+      </div>
+    </div>
+
+    <!-- Specs -->
+    <div class="section-title">Specifications</div>
+    <table class="specs-table">
+      <tbody>
+        <tr><td>Dimensions</td><td>120 × 24.5 × 14.5mm</td></tr>
+        <tr><td>Weight</td><td>73.7g</td></tr>
+        <tr><td>Battery</td><td>1500mAh built-in</td></tr>
+        <tr><td>Charging</td><td>Type-C · 3A · 80% in 20 minutes</td></tr>
+        <tr><td>Max Output</td><td>30W</td></tr>
+        <tr><td>Power Adjustment</td><td>0.5W increments · 15–30W (0.4Ω pod)</td></tr>
+        <tr><td>Modes</td><td>Power / Normal / Eco · Auto-draw / Button</td></tr>
+        <tr><td>Screen</td><td>0.88" HD OLED · 6 themes</td></tr>
+        <tr><td>Pod Capacity</td><td>3ml (standard) · 2ml (TPD/CRC)</td></tr>
+        <tr><td>Coil Compatibility</td><td>0.4Ω · 0.6Ω · 0.8Ω · 1.0Ω · 1.2Ω</td></tr>
+        <tr><td>Heating Technology</td><td>COREX 3.0</td></tr>
+        <tr><td>Airflow</td><td>Adjustable — MTL to RDL</td></tr>
+        <tr><td>Leak Resistance</td><td>SSS Technology</td></tr>
+      </tbody>
+    </table>
+
+    <!-- Colors -->
+    <div class="colors-section">
+      <div class="section-title">Available in 14 Colors</div>
+      <img src="images/xros/xros5-colors-web.webp" alt="XROS 5 — All 14 Colors" style="width:100%;border-radius:10px;display:block;margin-bottom:16px;">
+      <div class="section-title">Leather Edition</div>
+      <img src="images/xros/XROS-5-2.jpg" alt="XROS 5 Leather Editions" style="width:100%;border-radius:10px;display:block;">
+    </div>
+
+    <!-- Screen Themes -->
+    <div class="section-title">Screen Themes</div>
+    <div class="themes-row">
+      <span class="theme-pill">Space</span>
+      <span class="theme-pill">Watch</span>
+      <span class="theme-pill">Rainbow</span>
+      <span class="theme-pill">Black</span>
+      <span class="theme-pill">White</span>
+      <span class="theme-pill">Pink</span>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta">
+      <p style="font-family:'Orbitron',sans-serif;font-size:1.6rem;color:#00e5ff;margin-bottom:8px;">$39.99</p><p>Available in-store at our Norwich &amp; Groton locations.</p>
+      <a href="menu.html?q=xros" class="cta-btn">View in Menu</a>
+      <a href="xros5-family.html" class="cta-btn secondary">See Full XROS 5 Family</a>
+    </div>
+
+  </div>
+
+  <footer>
+    &copy; 2026 The Vapor Place &mdash; Must be 21+ to purchase.
+  </footer>
+
+
+  </div>
+</body>
+</html>

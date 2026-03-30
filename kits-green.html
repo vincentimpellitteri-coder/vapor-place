@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kits — The Vapor Place</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .kits-hero {
+      text-align: center;
+      padding: 72px 20px 48px;
+    }
+    .kits-hero h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      background: linear-gradient(135deg, #00e5ff, #aaff00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 12px;
+    }
+    .kits-hero p {
+      color: #999;
+      font-size: 1.1rem;
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .brand-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+      max-width: 1100px;
+      margin: 56px auto 80px;
+      padding: 0 24px;
+    }
+    .brand-tile {
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      background: rgba(0,0,0,0.45);
+      border: 1px solid rgba(0,229,255,0.15);
+      border-radius: 16px;
+      overflow: hidden;
+      text-align: center;
+      backdrop-filter: blur(6px);
+      transition: border-color 0.25s, transform 0.25s, background 0.25s;
+    }
+    .brand-tile-logo {
+      background: rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(0,229,255,0.1);
+      padding: 28px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .brand-tile-body {
+      padding: 28px 32px 36px;
+    }
+    .brand-tile:hover {
+      border-color: rgba(0,229,255,0.5);
+      background: rgba(0,229,255,0.04);
+      transform: translateY(-4px);
+    }
+    .brand-tile .tile-label {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #444;
+      margin-bottom: 14px;
+    }
+    .brand-tile h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.7rem;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      background: linear-gradient(135deg, #00e5ff, #aaff00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+    }
+    .brand-tile p {
+      font-size: 0.85rem;
+      color: #999;
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+    .brand-tile .tile-count {
+      display: inline-block;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      color: #00e5ff;
+      border: 1px solid #00e5ff44;
+      border-radius: 20px;
+      padding: 5px 16px;
+    }
+
+    body#inner-page { background: #bbee44; }
+
+    /* Green-mode overrides */
+    .kits-hero h1 {
+      background: linear-gradient(135deg, #003300, #006600);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .kits-hero p { color: #1a4400; }
+    .brand-tile {
+      background: rgba(0, 60, 0, 0.2);
+      border-color: rgba(0, 100, 0, 0.35);
+    }
+    .brand-tile:hover {
+      background: rgba(0, 80, 0, 0.3);
+      border-color: rgba(0, 150, 0, 0.6);
+    }
+    .brand-tile-logo {
+      background: rgba(0, 60, 0, 0.15);
+      border-bottom-color: rgba(0, 100, 0, 0.25);
+    }
+    .brand-tile h2 {
+      background: linear-gradient(135deg, #003300, #005500);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .brand-tile p { color: #1a4400; }
+    .brand-tile .tile-count { color: #1a4400; border-color: #1a440066; }
+    .brand-tile span[style] {
+      background: linear-gradient(135deg, #003300, #005500) !important;
+      -webkit-background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+      background-clip: text !important;
+    }
+    nav a { color: #1a4400 !important; }
+    nav a:hover { color: #000 !important; }
+    header { background: #aadd33 !important; border-bottom-color: #88bb22 !important; }
+    .brand-tile-logo { height: 140px; }
+    .brand-tile-body { background: #fff; flex: 1; }
+    footer { color: #1a4400 !important; border-top-color: #66aa0066 !important; }
+
+    @media (max-width: 600px) {
+      .kits-hero h1 { font-size: 2rem; }
+      .brand-grid { padding: 0 16px; }
+    }
+  </style>
+</head>
+<body id="inner-page">
+
+  <div style="position:relative;z-index:1;">
+
+  <header>
+    <div class="header-inner">
+      <a href="home.html" class="logo-link">
+        <img src="images/logo.png" alt="The Vapor Place" class="logo-img">
+      </a>
+      <span class="badge-21">21+</span>
+    </div>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="hours.html">Hours</a>
+      <a href="menu.html">Menu</a>
+      <a href="featured.html">Featured</a>
+      <a href="top-sellers.html">Top Sellers</a>
+      <a href="locations.html">Locations</a>
+      <a href="contact.html">Contact</a>
+      <a href="info.html">Info</a>
+      <a href="rewards.html">Rewards</a>
+      <a href="kits.html">Kits</a>
+    </nav>
+  </header>
+
+  <div class="kits-hero">
+    <h1>KITS</h1>
+    <p>Select a brand to explore our full kit lineup — all available in-store.</p>
+  </div>
+
+  <div class="brand-grid">
+
+    <a href="vaporesso-kits.html" class="brand-tile">
+      <div class="brand-tile-logo">
+        <img src="images/vaporesso-logo.jpg" alt="Vaporesso" style="height:60px;object-fit:contain;filter:invert(1);">
+      </div>
+      <div class="brand-tile-body">
+        <h2>VAPORESSO</h2>
+        <p>XROS Series · ECO Nano Series<br>Compact pods to full-featured kits.</p>
+        <span class="tile-count">6 Kits</span>
+      </div>
+    </a>
+
+    <a href="geekvape-kits.html" class="brand-tile">
+      <div class="brand-tile-logo">
+        <img src="images/geekvape/geekvape-logo.png" alt="GeekVape" style="height:60px;object-fit:contain;">
+      </div>
+      <div class="brand-tile-body">
+        <h2>GEEKVAPE</h2>
+        <p>Aegis Series<br>Built tough — waterproof, dustproof, shockproof.</p>
+        <span class="tile-count">1 Kit</span>
+      </div>
+    </a>
+
+    <a href="smoktech-kits.html" class="brand-tile">
+      <div class="brand-tile-logo">
+        <span style="font-family:'Orbitron',sans-serif;font-size:1.6rem;font-weight:900;background:linear-gradient(135deg,#00e5ff,#aaff00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:0.1em;">SMOK</span>
+      </div>
+      <div class="brand-tile-body">
+        <h2>SMOK</h2>
+        <p>Novo Series<br>Simple, powerful, everyday carry.</p>
+        <span class="tile-count">2 Kits</span>
+      </div>
+    </a>
+
+  </div>
+
+  <footer>
+    &copy; 2026 The Vapor Place &mdash; Must be 21+ to purchase.
+  </footer>
+
+  </div>
+</body>
+</html>

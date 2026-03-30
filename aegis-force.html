@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GeekVape Aegis Force — The Vapor Place</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .force-hero {
+      text-align: center;
+      padding: 48px 20px 24px;
+    }
+    .force-hero .brand {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      color: #999;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .force-hero h1 {
+      font-size: 2.8rem;
+      letter-spacing: 0.14em;
+      color: #ffaa00;
+      margin-bottom: 8px;
+    }
+    .force-hero .taglines {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin: 12px 0 0;
+    }
+    .force-hero .taglines span {
+      font-size: 0.78rem;
+      color: #999;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* Hero image */
+    .force-hero-img {
+      width: 100%;
+      max-width: 1100px;
+      margin: 32px auto 0;
+      display: block;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .force-hero-img img {
+      width: 100%;
+      display: block;
+    }
+
+    /* Stats bar */
+    .force-stats {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      flex-wrap: wrap;
+      max-width: 900px;
+      margin: 40px auto;
+      border: 1px solid #222;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .force-stat {
+      flex: 1;
+      min-width: 140px;
+      padding: 24px 16px;
+      text-align: center;
+      border-right: 1px solid #222;
+      background: #111;
+    }
+    .force-stat:last-child { border-right: none; }
+    .force-stat-value {
+      font-size: 1.6rem;
+      font-family: 'Orbitron', sans-serif;
+      color: #ffaa00;
+      letter-spacing: 0.04em;
+    }
+    .force-stat-label {
+      font-size: 0.7rem;
+      color: #999;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    /* Feature sections */
+    .force-section {
+      max-width: 1100px;
+      margin: 0 auto 48px;
+      padding: 0 24px;
+    }
+    .force-section img {
+      width: 100%;
+      border-radius: 12px;
+      display: block;
+      margin-bottom: 32px;
+    }
+    .force-features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .force-feature {
+      background: #111;
+      border: 1px solid #222;
+      border-radius: 10px;
+      padding: 20px;
+      transition: border-color 0.2s;
+    }
+    .force-feature:hover { border-color: #ffaa0044; }
+    .force-feature-title {
+      font-size: 0.85rem;
+      color: #ffaa00;
+      letter-spacing: 0.06em;
+      font-family: 'Orbitron', sans-serif;
+      margin-bottom: 8px;
+    }
+    .force-feature p {
+      font-size: 0.8rem;
+      color: #777;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* Specs table */
+    .force-specs-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 40px;
+    }
+    .force-specs-table th {
+      text-align: left;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #444;
+      padding: 10px 16px;
+      border-bottom: 1px solid #1c1c1c;
+    }
+    .force-specs-table td {
+      padding: 12px 16px;
+      font-size: 0.85rem;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    .force-specs-table td:first-child { color: #999; width: 40%; }
+    .force-specs-table td:last-child { color: #ccc; }
+
+    /* Colors */
+    .force-colors {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+    .force-color {
+      font-size: 0.75rem;
+      color: #888;
+      background: #111;
+      border: 1px solid #222;
+      border-radius: 20px;
+      padding: 6px 14px;
+    }
+
+    .force-cta {
+      text-align: center;
+      padding: 20px 0 48px;
+    }
+    .force-btn {
+      display: inline-block;
+      background: transparent;
+      border: 1px solid #ffaa00;
+      color: #ffaa00;
+      border-radius: 6px;
+      padding: 12px 28px;
+      font-size: 0.85rem;
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .force-btn:hover {
+      background: #ffaa00;
+      color: #000;
+    }
+    .force-section-title {
+      font-size: 1rem;
+      letter-spacing: 0.12em;
+      color: #ffaa00;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      font-family: 'Orbitron', sans-serif;
+    }
+    @media (max-width: 600px) {
+      .force-hero h1 { font-size: 1.8rem; }
+      .force-stat-value { font-size: 1.2rem; }
+      .force-section { padding: 0 12px; }
+    }
+  </style>
+</head>
+<body id="inner-page">
+
+  <div style="position:relative;z-index:1;">
+
+  <header>
+    <div class="header-inner">
+      <a href="home.html" class="logo-link">
+        <img src="images/logo.png" alt="The Vapor Place" class="logo-img">
+      </a>
+      <span class="badge-21">21+</span>
+    </div>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="hours.html">Hours</a>
+      <a href="menu.html">Menu</a>
+      <a href="featured.html">Featured</a>
+      <a href="top-sellers.html">Top Sellers</a>
+      <a href="locations.html">Locations</a>
+      <a href="contact.html">Contact</a>
+      <a href="info.html">Info</a>
+      <a href="rewards.html">Rewards</a>
+      <a href="kits.html">Kits</a>
+    </nav>
+  </header>
+
+  <div class="force-hero">
+    <div class="brand">GeekVape</div>
+    <h1>AEGIS FORCE</h1>
+    <div class="taglines">
+      <span>Feel Surge, Every Time</span>
+      <span>&middot;</span>
+      <span>Inspired by Nature</span>
+      <span>&middot;</span>
+      <span>Go Further, Vape Longer</span>
+    </div>
+  </div>
+
+  <div class="force-hero-img" style="padding: 0 24px;">
+    <img src="images/geekvape/aegis-force.webp" alt="GeekVape Aegis Force lineup">
+  </div>
+
+  <!-- Stats Bar -->
+  <div class="force-stats">
+    <div class="force-stat">
+      <div class="force-stat-value">3200</div>
+      <div class="force-stat-label">mAh Battery</div>
+    </div>
+    <div class="force-stat">
+      <div class="force-stat-value">80W</div>
+      <div class="force-stat-label">Max Output</div>
+    </div>
+    <div class="force-stat">
+      <div class="force-stat-value">40min</div>
+      <div class="force-stat-label">0→80% Charge</div>
+    </div>
+    <div class="force-stat">
+      <div class="force-stat-value">AS 4.0</div>
+      <div class="force-stat-label">Chip</div>
+    </div>
+    <div class="force-stat">
+      <div class="force-stat-value">6</div>
+      <div class="force-stat-label">Colors</div>
+    </div>
+  </div>
+
+  <div class="force-section">
+    <img src="images/geekvape/aegis-force-p2.jpg" alt="Aegis Force features">
+
+    <div class="force-section-title">Key Features</div>
+    <div class="force-features-grid">
+      <div class="force-feature">
+        <div class="force-feature-title">AS CHIP 4.0</div>
+        <p>Precision temperature control with lightning-fast response. Smart Mode &amp; Power Mode for total control over your vape.</p>
+      </div>
+      <div class="force-feature">
+        <div class="force-feature-title">3200mAh Battery</div>
+        <p>Massive built-in battery gets you through the day. Charges to 80% in just 40 minutes so you're never stuck waiting.</p>
+      </div>
+      <div class="force-feature">
+        <div class="force-feature-title">80W Max Output</div>
+        <p>From smooth MTL draws to full DTL clouds — the Force handles every style with consistent, powerful performance.</p>
+      </div>
+      <div class="force-feature">
+        <div class="force-feature-title">A-Lock Switch</div>
+        <p>Physical A-Lock prevents accidental firing. Top airflow structure keeps the draw clean and the device pocket-safe.</p>
+      </div>
+      <div class="force-feature">
+        <div class="force-feature-title">B Series Coils</div>
+        <p>Compatible with GeekVape's B Series coil lineup — swap coils easily to match your preferred resistance and style.</p>
+      </div>
+      <div class="force-feature">
+        <div class="force-feature-title">Zinc-Alloy Build</div>
+        <p>Compact, sturdy zinc-alloy body. Built to handle daily life without adding bulk to your pocket or bag.</p>
+      </div>
+    </div>
+
+    <div class="force-section-title">Available Colors</div>
+    <img src="images/geekvape/aegis-force-colors.jpg" alt="Aegis Force — All Colors" style="border-radius:12px;margin-bottom:32px;">
+
+    <div class="force-section-title">Specifications</div>
+    <table class="force-specs-table">
+      <thead>
+        <tr>
+          <th>Spec</th>
+          <th>Detail</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Battery</td><td>3200mAh built-in</td></tr>
+        <tr><td>Max Output</td><td>80W</td></tr>
+        <tr><td>Chip</td><td>AS CHIP 4.0</td></tr>
+        <tr><td>Modes</td><td>Smart Mode, Power Mode</td></tr>
+        <tr><td>Charging</td><td>Fast charge — 0 to 80% in ~40 minutes</td></tr>
+        <tr><td>Coil Compatibility</td><td>B Series Coils</td></tr>
+        <tr><td>Airflow</td><td>Top airflow</td></tr>
+        <tr><td>Safety</td><td>A-Lock physical switch</td></tr>
+        <tr><td>Body</td><td>Zinc-alloy</td></tr>
+        <tr><td>Vaping Styles</td><td>MTL / DTL · Freebase / Nic Salts</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="force-cta">
+    <p style="font-family:'Orbitron',sans-serif;font-size:1.6rem;color:#ffaa00;margin-bottom:8px;">$54.99</p><p style="color:#555; margin-bottom:16px; font-size:0.85rem;">Available in-store at both Norwich &amp; Groton locations.</p>
+    <a href="menu.html?q=aegis+force" class="force-btn">View in Menu</a>
+  </div>
+
+  <footer>
+    &copy; 2026 The Vapor Place &mdash; Must be 21+ to purchase.
+  </footer>
+
+
+  </div>
+</body>
+</html>

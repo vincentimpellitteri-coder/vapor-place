@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GeekVape Kits — The Vapor Place</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .kits-hero {
+      text-align: center;
+      padding: 56px 20px 32px;
+    }
+    .kits-hero .brand-tag {
+      display: inline-block;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: #00e5ff;
+      text-transform: uppercase;
+      border: 1px solid #00e5ff44;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+    .kits-hero h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      background: linear-gradient(135deg, #00e5ff, #aaff00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 12px;
+    }
+    .kits-hero p {
+      color: #999;
+      font-size: 1rem;
+      max-width: 500px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .xros-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+    .xros-card {
+      background: rgba(0,0,0,0.45);
+      border: 1px solid rgba(0,229,255,0.15);
+      border-radius: 12px;
+      overflow: hidden;
+      backdrop-filter: blur(6px);
+      transition: border-color 0.2s, transform 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+    .xros-card:hover {
+      border-color: rgba(0,229,255,0.45);
+      transform: translateY(-3px);
+    }
+    .xros-card img {
+      width: 100%;
+      display: block;
+      background: #050505;
+    }
+    .xros-card-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .xros-card-body h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.1rem;
+      background: linear-gradient(135deg, #00e5ff, #aaff00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+    .xros-tagline {
+      font-size: 0.78rem;
+      color: #999;
+      font-style: italic;
+      margin-bottom: 14px;
+    }
+    .xros-specs {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 16px;
+    }
+    .xros-specs li {
+      font-size: 0.82rem;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .xros-specs li:last-child { border-bottom: none; }
+    .xros-specs li span:first-child { color: #999; flex-shrink: 0; }
+    .xros-specs li span:last-child { color: #ccc; text-align: right; }
+    .xros-features {
+      margin: 0 0 18px;
+      padding: 0;
+      list-style: none;
+      flex: 1;
+    }
+    .xros-features li {
+      font-size: 0.8rem;
+      color: #888;
+      padding: 3px 0 3px 14px;
+      position: relative;
+    }
+    .xros-features li::before {
+      content: '›';
+      position: absolute;
+      left: 0;
+      color: #00e5ff;
+    }
+    .xros-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+      padding-top: 14px;
+      border-top: 1px solid #1a1a1a;
+    }
+    .xros-price {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.3rem;
+      background: linear-gradient(135deg, #00e5ff, #aaff00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: 0.04em;
+    }
+    .xros-btn {
+      display: inline-block;
+      background: transparent;
+      border: 1px solid #00e5ff;
+      color: #00e5ff;
+      border-radius: 6px;
+      padding: 9px 18px;
+      font-size: 0.75rem;
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+      white-space: nowrap;
+    }
+    .xros-btn:hover {
+      background: linear-gradient(135deg, #00e5ff, #aaff00);
+      border-color: transparent;
+      color: #000;
+    }
+
+    .back-link {
+      display: inline-block;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      color: #444;
+      text-decoration: none;
+      padding: 0 24px;
+      margin-top: 12px;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: #00e5ff; }
+
+    @media (max-width: 600px) {
+      .kits-hero h1 { font-size: 1.8rem; }
+      .xros-grid { padding: 0 12px; }
+    }
+  </style>
+</head>
+<body id="inner-page">
+
+  <div style="position:relative;z-index:1;">
+
+  <header>
+    <div class="header-inner">
+      <a href="home.html" class="logo-link">
+        <img src="images/logo.png" alt="The Vapor Place" class="logo-img">
+      </a>
+      <span class="badge-21">21+</span>
+    </div>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="hours.html">Hours</a>
+      <a href="menu.html">Menu</a>
+      <a href="featured.html">Featured</a>
+      <a href="top-sellers.html">Top Sellers</a>
+      <a href="locations.html">Locations</a>
+      <a href="contact.html">Contact</a>
+      <a href="info.html">Info</a>
+      <a href="rewards.html">Rewards</a>
+      <a href="kits.html">Kits</a>
+    </nav>
+  </header>
+
+  <div class="kits-hero">
+    <div class="brand-tag">GeekVape</div>
+    <h1>GEEKVAPE KITS</h1>
+    <p>Aegis Series — built tough for anywhere life takes you.</p>
+  </div>
+  <a href="kits.html" class="back-link">← Back to All Brands</a>
+
+  <div class="xros-grid">
+
+    <div class="xros-card">
+      <img src="images/geekvape/legend5.jpg" alt="GeekVape Aegis Legend 5">
+      <div class="xros-card-body">
+        <h2>AEGIS LEGEND 5</h2>
+        <div class="xros-tagline">"This is the spirit of geek."</div>
+        <ul class="xros-specs">
+          <li><span>Output</span><span>5 – 200W</span></li>
+          <li><span>Battery</span><span>Dual 18650 · Type-C Fast Charge</span></li>
+          <li><span>Tank</span><span>5.5mL · 0.1 – 2.0Ω</span></li>
+          <li><span>Screen</span><span>1.08" TFT + RGB Strips</span></li>
+          <li><span>Chipset</span><span>AS Chip 4.0 · 0.01s fire</span></li>
+          <li><span>Rating</span><span>IP68 · IP6X · Shockproof</span></li>
+        </ul>
+        <ul class="xros-features">
+          <li>Tri-proof — IP68 waterproof, dustproof, shockproof</li>
+          <li>200W output with 8 modes including TC</li>
+          <li>Dynamic RGB light strips + personalized lighting</li>
+          <li>A-Lock safety feature</li>
+          <li>Z XM coils included (0.15Ω + 0.4Ω)</li>
+          <li>8 bold color options</li>
+        </ul>
+        <div class="xros-card-footer">
+          <div class="xros-price">$64.99</div>
+          <a href="legend5.html" class="xros-btn">Learn More</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="xros-card">
+      <img src="images/geekvape/boost3.jpg" alt="GeekVape Aegis Boost III">
+      <div class="xros-card-body">
+        <h2>AEGIS BOOST III</h2>
+        <div class="xros-tagline">"Biosensing smart lock. IP68 tough."</div>
+        <ul class="xros-specs">
+          <li><span>Output</span><span>5 – 60W</span></li>
+          <li><span>Battery</span><span>3000mAh · Type-C 5V/2A</span></li>
+          <li><span>Pod</span><span>5mL · Top Airflow</span></li>
+          <li><span>Screen</span><span>0.96" Display</span></li>
+          <li><span>Rating</span><span>IP68 · Shockproof</span></li>
+          <li><span>Colors</span><span>8 Options</span></li>
+        </ul>
+        <ul class="xros-features">
+          <li>Biosensing Smart Lock — auto-unlocks on grip</li>
+          <li>6 modes: Smart, Boost, Eco, Power, Memory, TC-TCR</li>
+          <li>AS Chip 4.0 for consistent flavor</li>
+          <li>Fire Lock prevents accidental firing</li>
+          <li>Leakproof top airflow design</li>
+        </ul>
+        <div class="xros-card-footer">
+          <div class="xros-price">$49.99</div>
+          <a href="boost3.html" class="xros-btn">Learn More</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="xros-card">
+      <img src="images/geekvape/force.jpg" alt="GeekVape Aegis Force">
+      <div class="xros-card-body">
+        <h2>AEGIS FORCE</h2>
+        <div class="xros-tagline">"80W. 3200mAh. All day, every day."</div>
+        <ul class="xros-specs">
+          <li><span>Output</span><span>80W Max</span></li>
+          <li><span>Battery</span><span>3200mAh · Type-C Fast Charge</span></li>
+          <li><span>Chipset</span><span>AS Chip 4.0</span></li>
+          <li><span>Modes</span><span>Smart Mode · Power Mode</span></li>
+          <li><span>Airflow</span><span>Top Airflow · MTL &amp; DTL</span></li>
+          <li><span>Colors</span><span>6 Options</span></li>
+        </ul>
+        <ul class="xros-features">
+          <li>0→80% charge in ~40 minutes</li>
+          <li>A-Lock physical safety switch</li>
+          <li>Zinc-alloy compact body</li>
+          <li>Freebase &amp; nic salt compatible</li>
+          <li>Dense vapor, strong throat hit</li>
+        </ul>
+        <div class="xros-card-footer">
+          <div class="xros-price">$49.99</div>
+          <a href="aegis-force.html" class="xros-btn">Learn More</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="xros-card">
+      <img src="images/geekvape/hero5.jpg" alt="GeekVape Aegis Hero 5">
+      <div class="xros-card-body">
+        <h2>AEGIS HERO 5</h2>
+        <div class="xros-tagline">"50W pocket power, built Aegis tough."</div>
+        <ul class="xros-specs">
+          <li><span>Output</span><span>5 – 50W</span></li>
+          <li><span>Battery</span><span>2000mAh · Type-C 5V/2A</span></li>
+          <li><span>Pod</span><span>6.5mL · Top-Side Fill</span></li>
+          <li><span>Coils</span><span>B-Series · 0.2 – 1.2Ω</span></li>
+          <li><span>Size</span><span>94.5 × 45.5 × 30.7mm</span></li>
+          <li><span>Colors</span><span>7 Options</span></li>
+        </ul>
+        <ul class="xros-features">
+          <li>B Boost coil — 2× lifespan over previous gen</li>
+          <li>A-Lock to prevent accidental firing</li>
+          <li>Shockproof Aegis frame</li>
+          <li>Digital screen display</li>
+          <li>Fast charge — full battery under 1 hour</li>
+        </ul>
+        <div class="xros-card-footer">
+          <div class="xros-price">$39.99</div>
+          <a href="hero5.html" class="xros-btn">Learn More</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    &copy; 2026 The Vapor Place &mdash; Must be 21+ to purchase.
+  </footer>
+
+  </div>
+</body>
+</html>

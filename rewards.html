@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rewards — The Vapor Place</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .rewards-hero {
+      text-align: center;
+      padding: 52px 20px 40px;
+    }
+    .rewards-hero .brand-tag {
+      display: inline-block;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: #aaff00;
+      text-transform: uppercase;
+      border: 1px solid #aaff0044;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+    .rewards-hero h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      background: linear-gradient(135deg, #aaff00, #00e5ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 12px;
+    }
+    .rewards-hero p {
+      color: #777;
+      font-size: 1rem;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .rewards-section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 48px 24px;
+    }
+    .rewards-section-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #aaff00;
+      border-left: 3px solid #aaff00;
+      padding-left: 14px;
+      margin-bottom: 28px;
+    }
+    .divider { border: none; border-top: 1px solid #1e1e1e; }
+
+    /* Earn rate card */
+    .earn-card {
+      background: #111;
+      border: 1px solid #1e1e1e;
+      border-radius: 14px;
+      padding: 36px 32px;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .earn-equation {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .earn-block {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 10px;
+      padding: 20px 28px;
+      min-width: 120px;
+    }
+    .earn-block .earn-val {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2rem;
+      font-weight: 900;
+      color: #aaff00;
+      line-height: 1;
+    }
+    .earn-block .earn-label {
+      font-size: 0.75rem;
+      color: #666;
+      margin-top: 6px;
+      letter-spacing: 0.05em;
+    }
+    .earn-op {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.6rem;
+      color: #333;
+    }
+    .earn-note {
+      margin-top: 20px;
+      font-size: 0.82rem;
+      color: #999;
+    }
+
+    /* Rewards tiers */
+    .tiers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 16px;
+    }
+    .tier-card {
+      background: #111;
+      border: 1px solid #1e1e1e;
+      border-radius: 12px;
+      padding: 28px 20px;
+      text-align: center;
+      transition: transform 0.2s, border-color 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .tier-card:hover {
+      transform: translateY(-4px);
+      border-color: #aaff0033;
+    }
+    .tier-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #aaff00, #00e5ff);
+    }
+    .tier-pts {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: #aaff00;
+      line-height: 1;
+    }
+    .tier-pts-label {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.55rem;
+      letter-spacing: 0.12em;
+      color: #999;
+      text-transform: uppercase;
+      margin-top: 4px;
+      margin-bottom: 16px;
+    }
+    .tier-divider {
+      border: none;
+      border-top: 1px solid #1e1e1e;
+      margin: 0 0 16px;
+    }
+    .tier-reward {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1;
+    }
+    .tier-reward-label {
+      font-size: 0.75rem;
+      color: #666;
+      margin-top: 6px;
+    }
+
+    /* Equivalent spend */
+    .tier-spend {
+      margin-top: 12px;
+      font-size: 0.7rem;
+      color: #444;
+      font-style: italic;
+    }
+
+    /* How it works */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .step {
+      background: #111;
+      border: 1px solid #1e1e1e;
+      border-radius: 10px;
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .step-num {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: #aaff00;
+      line-height: 1;
+    }
+    .step p {
+      font-size: 0.88rem;
+      color: #888;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    /* Fine print */
+    .fine-print {
+      background: #0e0e0e;
+      border: 1px solid #1a1a1a;
+      border-radius: 10px;
+      padding: 20px 24px;
+      font-size: 0.78rem;
+      color: #444;
+      line-height: 1.7;
+    }
+    .fine-print ul {
+      padding-left: 18px;
+      margin: 0;
+    }
+    .fine-print li { margin-bottom: 4px; }
+
+    @media (max-width: 600px) {
+      .rewards-hero h1 { font-size: 1.8rem; }
+      .tiers-grid { grid-template-columns: repeat(2, 1fr); }
+      .earn-equation { gap: 12px; }
+    }
+  </style>
+</head>
+<body id="inner-page">
+
+  <div style="position:relative;z-index:1;">
+
+  <header>
+    <div class="header-inner">
+      <a href="home.html" class="logo-link">
+        <img src="images/logo.png" alt="The Vapor Place" class="logo-img">
+      </a>
+      <span class="badge-21">21+</span>
+    </div>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="hours.html">Hours</a>
+      <a href="menu.html">Menu</a>
+      <a href="featured.html">Featured</a>
+      <a href="top-sellers.html">Top Sellers</a>
+      <a href="locations.html">Locations</a>
+      <a href="contact.html">Contact</a>
+      <a href="info.html">Info</a>
+      <a href="rewards.html" class="active">Rewards</a>
+      <a href="kits.html">Kits</a>
+    </nav>
+  </header>
+
+  <!-- ══ HERO ══ -->
+  <div class="rewards-hero">
+    <div class="brand-tag">The Vapor Place</div>
+    <h1>REWARDS</h1>
+    <p>Earn points every time you shop. Redeem for coupons. The more you vape, the more you save.</p>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ══ EARN RATE ══ -->
+  <div class="rewards-section">
+    <div class="rewards-section-title">How You Earn</div>
+    <div class="earn-card">
+      <div class="earn-equation">
+        <div class="earn-block">
+          <div class="earn-val">$1</div>
+          <div class="earn-label">spent</div>
+        </div>
+        <div class="earn-op">=</div>
+        <div class="earn-block">
+          <div class="earn-val">2</div>
+          <div class="earn-label">points</div>
+        </div>
+      </div>
+      <div class="earn-note">Points are awarded on every in-store purchase. Points expire after <strong style="color:#ccc;">18 months</strong> of inactivity.</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ══ TIERS ══ -->
+  <div class="rewards-section">
+    <div class="rewards-section-title">Redemption Tiers</div>
+    <div class="tiers-grid">
+
+      <div class="tier-card">
+        <div class="tier-pts">200</div>
+        <div class="tier-pts-label">Points</div>
+        <hr class="tier-divider">
+        <div class="tier-reward">$10</div>
+        <div class="tier-reward-label">Coupon</div>
+        <div class="tier-spend">≈ $100 in purchases</div>
+      </div>
+
+      <div class="tier-card">
+        <div class="tier-pts">600</div>
+        <div class="tier-pts-label">Points</div>
+        <hr class="tier-divider">
+        <div class="tier-reward">$35</div>
+        <div class="tier-reward-label">Coupon</div>
+        <div class="tier-spend">≈ $300 in purchases</div>
+      </div>
+
+      <div class="tier-card">
+        <div class="tier-pts">1,200</div>
+        <div class="tier-pts-label">Points</div>
+        <hr class="tier-divider">
+        <div class="tier-reward">$75</div>
+        <div class="tier-reward-label">Coupon</div>
+        <div class="tier-spend">≈ $600 in purchases</div>
+      </div>
+
+      <div class="tier-card">
+        <div class="tier-pts">1,800</div>
+        <div class="tier-pts-label">Points</div>
+        <hr class="tier-divider">
+        <div class="tier-reward">$120</div>
+        <div class="tier-reward-label">Coupon</div>
+        <div class="tier-spend">≈ $900 in purchases</div>
+      </div>
+
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ══ HOW IT WORKS ══ -->
+  <div class="rewards-section">
+    <div class="rewards-section-title">How It Works</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <p>Shop in-store at either our Norwich or Groton location.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <p>Earn 2 points for every $1 you spend on any purchase.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <p>Stack up your points — they're good for 18 months.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <p>Redeem at any time for a coupon toward your next purchase.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ══ FINE PRINT ══ -->
+  <div class="rewards-section">
+    <div class="rewards-section-title">Details</div>
+    <div class="fine-print">
+      <ul>
+        <li>Points are earned on in-store purchases only.</li>
+        <li>Points expire 18 months from the date they were earned.</li>
+        <li>Coupons have no cash value and cannot be combined with other offers.</li>
+        <li>The Vapor Place reserves the right to modify or discontinue the rewards program at any time.</li>
+        <li>Must be 21+ to participate.</li>
+      </ul>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2026 The Vapor Place &mdash; Must be 21+ to purchase.
+  </footer>
+
+
+  </div>
+</body>
+</html>
