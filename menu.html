@@ -10,8 +10,13 @@
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
-      margin-bottom: 24px;
       align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #0d0d0d;
+      padding: 12px 0;
+      margin-bottom: 16px;
     }
     #menu-search {
       flex: 1;
@@ -66,7 +71,7 @@
     }
     .menu-item:hover { border-color: #00e5ff44; }
     .menu-item-name {
-      font-size: 0.95rem;
+      font-size: 1.19rem;
       color: #f0f0f0;
       margin-bottom: 4px;
       font-weight: 600;
@@ -149,12 +154,22 @@
   </footer>
 
   <script src="js/app.js"></script>
-  <script src="js/menu-data.js?v=2"></script>
+  <script src="js/menu-data.js?v=3"></script>
   <script>
     let allItems = MENU_DATA;
     let activeType = 'ALL';
 
     const typeLabels = { DISP: 'Disposable', SALT: 'Salt Nic', SUB: 'Sub-Ohm', KIT: 'Kit' };
+
+    const PINNED_NAMES = [
+      "SUB 7Daze Reds Slapple - Apple and Blue Razz. A collaboration between Reds Apple and Keep It 100.",
+      "SALT MRKT PLCE Fuji Pear Mangoberry"
+    ];
+
+    function itemTypeMatch(item, type) {
+      if (type === 'ALL') return true;
+      return item.types ? item.types.includes(type) : item.name.startsWith(type);
+    }
 
     render();
 
@@ -165,29 +180,53 @@
       const noResults = document.getElementById('no-results');
 
       const filtered = allItems.filter(item => {
-        const typeMatch = activeType === 'ALL' || item.name.startsWith(activeType);
+        const typeMatch = itemTypeMatch(item, activeType);
         const searchMatch = !query ||
           item.name.toLowerCase().includes(query) ||
-          item.profile.toLowerCase().includes(query);
+          item.profile.toLowerCase().includes(query) ||
+          (item.tags && item.tags.toLowerCase().includes(query));
         return typeMatch && searchMatch;
       });
+
+      const pinned = PINNED_NAMES
+        .map(name => allItems.find(i => i.name === name))
+        .filter(item => item && itemTypeMatch(item, activeType) && (
+          !query ||
+          item.name.toLowerCase().includes(query) ||
+          item.profile.toLowerCase().includes(query) ||
+          (item.tags && item.tags.toLowerCase().includes(query))
+        ));
 
       count.textContent = filtered.length + ' item' + (filtered.length !== 1 ? 's' : '');
       list.innerHTML = '';
       noResults.style.display = filtered.length === 0 ? 'block' : 'none';
 
-      filtered.forEach(item => {
+      [...pinned, ...filtered].forEach(item => {
         const type = item.name.split(' ')[0];
-        const displayName = item.name.replace(/^(DISP|SALT|SUB)\s+/, '');
+        const displayName = item.name.replace(/^(DISP|SALT|SUB|KIT)\s+/, '');
+        const isDual = item.types && item.types.length > 1;
+        const badgeHtml = isDual
+          ? item.types.map(t => `<div class="menu-item-type type-${t}" style="display:inline-block;margin-right:4px;">${typeLabels[t] || t}</div>`).join('')
+          : `<div class="menu-item-type type-${type}">${typeLabels[type] || type}</div>`;
+        let profileHtml = '';
+        if (item.profile) {
+          if (item.profile.includes('|')) {
+            const [sizes, flavor] = item.profile.split('|').map(s => s.trim());
+            profileHtml = `<div class="menu-item-profile" style="font-size:0.98rem;color:#ffcc00;text-align:center;margin-bottom:6px;">${flavor}</div>
+                           <div class="menu-item-profile" style="font-size:0.82rem;color:#aaa;text-align:center;margin-bottom:8px;">${sizes}</div>`;
+          } else {
+            profileHtml = `<div class="menu-item-profile" style="font-size:0.98rem;color:#ffcc00;text-align:center;margin-bottom:6px;">${item.profile}</div>`;
+          }
+        }
         const div = document.createElement('div');
         div.className = 'menu-item';
         div.innerHTML = `
           ${item.image ? `<img src="images/${item.image}" alt="${displayName}" style="width:100%;border-radius:6px;margin-bottom:10px;object-fit:contain;max-height:160px;background:#111;">` : ''}
-          <div class="menu-item-type type-${type}">${typeLabels[type] || type}</div>
-          <div class="menu-item-name">${displayName}</div>
-          ${item.profile ? `<div class="menu-item-profile">${item.profile}</div>` : ''}
-          ${item.price ? `<div style="font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:700;color:#aaff00;margin-top:8px;">${item.price}</div>` : ''}
-          ${item.link ? `<a href="${item.link}" style="display:inline-block;margin-top:10px;font-size:0.75rem;color:#00e5ff;text-decoration:none;font-family:'Orbitron',sans-serif;letter-spacing:0.05em;">Learn More &rarr;</a>` : ''}
+          <div class="menu-item-name" style="text-align:center;">${displayName}</div>
+          ${profileHtml}
+          <div style="display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-top:4px;">${badgeHtml}</div>
+          ${item.price ? `<div style="font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:700;color:#aaff00;margin-top:8px;text-align:center;">${item.price}</div>` : ''}
+          ${item.link ? `<a href="${item.link}" style="display:block;margin-top:10px;font-size:0.75rem;color:#00e5ff;text-decoration:none;font-family:'Orbitron',sans-serif;letter-spacing:0.05em;text-align:center;">Learn More &rarr;</a>` : ''}
         `;
         list.appendChild(div);
       });
