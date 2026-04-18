@@ -186,6 +186,10 @@
           item.profile.toLowerCase().includes(query) ||
           (item.tags && item.tags.toLowerCase().includes(query));
         return typeMatch && searchMatch;
+      }).sort((a, b) => {
+        const nameA = a.name.replace(/^(DISP|SALT|SUB|KIT)\s+/, '').toLowerCase();
+        const nameB = b.name.replace(/^(DISP|SALT|SUB|KIT)\s+/, '').toLowerCase();
+        return nameA.localeCompare(nameB);
       });
 
       const pinned = PINNED_NAMES
