@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu #3 — The Vapor Place</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body#inner-page { background: #fff !important; color: #111 !important; }
+    #inner-page main { background: #fff; }
+    #inner-page footer { background: #f0f0f0; color: #555; border-top: 1px solid #ddd; }
+    #menu-count { color: #555 !important; }
+    #no-results { color: #555 !important; }
+    .menu-controls {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #fff;
+      padding: 12px 0;
+      margin-bottom: 16px;
+      border-bottom: 1px solid #ddd;
+    }
+    #menu-search {
+      flex: 1;
+      min-width: 200px;
+      background: #f5f5f5;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      color: #111;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1rem;
+      padding: 10px 16px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    #menu-search:focus { border-color: #0088aa; }
+    .filter-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+    .filter-btn {
+      background: transparent;
+      border: 1px solid #bbb;
+      border-radius: 6px;
+      color: #555;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 8px 14px;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      border-color: #0088aa;
+      color: #0088aa;
+      background: rgba(0,136,170,0.06);
+    }
+    #menu-count { color: #555; font-size: 0.85rem; margin-bottom: 16px; }
+    .menu-list { display: flex; flex-direction: column; gap: 12px; }
+    .menu-item {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 14px 16px;
+      transition: border-color 0.2s;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .menu-item:hover { border-color: #0088aa88; }
+    .menu-item-name { font-size: 1.19rem; color: #111; font-weight: 600; }
+    .menu-item-type {
+      display: inline-block;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.55rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 2px 7px;
+      border-radius: 4px;
+      margin-right: 4px;
+      text-transform: uppercase;
+    }
+    .type-DISP { background: rgba(0,136,170,0.12); color: #0088aa; }
+    .type-SALT { background: rgba(100,160,0,0.12); color: #4a8000; }
+    .type-SUB  { background: rgba(200,100,0,0.12); color: #b85a00; }
+    .type-KIT  { background: rgba(150,50,200,0.12); color: #7a00cc; }
+    #no-results { display:none; text-align:center; color:#555; padding:60px 0; font-size:1rem; }
+  </style>
+</head>
+<body id="inner-page">
+<div style="position:relative;z-index:1;">
+
+  <header>
+    <div class="header-inner">
+      <a href="home.html" class="logo-link">
+        <img src="images/logo.png" alt="The Vapor Place" class="logo-img">
+      </a>
+      <span class="badge-21">21+</span>
+    </div>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="hours.html">Hours</a>
+      <a href="menu.html">Menu</a>
+      <a href="menu2.html">Menu #2</a>
+      <a href="menu3.html" class="active">Menu #3</a>
+      <a href="brands.html">Brands</a>
+      <a href="featured.html">Featured</a>
+      <a href="top-sellers.html">Top Sellers</a>
+      <a href="locations.html">Locations</a>
+      <a href="contact.html">Contact</a>
+      <a href="info.html">Info</a>
+      <a href="rewards.html">Rewards</a>
+      <a href="kits.html">Kits</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Menu <span style="color:#0088aa">#3</span></h1>
+
+    <div class="menu-controls">
+      <input id="menu-search" type="text" placeholder="Search by name or flavor...">
+      <div class="filter-btns">
+        <button class="filter-btn active" data-type="ALL">All</button>
+        <button class="filter-btn" data-type="DISP">Disposables</button>
+        <button class="filter-btn" data-type="SALT">Salts</button>
+        <button class="filter-btn" data-type="SUB">Sub-Ohm</button>
+        <button class="filter-btn" data-type="KIT">Kits</button>
+      </div>
+    </div>
+
+    <div id="menu-count"></div>
+    <div class="menu-list" id="menu-list"></div>
+    <div id="no-results">No items match your search.</div>
+  </main>
+
+  <footer>
+    &copy; 2026 The Vapor Place &mdash; Must be 21+ to purchase.
+  </footer>
+
+  <script src="js/app.js"></script>
+  <script src="js/menu-data.js?v=3"></script>
+  <script>
+    let allItems = MENU_DATA;
+    let activeType = 'ALL';
+    const typeLabels = { DISP: 'Disposable', SALT: 'Salt Nic', SUB: 'Sub-Ohm', KIT: 'Kit' };
+    const PINNED_NAMES = ["SALT Slapple", "SALT MRKT PLCE Fuji Pear Mangoberry"];
+
+    function itemTypeMatch(item, type) {
+      if (type === 'ALL') return true;
+      return item.types ? item.types.includes(type) : item.name.startsWith(type);
+    }
+
+    render();
+
+    function render() {
+      const query = document.getElementById('menu-search').value.toLowerCase();
+      const list = document.getElementById('menu-list');
+      const count = document.getElementById('menu-count');
+      const noResults = document.getElementById('no-results');
+
+      const filtered = allItems.filter(item => {
+        const typeMatch = itemTypeMatch(item, activeType);
+        const searchMatch = !query ||
+          item.name.toLowerCase().includes(query) ||
+          item.profile.toLowerCase().includes(query) ||
+          (item.tags && item.tags.toLowerCase().includes(query));
+        return typeMatch && searchMatch;
+      }).sort((a, b) => {
+        const nameA = a.name.replace(/^(DISP|SALT|SUB|KIT)\s+/, '').toLowerCase();
+        const nameB = b.name.replace(/^(DISP|SALT|SUB|KIT)\s+/, '').toLowerCase();
+        return nameA.localeCompare(nameB);
+      });
+
+      const pinned = PINNED_NAMES
+        .map(name => allItems.find(i => i.name === name))
+        .filter(item => item && itemTypeMatch(item, activeType) && (
+          !query ||
+          item.name.toLowerCase().includes(query) ||
+          item.profile.toLowerCase().includes(query) ||
+          (item.tags && item.tags.toLowerCase().includes(query))
+        ));
+
+      count.textContent = filtered.length + ' item' + (filtered.length !== 1 ? 's' : '');
+      list.innerHTML = '';
+      noResults.style.display = filtered.length === 0 ? 'block' : 'none';
+
+      [...pinned, ...filtered].forEach(item => {
+        const type = item.name.split(' ')[0];
+        const displayName = item.name.replace(/^(DISP|SALT|SUB|KIT)\s+/, '');
+        const isDual = item.types && item.types.length > 1;
+        const badgeHtml = isDual
+          ? item.types.map(t => `<span class="menu-item-type type-${t}">${typeLabels[t] || t}</span>`).join('')
+          : `<span class="menu-item-type type-${type}">${typeLabels[type] || type}</span>`;
+
+        let sizes = '';
+        let flavor = '';
+        if (item.profile && item.profile.includes('|')) {
+          [sizes, flavor] = item.profile.split('|').map(s => s.trim());
+        } else {
+          sizes = item.profile || '';
+        }
+
+        const div = document.createElement('div');
+        div.className = 'menu-item';
+        div.innerHTML = `
+          <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;margin-bottom:10px;">
+            ${item.name === 'SALT MRKT PLCE Fuji Pear Mangoberry'
+              ? `<div style="text-align:center;">
+                   <div class="menu-item-name">MRKT PLCE<br>Fuji Pear Mangoberry</div>
+                   <div style="font-size:0.98rem;color:#b8860b;margin-top:6px;">Pear, Mango, Apple &amp; Raspberry</div>
+                 </div>`
+              : `<div style="text-align:center;">
+                   <div class="menu-item-name">${displayName}</div>
+                   ${flavor ? `<div style="font-size:0.98rem;color:#b8860b;margin-top:6px;">${flavor}</div>` : ''}
+                 </div>`}
+            ${item.image ? `<img src="images/${item.image}" alt="${displayName}" style="width:180px;border-radius:6px;object-fit:contain;max-height:140px;background:#f0f0f0;">` : '<div style="width:180px;"></div>'}
+            ${item.name === 'SALT MRKT PLCE Fuji Pear Mangoberry'
+              ? `<div style="font-size:0.78rem;color:#555;line-height:1.6;text-align:left;">
+                   <div style="color:#0088aa;font-size:0.7rem;font-family:'Orbitron',sans-serif;letter-spacing:0.06em;margin-bottom:6px;">FLAVOR PROFILE</div>
+                   <div><span style="color:#b8860b;">Inhale:</span> Crisp, slightly tart Fuji Apple with sweet, mellow Pear.</div>
+                   <div style="margin-top:4px;"><span style="color:#b8860b;">Body:</span> Tropical mango creaminess — smooth &amp; velvety.</div>
+                   <div style="margin-top:4px;"><span style="color:#b8860b;">Exhale:</span> Bold burst of Mixed Berries with a lingering tangy sweetness.</div>
+                 </div>`
+              : `<div style="font-size:0.82rem;color:#555;text-align:center;">${sizes}</div>`}
+          </div>
+          ${item.name === 'SALT MRKT PLCE Fuji Pear Mangoberry'
+            ? `<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;margin-top:10px;border-top:1px solid #2a2a2a;padding-top:10px;">
+                 <div style="display:flex;align-items:center;gap:6px;">
+                   <span class="menu-item-type type-SALT">Salt Nic</span>
+                   <span style="font-size:0.82rem;color:#555;">30ml &nbsp;24mg / 48mg</span>
+                 </div>
+                 <div style="display:flex;align-items:center;gap:6px;">
+                   <span class="menu-item-type type-SUB">Sub-Ohm</span>
+                   <span style="font-size:0.82rem;color:#555;">100ml &nbsp;0mg / 3mg / 6mg</span>
+                 </div>
+               </div>`
+            : `<div style="display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-top:4px;">${badgeHtml}</div>`}
+          ${item.price ? `<div style="font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:700;color:#aaff00;margin-top:8px;text-align:center;">${item.price}</div>` : ''}
+          ${item.link ? `<a href="${item.link}" style="display:block;margin-top:10px;font-size:0.75rem;color:#0088aa;text-decoration:none;font-family:'Orbitron',sans-serif;letter-spacing:0.05em;text-align:center;">Learn More &rarr;</a>` : ''}
+        `;
+        list.appendChild(div);
+      });
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('q')) {
+      document.getElementById('menu-search').value = params.get('q');
+      render();
+    }
+
+    document.getElementById('menu-search').addEventListener('input', render);
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeType = btn.dataset.type;
+        render();
+      });
+    });
+  </script>
+
+</div>
+</body>
+</html>
