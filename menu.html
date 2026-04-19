@@ -230,7 +230,7 @@
           const [sizes, flavor] = item.profile.split('|').map(s => s.trim());
           div.innerHTML = `
             <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;margin-bottom:10px;">
-              <div class="menu-item-name" style="text-align:left;font-size:1.3rem;">${displayName}</div>
+              <div class="menu-item-name" style="text-align:left;font-size:1.3rem;">MRKT PLCE<br>Forbidden Berry</div>
               ${item.image ? `<img src="images/${item.image}" alt="${displayName}" style="width:180px;border-radius:6px;object-fit:contain;max-height:140px;background:#111;">` : ''}
               <div style="font-size:0.98rem;color:#ffcc00;text-align:right;">${flavor}</div>
             </div>
