@@ -237,25 +237,29 @@
               ${item.image ? `<img src="images/${item.image}" alt="${mrkt.title}" style="width:180px;border-radius:6px;object-fit:contain;max-height:140px;background:#fff;">` : '<div style="width:180px;"></div>'}
               <div style="font-size:0.85rem;color:#555;line-height:1.65;text-align:left;">${mrkt.desc}</div>
             </div>
-            <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;margin-top:10px;border-top:1px solid #ddd;padding-top:10px;">
-              <div style="display:flex;align-items:center;gap:6px;">
-                <span style="font-size:0.78rem;color:#555;">30ml</span>
-                <span class="menu-item-type type-SALT">Salt Nic</span>
-                <span style="font-size:0.82rem;color:#555;">24mg / 48mg</span>
+            <div style="display:flex;align-items:center;margin-top:10px;border-top:1px solid #ddd;padding-top:10px;">
+              <div style="flex:1;"></div>
+              <div style="display:flex;gap:12px;align-items:center;">
+                <div style="display:flex;align-items:center;gap:6px;">
+                  <span style="font-size:0.78rem;color:#555;">30ml</span>
+                  <span class="menu-item-type type-SALT">Salt Nic</span>
+                  <span style="font-size:0.82rem;color:#555;">24mg / 48mg</span>
+                </div>
+                <span style="font-size:0.9rem;color:#555;">&amp;</span>
+                <div style="display:flex;align-items:center;gap:6px;">
+                  <span style="font-size:0.78rem;color:#555;">100ml</span>
+                  <span class="menu-item-type type-SUB">Sub-Ohm</span>
+                  <span style="font-size:0.82rem;color:#555;">0mg / 3mg / 6mg</span>
+                </div>
               </div>
-              <span style="font-size:0.9rem;color:#555;">&amp;</span>
-              <div style="display:flex;align-items:center;gap:6px;">
-                <span style="font-size:0.78rem;color:#555;">100ml</span>
-                <span class="menu-item-type type-SUB">Sub-Ohm</span>
-                <span style="font-size:0.82rem;color:#555;">0mg / 3mg / 6mg</span>
+              <div style="flex:1;display:flex;justify-content:flex-end;">
+                ${mrkt.iceLevel !== undefined ? `
+                <div style="display:flex;align-items:center;gap:6px;">
+                  <span style="font-family:'Orbitron',sans-serif;font-size:0.55rem;font-weight:700;letter-spacing:0.08em;color:#0088aa;">ICE</span>
+                  <div style="display:flex;gap:3px;">${[1,2,3,4,5].map(i => `<span style="display:inline-block;width:11px;height:11px;border-radius:50%;background:${i <= mrkt.iceLevel ? '#0088aa' : '#ddd'};"></span>`).join('')}</div>
+                  <span style="font-family:'Orbitron',sans-serif;font-size:0.55rem;font-weight:700;letter-spacing:0.08em;color:#0088aa;">LEVEL</span>
+                </div>` : ''}
               </div>
-              ${mrkt.iceLevel !== undefined ? `
-              <span style="font-size:0.9rem;color:#ddd;">|</span>
-              <div style="display:flex;align-items:center;gap:6px;">
-                <span style="font-family:'Orbitron',sans-serif;font-size:0.55rem;font-weight:700;letter-spacing:0.08em;color:#0088aa;">ICE</span>
-                <div style="display:flex;gap:3px;">${[1,2,3,4,5].map(i => `<span style="display:inline-block;width:11px;height:11px;border-radius:50%;background:${i <= mrkt.iceLevel ? '#0088aa' : '#ddd'};"></span>`).join('')}</div>
-                <span style="font-family:'Orbitron',sans-serif;font-size:0.55rem;font-weight:700;letter-spacing:0.08em;color:#0088aa;">LEVEL</span>
-              </div>` : ''}
             </div>
           `;
         } else {
