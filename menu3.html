@@ -165,8 +165,6 @@
     let allItems = [...MENU_DATA, FUJI2, BLOOD2, FORBIDDEN2];
     let activeType = 'ALL';
     const typeLabels = { DISP: 'Disposable', SALT: 'Salt Nic', SUB: 'Sub-Ohm', KIT: 'Kit' };
-    const PINNED_NAMES = ["SALT Slapple", "SALT MRKT PLCE Fuji Pear Mangoberry"];
-
     function itemTypeMatch(item, type) {
       if (type === 'ALL') return true;
       return item.types ? item.types.includes(type) : item.name.startsWith(type);
@@ -193,21 +191,11 @@
         return nameA.localeCompare(nameB);
       });
 
-      const pinned = PINNED_NAMES
-        .map(name => allItems.find(i => i.name === name))
-        .filter(item => item && itemTypeMatch(item, activeType) && (
-          !query ||
-          item.name.toLowerCase().includes(query) ||
-          item.profile.toLowerCase().includes(query) ||
-          (item.tags && item.tags.toLowerCase().includes(query))
-        ));
-
       count.textContent = filtered.length + ' item' + (filtered.length !== 1 ? 's' : '');
       list.innerHTML = '';
       noResults.style.display = filtered.length === 0 ? 'block' : 'none';
 
-      const pinnedNames = new Set(pinned.map(i => i.name));
-      [...pinned, ...filtered.filter(i => !pinnedNames.has(i.name))].forEach(item => {
+      filtered.forEach(item => {
         const type = item.name.split(' ')[0];
         const displayName = item.name.replace(/^(DISP|SALT|SUB|KIT)\s+/, '');
         const isDual = item.types && item.types.length > 1;
