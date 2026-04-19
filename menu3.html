@@ -249,8 +249,14 @@
                 <span class="menu-item-type type-SUB">Sub-Ohm</span>
                 <span style="font-size:0.82rem;color:#555;">0mg / 3mg / 6mg</span>
               </div>
+              ${mrkt.iceLevel !== undefined ? `
+              <span style="font-size:0.9rem;color:#ddd;">|</span>
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span style="font-family:'Orbitron',sans-serif;font-size:0.55rem;font-weight:700;letter-spacing:0.08em;color:#0088aa;">ICE</span>
+                <div style="display:flex;gap:3px;">${[1,2,3,4,5].map(i => `<span style="display:inline-block;width:11px;height:11px;border-radius:50%;background:${i <= mrkt.iceLevel ? '#0088aa' : '#ddd'};"></span>`).join('')}</div>
+                <span style="font-family:'Orbitron',sans-serif;font-size:0.55rem;font-weight:700;letter-spacing:0.08em;color:#0088aa;">LEVEL</span>
+              </div>` : ''}
             </div>
-            ${iceGauge}
           `;
         } else {
           div.innerHTML = `
