@@ -206,7 +206,8 @@
       list.innerHTML = '';
       noResults.style.display = filtered.length === 0 ? 'block' : 'none';
 
-      [...pinned, ...filtered].forEach(item => {
+      const pinnedNames = new Set(pinned.map(i => i.name));
+      [...pinned, ...filtered.filter(i => !pinnedNames.has(i.name))].forEach(item => {
         const type = item.name.split(' ')[0];
         const displayName = item.name.replace(/^(DISP|SALT|SUB|KIT)\s+/, '');
         const isDual = item.types && item.types.length > 1;
