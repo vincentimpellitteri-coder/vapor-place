@@ -198,7 +198,10 @@
         div.innerHTML = `
           <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;margin-bottom:10px;">
             ${item.name === 'SALT MRKT PLCE Fuji Pear Mangoberry'
-              ? `<div style="text-align:center;"><div class="menu-item-name">MRKT PLCE<br>Fuji Pear Mangoberry</div></div>`
+              ? `<div style="text-align:center;">
+                   <div class="menu-item-name">MRKT PLCE<br>Fuji Pear Mangoberry</div>
+                   <div style="font-size:0.98rem;color:#ffcc00;margin-top:6px;">Pear, Mango, Apple &amp; Raspberry</div>
+                 </div>`
               : `<div style="text-align:center;">
                    <div class="menu-item-name">${displayName}</div>
                    ${flavor ? `<div style="font-size:0.98rem;color:#ffcc00;margin-top:6px;">${flavor}</div>` : ''}
