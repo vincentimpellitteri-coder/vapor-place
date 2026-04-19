@@ -196,12 +196,10 @@
         const div = document.createElement('div');
         div.className = 'menu-item';
         div.innerHTML = `
-          <div style="display:grid;grid-template-columns:1fr auto;align-items:center;gap:16px;margin-bottom:10px;">
-            <div>
-              <div class="menu-item-name">${displayName}</div>
-              ${flavor ? `<div style="font-size:0.98rem;color:#ffcc00;margin-top:6px;">${flavor}</div>` : ''}
-            </div>
+          <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;margin-bottom:10px;">
+            <div class="menu-item-name" style="text-align:center;">${displayName}</div>
             ${item.image ? `<img src="images/${item.image}" alt="${displayName}" style="width:180px;border-radius:6px;object-fit:contain;max-height:140px;background:#111;">` : '<div style="width:180px;"></div>'}
+            <div style="font-size:0.98rem;color:#ffcc00;text-align:center;">${flavor}</div>
           </div>
           ${sizes ? `<div style="font-size:0.82rem;color:#aaa;text-align:center;margin-bottom:6px;">${sizes}</div>` : ''}
           <div style="display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-top:4px;">${badgeHtml}</div>
