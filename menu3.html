@@ -150,9 +150,22 @@
       'SALT MRKT PLCE Thai Apple Melon Razz':       { title: 'Thai Apple Melon Razz',       subtitle: 'Apple, Melon &amp; Raspberry',                        desc: 'Bold apple, lush melon, and zesty raspberry come together in a lively, flavorful vapor.', icon: '🍎 🍈', iceLevel: 0 },
       'SALT MRKT PLCE Iced Fuji Pear Mangoberry':   { title: 'Iced Fuji Pear Mangoberry',   subtitle: 'Fuji Apple, Pear, Mango &amp; Berries &mdash; Iced',  desc: 'All the tropical freshness of Fuji Pear Mangoberry, finished with a cool icy exhale.', icon: '🍎 🍐 🥭 🍓 🫐 🧊', iceLevel: 3 },
       'SALT MRKT PLCE Iced Forbidden Berry':        { title: 'Iced Forbidden Berry',        subtitle: 'Tropical Fruit &amp; Mixed Berries &mdash; Iced',     desc: 'The beloved Forbidden Berry blend elevated with a refreshing burst of ice.', icon: '🥝 🍍 🍓 🫐', iceLevel: 3 },
+      'MRKT PLCE Forbidden Berry Collection':      { title: 'Forbidden Berry',             subtitle: 'Tropical Fruit &amp; Mixed Berries', icon: '🥝 🍍 🍓 🫐',
+        combo: [
+          { label: 'Forbidden Berry',       desc: 'Perfectly captures the flavors of tropical fruit intermingled with a mixed berry combination – forbidden fruit tastes the best.', iceLevel: 0 },
+          { label: 'Iced Forbidden Berry',  desc: 'The beloved Forbidden Berry blend elevated with a refreshing burst of ice.', iceLevel: 3 }
+        ]
+      },
     };
 
-    let allItems = MENU_DATA;
+    const FORBIDDEN_COMBO = {
+      name: 'MRKT PLCE Forbidden Berry Collection',
+      types: ['SALT', 'SUB'],
+      profile: 'Salt 30ml: 24mg / 48mg · Sub-Ohm 100ml: 0mg / 3mg / 6mg | Tropical Fruit, Mixed Berries',
+      image: 'mrkt-plce-forbidden-berry.jpg',
+      tags: 'MRKT PLCE, Forbidden Berry, Strawberry, Raspberry, Blackberry, Ice, Iced, Berry, Tropical'
+    };
+    let allItems = [...MENU_DATA, FORBIDDEN_COMBO];
     let activeType = 'ALL';
     const typeLabels = { DISP: 'Disposable', SALT: 'Salt Nic', SUB: 'Sub-Ohm', KIT: 'Kit' };
 
@@ -217,7 +230,55 @@
         const div = document.createElement('div');
         div.className = 'menu-item';
 
-        if (mrkt) {
+        const iceDotsHtml = (level) => [1,2,3,4,5].map(i =>
+          `<span style="display:inline-block;width:11px;height:11px;border-radius:50%;background:${i <= level ? '#0088aa' : '#ddd'};"></span>`
+        ).join('');
+        const iceBadge = (level) => `
+          <div style="display:flex;align-items:center;gap:6px;margin-top:6px;">
+            <span style="font-family:'Orbitron',sans-serif;font-size:0.55rem;font-weight:700;letter-spacing:0.08em;color:#0088aa;">ICE</span>
+            <div style="display:flex;gap:3px;">${iceDotsHtml(level)}</div>
+            <span style="font-family:'Orbitron',sans-serif;font-size:0.55rem;font-weight:700;letter-spacing:0.08em;color:#0088aa;">LEVEL</span>
+          </div>`;
+
+        if (mrkt && mrkt.combo) {
+          const comboRight = mrkt.combo.map((c, i) => `
+            <div style="${i > 0 ? 'border-top:1px solid #eee;padding-top:10px;margin-top:10px;' : ''}">
+              <div style="font-size:0.7rem;font-family:'Orbitron',sans-serif;letter-spacing:0.06em;color:#0088aa;margin-bottom:4px;">${c.label.toUpperCase()}</div>
+              <div style="font-size:0.85rem;color:#555;line-height:1.65;">${c.desc}</div>
+              ${iceBadge(c.iceLevel)}
+            </div>`).join('');
+          div.innerHTML = `
+            <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;margin-bottom:10px;">
+              <div style="text-align:center;">
+                <img src="images/mrkt-plce-logo.svg" alt="MRKT PLCE" style="max-height:56px;width:auto;margin-bottom:8px;display:block;margin-left:auto;margin-right:auto;">
+                <div class="menu-item-name">${mrkt.title}</div>
+                <div style="font-size:0.9rem;color:#b8860b;margin-top:6px;">${mrkt.subtitle}</div>
+                ${mrkt.icon ? `<div style="font-size:1.5rem;margin-top:6px;">${mrkt.icon}</div>` : ''}
+              </div>
+              ${item.image ? `<img src="images/${item.image}" alt="${mrkt.title}" style="width:180px;border-radius:6px;object-fit:contain;max-height:140px;background:#fff;">` : '<div style="width:180px;"></div>'}
+              <div style="text-align:left;">${comboRight}</div>
+            </div>
+            <div style="display:flex;align-items:center;margin-top:10px;border-top:1px solid #ddd;padding-top:10px;">
+              <div style="flex:1;display:flex;justify-content:flex-start;">
+                <span style="font-size:0.82rem;color:#555;">70VG/30PG</span>
+              </div>
+              <div style="display:flex;gap:12px;align-items:center;">
+                <div style="display:flex;align-items:center;gap:6px;">
+                  <span style="font-size:0.78rem;color:#555;">30ml</span>
+                  <span class="menu-item-type type-SALT">Salt Nic</span>
+                  <span style="font-size:0.82rem;color:#555;">24mg / 48mg</span>
+                </div>
+                <span style="font-size:0.9rem;color:#555;">&amp;</span>
+                <div style="display:flex;align-items:center;gap:6px;">
+                  <span style="font-size:0.78rem;color:#555;">100ml</span>
+                  <span class="menu-item-type type-SUB">Sub-Ohm</span>
+                  <span style="font-size:0.82rem;color:#555;">0mg / 3mg / 6mg</span>
+                </div>
+              </div>
+              <div style="flex:1;"></div>
+            </div>
+          `;
+        } else if (mrkt) {
           const iceGauge = mrkt.iceLevel !== undefined ? `
             <div style="display:flex;align-items:center;gap:6px;justify-content:flex-end;margin-top:10px;">
               <span style="font-family:'Orbitron',sans-serif;font-size:0.55rem;font-weight:700;letter-spacing:0.08em;color:#0088aa;">ICE</span>
@@ -258,7 +319,7 @@
                 ${mrkt.iceLevel !== undefined ? `
                 <div style="display:flex;align-items:center;gap:6px;">
                   <span style="font-family:'Orbitron',sans-serif;font-size:0.55rem;font-weight:700;letter-spacing:0.08em;color:#0088aa;">ICE</span>
-                  <div style="display:flex;gap:3px;">${[1,2,3,4,5].map(i => `<span style="display:inline-block;width:11px;height:11px;border-radius:50%;background:${i <= mrkt.iceLevel ? '#0088aa' : '#ddd'};"></span>`).join('')}</div>
+                  <div style="display:flex;gap:3px;">${iceDotsHtml(mrkt.iceLevel)}</div>
                   <span style="font-family:'Orbitron',sans-serif;font-size:0.55rem;font-weight:700;letter-spacing:0.08em;color:#0088aa;">LEVEL</span>
                 </div>` : ''}
               </div>
