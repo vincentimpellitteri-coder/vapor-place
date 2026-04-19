@@ -189,10 +189,6 @@
         const type = item.name.split(' ')[0];
         const displayName = item.name.replace(/^(DISP|SALT|SUB|KIT)\s+/, '');
         const isDual = item.types && item.types.length > 1;
-        const badgeHtml = isDual
-          ? item.types.map(t => `<span class="menu-item-type type-${t}">${typeLabels[t] || t}</span>`).join('')
-          : `<span class="menu-item-type type-${type}">${typeLabels[type] || type}</span>`;
-
         let sizes = '';
         let flavor = '';
         if (item.profile && item.profile.includes('|')) {
@@ -200,6 +196,21 @@
         } else {
           sizes = item.profile || '';
         }
+
+        const saltMl  = (sizes.match(/Salt\s+(\d+ml)/i)  || [])[1] || '';
+        const subMl   = (sizes.match(/Sub-Ohm\s+(\d+ml(?:\s*\/\s*\d+ml)*)/i) || [])[1] || '';
+
+        const badgeHtml = isDual
+          ? item.types.map(t => {
+              const prefix = t === 'SALT' && saltMl ? `<span style="font-size:0.78rem;color:#555;margin-right:4px;">${saltMl}</span>` :
+                             t === 'SUB'  && subMl  ? `<span style="font-size:0.78rem;color:#555;margin-right:4px;">${subMl}</span>`  : '';
+              return `<span style="display:inline-flex;align-items:center;">${prefix}<span class="menu-item-type type-${t}">${typeLabels[t] || t}</span></span>`;
+            }).join('')
+          : (() => {
+              const prefix = type === 'SALT' && saltMl ? `<span style="font-size:0.78rem;color:#555;margin-right:4px;">${saltMl}</span>` :
+                             type === 'SUB'  && subMl  ? `<span style="font-size:0.78rem;color:#555;margin-right:4px;">${subMl}</span>`  : '';
+              return `<span style="display:inline-flex;align-items:center;">${prefix}<span class="menu-item-type type-${type}">${typeLabels[type] || type}</span></span>`;
+            })();
 
         const div = document.createElement('div');
         div.className = 'menu-item';
