@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beard Vape Co. — The Vapor Place</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .back-btn {
+      display: inline-block;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #00e5ff;
+      border: 1px solid #00e5ff;
+      border-radius: 6px;
+      padding: 10px 20px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .back-btn:hover { background: rgba(0,229,255,0.1); }
+    .back-bar { margin: 24px 0; }
+    .flavor-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+      margin: 32px 0;
+    }
+    .flavor-card {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 10px;
+      padding: 20px 16px;
+      text-align: center;
+      transition: border-color 0.2s;
+    }
+    .flavor-card:hover { border-color: #00e5ff44; }
+    .flavor-card img {
+      width: 100%;
+      max-height: 200px;
+      object-fit: contain;
+      border-radius: 6px;
+      background: #111;
+      margin-bottom: 14px;
+    }
+    .flavor-name { font-size: 2rem; font-weight: 700; color: #f0f0f0; margin-bottom: 6px; }
+    .badge-row { display: flex; gap: 6px; justify-content: center; margin-top: 10px; }
+    .badge {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.55rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+    .badge-salt { background: rgba(170,255,0,0.12); color: #aaff00; }
+    .badge-sub  { background: rgba(0,229,255,0.12);  color: #00e5ff; }
+    h1 span { color: #00e5ff; }
+  </style>
+</head>
+<body id="inner-page">
+<div style="position:relative;z-index:1;">
+
+  <header>
+    <div class="header-inner">
+      <a href="home.html" class="logo-link">
+        <img src="images/logo.png" alt="The Vapor Place" class="logo-img">
+      </a>
+      <span class="badge-21">21+</span>
+    </div>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="hours.html">Hours</a>
+      <a href="menu.html" class="active">Menu</a>
+      <a href="brands.html">Brands</a>
+      <a href="featured.html">Featured</a>
+      <a href="top-sellers.html">Top Sellers</a>
+      <a href="locations.html">Locations</a>
+      <a href="contact.html">Contact</a>
+      <a href="info.html">Info</a>
+      <a href="rewards.html">Rewards</a>
+      <a href="kits.html">Kits</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="back-bar">
+      <a href="brands.html" class="back-btn">&larr; Back to Brands</a>
+    </div>
+
+    <h1>Beard <span>Vape Co.</span></h1>
+    <p style="color:#888;margin-bottom:8px;">Salt 30ml: 30mg / 50mg &nbsp;&middot;&nbsp; Sub-Ohm 60ml / 120ml: 0mg / 3mg / 6mg</p>
+
+    <div class="flavor-grid">
+
+      <div class="flavor-card">
+        <img src="images/beard-no-32.jpg" alt="#32">
+        <div class="flavor-name">#32</div>
+        <div class="badge-row">
+          <span class="badge badge-salt">Salt Nic</span>
+          <span class="badge badge-sub">Sub-Ohm</span>
+        </div>
+      </div>
+
+      <div class="flavor-card">
+        <img src="images/beard-vape-co-apple-cinnamon-the-one.jpg" alt="Apple Cinnamon">
+        <div class="flavor-name">Apple Cinnamon</div>
+        <div class="badge-row">
+          <span class="badge badge-sub">Sub-Ohm</span>
+        </div>
+      </div>
+
+      <div class="flavor-card">
+        <img src="images/beard-vape-co-blueberry-the-one.jpg" alt="Blueberry">
+        <div class="flavor-name">Blueberry</div>
+        <div class="badge-row">
+          <span class="badge badge-sub">Sub-Ohm</span>
+        </div>
+      </div>
+
+      <div class="flavor-card">
+        <img src="images/beard-vape-co-marshmellow-the-one.jpg" alt="Marshmellow">
+        <div class="flavor-name">Marshmellow</div>
+        <div class="badge-row">
+          <span class="badge badge-sub">Sub-Ohm</span>
+        </div>
+      </div>
+
+      <div class="flavor-card">
+        <img src="images/beard-vape-co-strawberry-the-one.jpg" alt="Strawberry">
+        <div class="flavor-name">Strawberry</div>
+        <div class="badge-row">
+          <span class="badge badge-sub">Sub-Ohm</span>
+        </div>
+      </div>
+
+      <div class="flavor-card">
+        <img src="images/beard-vape-co-milky-loops-the-one.jpg" alt="Milky Loops">
+        <div class="flavor-name">Milky Loops</div>
+        <div class="badge-row">
+          <span class="badge badge-sub">Sub-Ohm</span>
+        </div>
+      </div>
+
+      <div class="flavor-card">
+        <img src="images/beard-vape-co-butterbean-the-one.jpg" alt="Butterbean">
+        <div class="flavor-name">Butterbean</div>
+        <div class="badge-row">
+          <span class="badge badge-sub">Sub-Ohm</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="back-bar">
+      <a href="brands.html" class="back-btn">&larr; Back to Brands</a>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2026 The Vapor Place &mdash; Must be 21+ to purchase.
+  </footer>
+
+</div>
+</body>
+</html>
