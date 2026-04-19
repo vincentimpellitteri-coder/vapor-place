@@ -225,14 +225,28 @@
         }
         const div = document.createElement('div');
         div.className = 'menu-item';
-        div.innerHTML = `
-          <div class="menu-item-name" style="text-align:center;margin-bottom:10px;">${displayName}</div>
-          ${item.image ? `<img src="images/${item.image}" alt="${displayName}" style="width:100%;border-radius:6px;margin-bottom:10px;object-fit:contain;max-height:160px;background:#111;">` : ''}
-          ${profileHtml}
-          <div style="display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-top:4px;">${badgeHtml}</div>
-          ${item.price ? `<div style="font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:700;color:#aaff00;margin-top:8px;text-align:center;">${item.price}</div>` : ''}
-          ${item.link ? `<a href="${item.link}" style="display:block;margin-top:10px;font-size:0.75rem;color:#00e5ff;text-decoration:none;font-family:'Orbitron',sans-serif;letter-spacing:0.05em;text-align:center;">Learn More &rarr;</a>` : ''}
-        `;
+
+        if (item.name === 'SALT MRKT PLCE Forbidden Berry' && item.profile && item.profile.includes('|')) {
+          const [sizes, flavor] = item.profile.split('|').map(s => s.trim());
+          div.innerHTML = `
+            <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;margin-bottom:10px;">
+              <div class="menu-item-name" style="text-align:left;font-size:1.3rem;">${displayName}</div>
+              ${item.image ? `<img src="images/${item.image}" alt="${displayName}" style="width:180px;border-radius:6px;object-fit:contain;max-height:140px;background:#111;">` : ''}
+              <div style="font-size:0.98rem;color:#ffcc00;text-align:right;">${flavor}</div>
+            </div>
+            <div style="font-size:0.82rem;color:#aaa;text-align:center;margin-bottom:6px;">${sizes}</div>
+            <div style="display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-top:4px;">${badgeHtml}</div>
+          `;
+        } else {
+          div.innerHTML = `
+            <div class="menu-item-name" style="text-align:center;margin-bottom:10px;">${displayName}</div>
+            ${item.image ? `<img src="images/${item.image}" alt="${displayName}" style="width:100%;border-radius:6px;margin-bottom:10px;object-fit:contain;max-height:160px;background:#111;">` : ''}
+            ${profileHtml}
+            <div style="display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-top:4px;">${badgeHtml}</div>
+            ${item.price ? `<div style="font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:700;color:#aaff00;margin-top:8px;text-align:center;">${item.price}</div>` : ''}
+            ${item.link ? `<a href="${item.link}" style="display:block;margin-top:10px;font-size:0.75rem;color:#00e5ff;text-decoration:none;font-family:'Orbitron',sans-serif;letter-spacing:0.05em;text-align:center;">Learn More &rarr;</a>` : ''}
+          `;
+        }
         list.appendChild(div);
       });
     }
