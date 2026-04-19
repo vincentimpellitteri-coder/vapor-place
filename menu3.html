@@ -148,7 +148,21 @@
       image: 'mrkt-plce-fuji-pear-mangoberry.jpg',
       tags: 'MRKT PLCE, Fuji, Pear, Mango, Berry, Apple, Tropical'
     };
-    let allItems = [...MENU_DATA, FUJI2];
+    const BLOOD1 = {
+      name: 'SALT MRKT PLCE Blood Orange Tangoberry',
+      types: ['SALT', 'SUB'],
+      profile: 'Salt 30ml: 24mg / 48mg  ·  Sub-Ohm 100ml: 0mg / 3mg / 6mg | Blood Orange, Grapefruit & Tangoberries',
+      image: 'mrkt-plce-blood-orange-tangoberry.jpg',
+      tags: 'MRKT PLCE, Blood Orange, Grapefruit, Tangerine, Tangoberries, Citrus, Berry'
+    };
+    const BLOOD2 = {
+      name: 'SALT MRKT PLCE Blood Orange Tangoberry #2',
+      types: ['SALT', 'SUB'],
+      profile: 'Salt 30ml: 24mg / 48mg  ·  Sub-Ohm 100ml: 0mg / 3mg / 6mg | Blood Orange, Grapefruit & Tangoberries',
+      image: 'mrkt-plce-blood-orange-tangoberry.jpg',
+      tags: 'MRKT PLCE, Blood Orange, Grapefruit, Tangerine, Tangoberries, Citrus, Berry'
+    };
+    let allItems = [...MENU_DATA, FUJI2, BLOOD1, BLOOD2];
     let activeType = 'ALL';
     const typeLabels = { DISP: 'Disposable', SALT: 'Salt Nic', SUB: 'Sub-Ohm', KIT: 'Kit' };
     const PINNED_NAMES = ["SALT Slapple", "SALT MRKT PLCE Fuji Pear Mangoberry"];
@@ -230,6 +244,12 @@
                    <div class="menu-item-name">${item.name === 'SALT MRKT PLCE Fuji Pear Mangoberry #2' ? 'Fuji Pear Mangoberry #2' : 'Fuji Pear Mangoberry'}</div>
                    <div style="font-size:0.98rem;color:#b8860b;margin-top:6px;">Pear, Mango, Apple &amp; Raspberry</div>
                  </div>`
+              : item.name === 'SALT MRKT PLCE Blood Orange Tangoberry' || item.name === 'SALT MRKT PLCE Blood Orange Tangoberry #2'
+              ? `<div style="text-align:center;">
+                   <img src="images/mrkt-plce-logo.svg" alt="MRKT PLCE" style="max-height:60px;width:auto;margin-bottom:6px;display:block;margin-left:auto;margin-right:auto;">
+                   <div class="menu-item-name">${item.name.includes('#2') ? 'Blood Orange Tangoberry #2' : 'Blood Orange Tangoberry'}</div>
+                   <div style="font-size:0.98rem;color:#b8860b;margin-top:6px;">Blood Orange, Grapefruit &amp; Tangoberries</div>
+                 </div>`
               : `<div style="text-align:center;">
                    <div class="menu-item-name">${displayName}</div>
                    ${flavor ? `<div style="font-size:0.98rem;color:#b8860b;margin-top:6px;">${flavor}</div>` : ''}
@@ -244,9 +264,18 @@
                  </div>`
               : item.name === 'SALT MRKT PLCE Fuji Pear Mangoberry #2'
               ? `<div style="font-size:0.82rem;color:#555;line-height:1.6;text-align:left;">A blend of fresh fuji apples, sweet pears, ripe mangos, and succulent berries. A tropical fruit explosion!</div>`
+              : item.name === 'SALT MRKT PLCE Blood Orange Tangoberry'
+              ? `<div style="font-size:0.78rem;color:#555;line-height:1.6;text-align:left;">
+                   <div style="color:#0088aa;font-size:0.7rem;font-family:'Orbitron',sans-serif;letter-spacing:0.06em;margin-bottom:6px;">FLAVOR PROFILE</div>
+                   <div><span style="color:#b8860b;">Inhale:</span> Zesty grapefruit and tangerine with a bright, tangy kick.</div>
+                   <div style="margin-top:4px;"><span style="color:#b8860b;">Body:</span> Deep, rich blood orange sweetness blooms through.</div>
+                   <div style="margin-top:4px;"><span style="color:#b8860b;">Exhale:</span> Smooth, refreshing finish of exotic tangoberries.</div>
+                 </div>`
+              : item.name === 'SALT MRKT PLCE Blood Orange Tangoberry #2'
+              ? `<div style="font-size:0.82rem;color:#555;line-height:1.6;text-align:left;">A bright and vibrant mix of sweet blood orange, juicy grapefruit, and fresh tangoberries!</div>`
               : `<div style="font-size:0.82rem;color:#555;text-align:center;">${sizes}</div>`}
           </div>
-          ${item.name === 'SALT MRKT PLCE Fuji Pear Mangoberry' || item.name === 'SALT MRKT PLCE Fuji Pear Mangoberry #2'
+          ${['SALT MRKT PLCE Fuji Pear Mangoberry','SALT MRKT PLCE Fuji Pear Mangoberry #2','SALT MRKT PLCE Blood Orange Tangoberry','SALT MRKT PLCE Blood Orange Tangoberry #2'].includes(item.name)
             ? `<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;margin-top:10px;border-top:1px solid #ddd;padding-top:10px;">
                  <div style="display:flex;align-items:center;gap:6px;">
                    <span style="font-size:0.78rem;color:#555;">30ml</span>
