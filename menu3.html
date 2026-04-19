@@ -144,7 +144,7 @@
     const MRKT_PLCE = {
       'SALT MRKT PLCE Blood Orange Tangoberry':     { title: 'Blood Orange Tangoberry',     subtitle: 'Blood Orange, Grapefruit &amp; Tangoberries',        desc: 'A bright and vibrant mix of sweet blood orange, juicy grapefruit, and fresh tangoberries!' },
       'SALT MRKT PLCE Forbidden Berry':             { title: 'Forbidden Berry',             subtitle: 'Tropical Fruit &amp; Mixed Berries',                  desc: 'Perfectly captures the flavors of tropical fruit intermingled with a mixed berry combination – forbidden fruit tastes the best.' },
-      'SALT MRKT PLCE Fuji Pear Mangoberry':        { title: 'Fuji Pear Mangoberry',        subtitle: 'Fuji Apple, Pear, Mango &amp; Berries',               desc: 'A blend of fresh fuji apples, sweet pears, ripe mangos, and succulent berries. A tropical fruit explosion!', icon: '🍎 🍐 🥭 🍓 🫐' },
+      'SALT MRKT PLCE Fuji Pear Mangoberry':        { title: 'Fuji Pear Mangoberry',        subtitle: 'Fuji Apple, Pear, Mango &amp; Berries',               desc: 'A blend of fresh fuji apples, sweet pears, ripe mangos, and succulent berries. A tropical fruit explosion!', icon: '🍎 🍐 🥭 🍓 🫐', iceLevel: 0 },
       'SALT MRKT PLCE Pineapple Peach Dragonberry': { title: 'Pineapple Peach Dragonberry', subtitle: 'Pineapple, Peach &amp; Dragonfruit',                  desc: 'Juicy pineapple infused with sweet peaches and a touch of dragonfruit.' },
       'SALT MRKT PLCE Watermelon Hula Berry Lime':  { title: 'Watermelon Hula Berry Lime',  subtitle: 'Watermelon, Hula Berry &amp; Lime',                   desc: 'An infusion of sweet watermelon, hula berry, and fresh-squeezed lime.' },
       'SALT MRKT PLCE Thai Apple Melon Razz':       { title: 'Thai Apple Melon Razz',       subtitle: 'Apple, Melon &amp; Raspberry',                        desc: 'Bold apple, lush melon, and zesty raspberry come together in a lively, flavorful vapor.' },
@@ -218,6 +218,14 @@
         div.className = 'menu-item';
 
         if (mrkt) {
+          const iceGauge = mrkt.iceLevel !== undefined ? `
+            <div style="display:flex;align-items:center;gap:6px;justify-content:flex-end;margin-top:10px;">
+              <span style="font-family:'Orbitron',sans-serif;font-size:0.55rem;font-weight:700;letter-spacing:0.08em;color:#0088aa;">ICE</span>
+              <div style="display:flex;gap:3px;">
+                ${[1,2,3,4,5].map(i => `<span style="display:inline-block;width:11px;height:11px;border-radius:50%;background:${i <= mrkt.iceLevel ? '#0088aa' : '#ddd'};"></span>`).join('')}
+              </div>
+              <span style="font-family:'Orbitron',sans-serif;font-size:0.55rem;font-weight:700;letter-spacing:0.08em;color:#0088aa;">LEVEL</span>
+            </div>` : '';
           div.innerHTML = `
             <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;margin-bottom:10px;">
               <div style="text-align:center;">
@@ -242,6 +250,7 @@
                 <span style="font-size:0.82rem;color:#555;">0mg / 3mg / 6mg</span>
               </div>
             </div>
+            ${iceGauge}
           `;
         } else {
           div.innerHTML = `
