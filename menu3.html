@@ -141,30 +141,21 @@
   <script src="js/app.js"></script>
   <script src="js/menu-data.js?v=3"></script>
   <script>
-    const FUJI2 = {
-      name: 'SALT MRKT PLCE Fuji Pear Mangoberry #2',
-      types: ['SALT', 'SUB'],
-      profile: 'Salt 30ml: 24mg / 48mg  ·  Sub-Ohm 100ml: 0mg / 3mg / 6mg | Fuji Apple, Pear, Mango, Berry',
-      image: 'mrkt-plce-fuji-pear-mangoberry.jpg',
-      tags: 'MRKT PLCE, Fuji, Pear, Mango, Berry, Apple, Tropical'
+    const MRKT_PLCE = {
+      'SALT MRKT PLCE Blood Orange Tangoberry':     { title: 'Blood Orange Tangoberry',     subtitle: 'Blood Orange, Grapefruit &amp; Tangoberries',        desc: 'A bright and vibrant mix of sweet blood orange, juicy grapefruit, and fresh tangoberries!' },
+      'SALT MRKT PLCE Forbidden Berry':             { title: 'Forbidden Berry',             subtitle: 'Tropical Fruit &amp; Mixed Berries',                  desc: 'Perfectly captures the flavors of tropical fruit intermingled with a mixed berry combination – forbidden fruit tastes the best.' },
+      'SALT MRKT PLCE Fuji Pear Mangoberry':        { title: 'Fuji Pear Mangoberry',        subtitle: 'Fuji Apple, Pear, Mango &amp; Berries',               desc: 'A blend of fresh fuji apples, sweet pears, ripe mangos, and succulent berries. A tropical fruit explosion!' },
+      'SALT MRKT PLCE Pineapple Peach Dragonberry': { title: 'Pineapple Peach Dragonberry', subtitle: 'Pineapple, Peach &amp; Dragonfruit',                  desc: 'Juicy pineapple infused with sweet peaches and a touch of dragonfruit.' },
+      'SALT MRKT PLCE Watermelon Hula Berry Lime':  { title: 'Watermelon Hula Berry Lime',  subtitle: 'Watermelon, Hula Berry &amp; Lime',                   desc: 'An infusion of sweet watermelon, hula berry, and fresh-squeezed lime.' },
+      'SALT MRKT PLCE Thai Apple Melon Razz':       { title: 'Thai Apple Melon Razz',       subtitle: 'Apple, Melon &amp; Raspberry',                        desc: 'Bold apple, lush melon, and zesty raspberry come together in a lively, flavorful vapor.' },
+      'SALT MRKT PLCE Iced Fuji Pear Mangoberry':   { title: 'Iced Fuji Pear Mangoberry',   subtitle: 'Fuji Apple, Pear, Mango &amp; Berries &mdash; Iced',  desc: 'All the tropical freshness of Fuji Pear Mangoberry, finished with a cool icy exhale.' },
+      'SALT MRKT PLCE Iced Forbidden Berry':        { title: 'Iced Forbidden Berry',        subtitle: 'Tropical Fruit &amp; Mixed Berries &mdash; Iced',     desc: 'The beloved Forbidden Berry blend elevated with a refreshing burst of ice.' },
     };
-    const BLOOD2 = {
-      name: 'SALT MRKT PLCE Blood Orange Tangoberry #2',
-      types: ['SALT', 'SUB'],
-      profile: 'Salt 30ml: 24mg / 48mg  ·  Sub-Ohm 100ml: 0mg / 3mg / 6mg | Blood Orange, Grapefruit & Tangoberries',
-      image: 'mrkt-plce-blood-orange-tangoberry.jpg',
-      tags: 'MRKT PLCE, Blood Orange, Grapefruit, Tangerine, Tangoberries, Citrus, Berry'
-    };
-    const FORBIDDEN2 = {
-      name: 'SALT MRKT PLCE Forbidden Berry #2',
-      types: ['SALT', 'SUB'],
-      profile: 'Salt 30ml: 24mg / 48mg  ·  Sub-Ohm 100ml: 0mg / 3mg / 6mg | Strawberries, Raspberries & Blackberries',
-      image: 'mrkt-plce-forbidden-berry.jpg',
-      tags: 'MRKT PLCE, Forbidden Berry, Strawberry, Raspberry, Blackberry, Watermelon, Lime, Tropical, Berry'
-    };
-    let allItems = [...MENU_DATA, FUJI2, BLOOD2, FORBIDDEN2];
+
+    let allItems = MENU_DATA;
     let activeType = 'ALL';
     const typeLabels = { DISP: 'Disposable', SALT: 'Salt Nic', SUB: 'Sub-Ohm', KIT: 'Kit' };
+
     function itemTypeMatch(item, type) {
       if (type === 'ALL') return true;
       return item.types ? item.types.includes(type) : item.name.startsWith(type);
@@ -196,6 +187,7 @@
       noResults.style.display = filtered.length === 0 ? 'block' : 'none';
 
       filtered.forEach(item => {
+        const mrkt = MRKT_PLCE[item.name];
         const type = item.name.split(' ')[0];
         const displayName = item.name.replace(/^(DISP|SALT|SUB|KIT)\s+/, '');
         const isDual = item.types && item.types.length > 1;
@@ -207,95 +199,64 @@
           sizes = item.profile || '';
         }
 
-        const saltMl  = (sizes.match(/Salt\s+(\d+ml)/i)  || [])[1] || '';
-        const subMl   = (sizes.match(/Sub-Ohm\s+(\d+ml(?:\s*\/\s*\d+ml)*)/i) || [])[1] || '';
+        const saltMl = (sizes.match(/Salt\s+(\d+ml)/i)  || [])[1] || '';
+        const subMl  = (sizes.match(/Sub-Ohm\s+(\d+ml(?:\s*\/\s*\d+ml)*)/i) || [])[1] || '';
 
         const badgeHtml = isDual
           ? item.types.map(t => {
               const prefix = t === 'SALT' && saltMl ? `<span style="font-size:0.78rem;color:#555;margin-right:4px;">${saltMl}</span>` :
-                             t === 'SUB'  && subMl  ? `<span style="font-size:0.78rem;color:#555;margin-right:4px;">${subMl}</span>`  : '';
+                             t === 'SUB'  && subMl  ? `<span style="font-size:0.78rem;color:#555;margin-right:4px;">${subMl}</span>` : '';
               return `<span style="display:inline-flex;align-items:center;">${prefix}<span class="menu-item-type type-${t}">${typeLabels[t] || t}</span></span>`;
             }).join('')
           : (() => {
               const prefix = type === 'SALT' && saltMl ? `<span style="font-size:0.78rem;color:#555;margin-right:4px;">${saltMl}</span>` :
-                             type === 'SUB'  && subMl  ? `<span style="font-size:0.78rem;color:#555;margin-right:4px;">${subMl}</span>`  : '';
+                             type === 'SUB'  && subMl  ? `<span style="font-size:0.78rem;color:#555;margin-right:4px;">${subMl}</span>` : '';
               return `<span style="display:inline-flex;align-items:center;">${prefix}<span class="menu-item-type type-${type}">${typeLabels[type] || type}</span></span>`;
             })();
 
         const div = document.createElement('div');
         div.className = 'menu-item';
-        div.innerHTML = `
-          <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;margin-bottom:10px;">
-            ${item.name === 'SALT MRKT PLCE Fuji Pear Mangoberry' || item.name === 'SALT MRKT PLCE Fuji Pear Mangoberry #2'
-              ? `<div style="text-align:center;">
-                   <img src="images/mrkt-plce-logo.svg" alt="MRKT PLCE" style="max-height:60px;width:auto;margin-bottom:6px;display:block;margin-left:auto;margin-right:auto;">
-                   <div class="menu-item-name">${item.name === 'SALT MRKT PLCE Fuji Pear Mangoberry #2' ? 'Fuji Pear Mangoberry #2' : 'Fuji Pear Mangoberry'}</div>
-                   <div style="font-size:0.98rem;color:#b8860b;margin-top:6px;">Pear, Mango, Apple &amp; Raspberry</div>
-                 </div>`
-              : item.name === 'SALT MRKT PLCE Blood Orange Tangoberry' || item.name === 'SALT MRKT PLCE Blood Orange Tangoberry #2'
-              ? `<div style="text-align:center;">
-                   <img src="images/mrkt-plce-logo.svg" alt="MRKT PLCE" style="max-height:60px;width:auto;margin-bottom:6px;display:block;margin-left:auto;margin-right:auto;">
-                   <div class="menu-item-name">${item.name.includes('#2') ? 'Blood Orange Tangoberry #2' : 'Blood Orange Tangoberry'}</div>
-                   <div style="font-size:0.98rem;color:#b8860b;margin-top:6px;">Blood Orange, Grapefruit &amp; Tangoberries</div>
-                 </div>`
-              : item.name === 'SALT MRKT PLCE Forbidden Berry' || item.name === 'SALT MRKT PLCE Forbidden Berry #2'
-              ? `<div style="text-align:center;">
-                   <img src="images/mrkt-plce-logo.svg" alt="MRKT PLCE" style="max-height:60px;width:auto;margin-bottom:6px;display:block;margin-left:auto;margin-right:auto;">
-                   <div class="menu-item-name">${item.name.includes('#2') ? 'Forbidden Berry #2' : 'Forbidden Berry'}</div>
-                   <div style="font-size:0.98rem;color:#b8860b;margin-top:6px;">Strawberries, Raspberries &amp; Blackberries</div>
-                 </div>`
-              : `<div style="text-align:center;">
-                   <div class="menu-item-name">${displayName}</div>
-                   ${flavor ? `<div style="font-size:0.98rem;color:#b8860b;margin-top:6px;">${flavor}</div>` : ''}
-                 </div>`}
-            ${item.image ? `<img src="images/${item.image}" alt="${displayName}" style="width:180px;border-radius:6px;object-fit:contain;max-height:140px;background:#fff;">` : '<div style="width:180px;"></div>'}
-            ${item.name === 'SALT MRKT PLCE Fuji Pear Mangoberry'
-              ? `<div style="font-size:0.78rem;color:#555;line-height:1.6;text-align:left;">
-                   <div style="color:#0088aa;font-size:0.7rem;font-family:'Orbitron',sans-serif;letter-spacing:0.06em;margin-bottom:6px;">FLAVOR PROFILE</div>
-                   <div><span style="color:#b8860b;">Inhale:</span> Crisp, slightly tart Fuji Apple with sweet, mellow Pear.</div>
-                   <div style="margin-top:4px;"><span style="color:#b8860b;">Body:</span> Tropical mango creaminess — smooth &amp; velvety.</div>
-                   <div style="margin-top:4px;"><span style="color:#b8860b;">Exhale:</span> Bold burst of Mixed Berries with a lingering tangy sweetness.</div>
-                 </div>`
-              : item.name === 'SALT MRKT PLCE Fuji Pear Mangoberry #2'
-              ? `<div style="font-size:0.82rem;color:#555;line-height:1.6;text-align:left;">A blend of fresh fuji apples, sweet pears, ripe mangos, and succulent berries. A tropical fruit explosion!</div>`
-              : item.name === 'SALT MRKT PLCE Blood Orange Tangoberry'
-              ? `<div style="font-size:0.78rem;color:#555;line-height:1.6;text-align:left;">
-                   <div style="color:#0088aa;font-size:0.7rem;font-family:'Orbitron',sans-serif;letter-spacing:0.06em;margin-bottom:6px;">FLAVOR PROFILE</div>
-                   <div><span style="color:#b8860b;">Inhale:</span> Zesty grapefruit and tangerine with a bright, tangy kick.</div>
-                   <div style="margin-top:4px;"><span style="color:#b8860b;">Body:</span> Deep, rich blood orange sweetness blooms through.</div>
-                   <div style="margin-top:4px;"><span style="color:#b8860b;">Exhale:</span> Smooth, refreshing finish of exotic tangoberries.</div>
-                 </div>`
-              : item.name === 'SALT MRKT PLCE Blood Orange Tangoberry #2'
-              ? `<div style="font-size:0.82rem;color:#555;line-height:1.6;text-align:left;">A bright and vibrant mix of sweet blood orange, juicy grapefruit, and fresh tangoberries!</div>`
-              : item.name === 'SALT MRKT PLCE Forbidden Berry'
-              ? `<div style="font-size:0.78rem;color:#555;line-height:1.6;text-align:left;">
-                   <div style="color:#0088aa;font-size:0.7rem;font-family:'Orbitron',sans-serif;letter-spacing:0.06em;margin-bottom:6px;">FLAVOR PROFILE</div>
-                   <div><span style="color:#b8860b;">Inhale:</span> Juicy strawberries and tangy raspberries with a burst of sweet blackberries.</div>
-                   <div style="margin-top:4px;"><span style="color:#b8860b;">Body:</span> Tropical notes of watermelon and lime balance the berry medley.</div>
-                   <div style="margin-top:4px;"><span style="color:#b8860b;">Exhale:</span> Bright, clean finish — smooth and not overly sweet.</div>
-                 </div>`
-              : item.name === 'SALT MRKT PLCE Forbidden Berry #2'
-              ? `<div style="font-size:0.82rem;color:#555;line-height:1.6;text-align:left;">Perfectly captures the flavors of tropical fruit intermingled with a mixed berry combination – forbidden fruit tastes the best.</div>`
-              : `<div style="font-size:0.82rem;color:#555;text-align:center;">${sizes}</div>`}
-          </div>
-          ${['SALT MRKT PLCE Fuji Pear Mangoberry','SALT MRKT PLCE Fuji Pear Mangoberry #2','SALT MRKT PLCE Blood Orange Tangoberry','SALT MRKT PLCE Blood Orange Tangoberry #2','SALT MRKT PLCE Forbidden Berry','SALT MRKT PLCE Forbidden Berry #2'].includes(item.name)
-            ? `<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;margin-top:10px;border-top:1px solid #ddd;padding-top:10px;">
-                 <div style="display:flex;align-items:center;gap:6px;">
-                   <span style="font-size:0.78rem;color:#555;">30ml</span>
-                   <span class="menu-item-type type-SALT">Salt Nic</span>
-                   <span style="font-size:0.82rem;color:#555;">24mg / 48mg</span>
-                 </div>
-                 <span style="font-size:0.9rem;color:#555;">&amp;</span>
-                 <div style="display:flex;align-items:center;gap:6px;">
-                   <span style="font-size:0.78rem;color:#555;">100ml</span>
-                   <span class="menu-item-type type-SUB">Sub-Ohm</span>
-                   <span style="font-size:0.82rem;color:#555;">0mg / 3mg / 6mg</span>
-                 </div>
-               </div>`
-            : `<div style="display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-top:4px;">${badgeHtml}</div>`}
-          ${item.price ? `<div style="font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:700;color:#aaff00;margin-top:8px;text-align:center;">${item.price}</div>` : ''}
-          ${item.link ? `<a href="${item.link}" style="display:block;margin-top:10px;font-size:0.75rem;color:#0088aa;text-decoration:none;font-family:'Orbitron',sans-serif;letter-spacing:0.05em;text-align:center;">Learn More &rarr;</a>` : ''}
-        `;
+
+        if (mrkt) {
+          div.innerHTML = `
+            <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;margin-bottom:10px;">
+              <div style="text-align:center;">
+                <img src="images/mrkt-plce-logo.svg" alt="MRKT PLCE" style="max-height:56px;width:auto;margin-bottom:8px;display:block;margin-left:auto;margin-right:auto;">
+                <div class="menu-item-name">${mrkt.title}</div>
+                <div style="font-size:0.9rem;color:#b8860b;margin-top:6px;">${mrkt.subtitle}</div>
+              </div>
+              ${item.image ? `<img src="images/${item.image}" alt="${mrkt.title}" style="width:180px;border-radius:6px;object-fit:contain;max-height:140px;background:#fff;">` : '<div style="width:180px;"></div>'}
+              <div style="font-size:0.85rem;color:#555;line-height:1.65;text-align:left;">${mrkt.desc}</div>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;margin-top:10px;border-top:1px solid #ddd;padding-top:10px;">
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span style="font-size:0.78rem;color:#555;">30ml</span>
+                <span class="menu-item-type type-SALT">Salt Nic</span>
+                <span style="font-size:0.82rem;color:#555;">24mg / 48mg</span>
+              </div>
+              <span style="font-size:0.9rem;color:#555;">&amp;</span>
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span style="font-size:0.78rem;color:#555;">100ml</span>
+                <span class="menu-item-type type-SUB">Sub-Ohm</span>
+                <span style="font-size:0.82rem;color:#555;">0mg / 3mg / 6mg</span>
+              </div>
+            </div>
+          `;
+        } else {
+          div.innerHTML = `
+            <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;margin-bottom:10px;">
+              <div style="text-align:center;">
+                <div class="menu-item-name">${displayName}</div>
+                ${flavor ? `<div style="font-size:0.98rem;color:#b8860b;margin-top:6px;">${flavor}</div>` : ''}
+              </div>
+              ${item.image ? `<img src="images/${item.image}" alt="${displayName}" style="width:180px;border-radius:6px;object-fit:contain;max-height:140px;background:#fff;">` : '<div style="width:180px;"></div>'}
+              <div style="font-size:0.82rem;color:#555;text-align:center;">${sizes}</div>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-top:4px;">${badgeHtml}</div>
+            ${item.price ? `<div style="font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:700;color:#aaff00;margin-top:8px;text-align:center;">${item.price}</div>` : ''}
+            ${item.link ? `<a href="${item.link}" style="display:block;margin-top:10px;font-size:0.75rem;color:#0088aa;text-decoration:none;font-family:'Orbitron',sans-serif;letter-spacing:0.05em;text-align:center;">Learn More &rarr;</a>` : ''}
+          `;
+        }
         list.appendChild(div);
       });
     }
