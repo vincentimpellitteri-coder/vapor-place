@@ -225,8 +225,8 @@
         const div = document.createElement('div');
         div.className = 'menu-item';
         div.innerHTML = `
+          <div class="menu-item-name" style="text-align:center;margin-bottom:10px;">${displayName}</div>
           ${item.image ? `<img src="images/${item.image}" alt="${displayName}" style="width:100%;border-radius:6px;margin-bottom:10px;object-fit:contain;max-height:160px;background:#111;">` : ''}
-          <div class="menu-item-name" style="text-align:center;">${displayName}</div>
           ${profileHtml}
           <div style="display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-top:4px;">${badgeHtml}</div>
           ${item.price ? `<div style="font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:700;color:#aaff00;margin-top:8px;text-align:center;">${item.price}</div>` : ''}
