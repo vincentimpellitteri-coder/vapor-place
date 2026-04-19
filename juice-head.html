@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juice Head — The Vapor Place</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .back-btn {
+      display: inline-block;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #00e5ff;
+      border: 1px solid #00e5ff;
+      border-radius: 6px;
+      padding: 10px 20px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .back-btn:hover { background: rgba(0,229,255,0.1); }
+    .back-bar { margin: 24px 0; }
+    .flavor-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+      margin: 32px 0;
+    }
+    .flavor-card {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 10px;
+      padding: 20px 16px;
+      text-align: center;
+      transition: border-color 0.2s;
+    }
+    .flavor-card:hover { border-color: #00e5ff44; }
+    .flavor-card img {
+      width: 100%;
+      max-height: 200px;
+      object-fit: contain;
+      border-radius: 6px;
+      background: #111;
+      margin-bottom: 14px;
+    }
+    .flavor-name { font-size: 1.15rem; font-weight: 700; color: #f0f0f0; margin-bottom: 6px; }
+    .flavor-desc { font-size: 0.9rem; color: #ffcc00; margin-bottom: 4px; }
+    .flavor-detail { font-size: 0.78rem; color: #888; }
+    .badge-row { display: flex; gap: 6px; justify-content: center; margin-top: 10px; }
+    .badge {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.55rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+    .badge-salt { background: rgba(170,255,0,0.12); color: #aaff00; }
+    .badge-sub  { background: rgba(0,229,255,0.12);  color: #00e5ff; }
+    h1 span { color: #00e5ff; }
+    .freeze-note { font-size: 0.75rem; color: #00e5ff; margin-top: 4px; }
+  </style>
+</head>
+<body id="inner-page">
+<div style="position:relative;z-index:1;">
+
+  <header>
+    <div class="header-inner">
+      <a href="home.html" class="logo-link">
+        <img src="images/logo.png" alt="The Vapor Place" class="logo-img">
+      </a>
+      <span class="badge-21">21+</span>
+    </div>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="hours.html">Hours</a>
+      <a href="menu.html" class="active">Menu</a>
+      <a href="featured.html">Featured</a>
+      <a href="top-sellers.html">Top Sellers</a>
+      <a href="locations.html">Locations</a>
+      <a href="contact.html">Contact</a>
+      <a href="info.html">Info</a>
+      <a href="rewards.html">Rewards</a>
+      <a href="kits.html">Kits</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="back-bar">
+      <a href="menu.html" class="back-btn">&larr; Back to Menu</a>
+    </div>
+
+    <h1>Juice <span>Head</span></h1>
+    <p style="color:#888;margin-bottom:8px;">Salt 30ml: 25mg / 35mg / 50mg &nbsp;&middot;&nbsp; Sub-Ohm 100ml: 0mg / 3mg / 6mg &nbsp;&middot;&nbsp; Each flavor available regular &amp; freeze</p>
+
+    <div class="flavor-grid">
+
+      <div class="flavor-card">
+        <img src="images/juice-head-blueberry-lemon-both.jpg" alt="Blueberry Lemon">
+        <div class="flavor-name">Blueberry Lemon</div>
+        <div class="flavor-desc">Blueberry, Lemon, Fruit</div>
+        <div class="freeze-note">&#10052; Also available in Freeze</div>
+        <div class="badge-row">
+          <span class="badge badge-salt">Salt Nic</span>
+          <span class="badge badge-sub">Sub-Ohm</span>
+        </div>
+      </div>
+
+      <div class="flavor-card">
+        <img src="images/juice-head-guava-peach-both.jpg" alt="Guava Peach">
+        <div class="flavor-name">Guava Peach</div>
+        <div class="flavor-desc">Guava, Peach, Fruit</div>
+        <div class="freeze-note">&#10052; Also available in Freeze</div>
+        <div class="badge-row">
+          <span class="badge badge-salt">Salt Nic</span>
+          <span class="badge badge-sub">Sub-Ohm</span>
+        </div>
+      </div>
+
+      <div class="flavor-card">
+        <img src="images/juice-head-mango-strawberry-both.jpg" alt="Mango Strawberry">
+        <div class="flavor-name">Mango Strawberry</div>
+        <div class="flavor-desc">Mango, Strawberry, Fruit</div>
+        <div class="freeze-note">&#10052; Also available in Freeze</div>
+        <div class="badge-row">
+          <span class="badge badge-salt">Salt Nic</span>
+          <span class="badge badge-sub">Sub-Ohm</span>
+        </div>
+      </div>
+
+      <div class="flavor-card">
+        <img src="images/juice-head-orange-mango-both.jpg" alt="Orange Mango">
+        <div class="flavor-name">Orange Mango</div>
+        <div class="flavor-desc">Orange, Mango, Fruit</div>
+        <div class="freeze-note">&#10052; Also available in Freeze</div>
+        <div class="badge-row">
+          <span class="badge badge-salt">Salt Nic</span>
+          <span class="badge badge-sub">Sub-Ohm</span>
+        </div>
+      </div>
+
+      <div class="flavor-card">
+        <img src="images/juice-head-peach-pear-both.jpg" alt="Peach Pear">
+        <div class="flavor-name">Peach Pear</div>
+        <div class="flavor-desc">Peach, Pear, Fruit</div>
+        <div class="freeze-note">&#10052; Also available in Freeze</div>
+        <div class="badge-row">
+          <span class="badge badge-salt">Salt Nic</span>
+          <span class="badge badge-sub">Sub-Ohm</span>
+        </div>
+      </div>
+
+      <div class="flavor-card">
+        <img src="images/juice-head-pineapple-grapefruit-both.jpg" alt="Pineapple Grapefruit">
+        <div class="flavor-name">Pineapple Grapefruit</div>
+        <div class="flavor-desc">Pineapple, Grapefruit, Fruit</div>
+        <div class="freeze-note">&#10052; Also available in Freeze</div>
+        <div class="badge-row">
+          <span class="badge badge-salt">Salt Nic</span>
+          <span class="badge badge-sub">Sub-Ohm</span>
+        </div>
+      </div>
+
+      <div class="flavor-card">
+        <img src="images/juice-head-pineapple-guava-both.jpg" alt="Pineapple Guava">
+        <div class="flavor-name">Pineapple Guava</div>
+        <div class="flavor-desc">Pineapple, Guava, Fruit</div>
+        <div class="freeze-note">&#10052; Also available in Freeze</div>
+        <div class="badge-row">
+          <span class="badge badge-salt">Salt Nic</span>
+          <span class="badge badge-sub">Sub-Ohm</span>
+        </div>
+      </div>
+
+      <div class="flavor-card">
+        <img src="images/juice-head-raspberry-lemonade-both.jpg" alt="Raspberry Lemonade">
+        <div class="flavor-name">Raspberry Lemonade</div>
+        <div class="flavor-desc">Raspberry, Lemonade, Fruit</div>
+        <div class="freeze-note">&#10052; Also available in Freeze</div>
+        <div class="badge-row">
+          <span class="badge badge-salt">Salt Nic</span>
+          <span class="badge badge-sub">Sub-Ohm</span>
+        </div>
+      </div>
+
+      <div class="flavor-card">
+        <img src="images/juice-head-strawberry-kiwi-both.jpg" alt="Strawberry Kiwi">
+        <div class="flavor-name">Strawberry Kiwi</div>
+        <div class="flavor-desc">Strawberry, Kiwi, Fruit</div>
+        <div class="freeze-note">&#10052; Also available in Freeze</div>
+        <div class="badge-row">
+          <span class="badge badge-salt">Salt Nic</span>
+          <span class="badge badge-sub">Sub-Ohm</span>
+        </div>
+      </div>
+
+      <div class="flavor-card">
+        <img src="images/juice-head-watermelon-lime-both.jpg" alt="Watermelon Lime">
+        <div class="flavor-name">Watermelon Lime</div>
+        <div class="flavor-desc">Watermelon, Lime, Fruit</div>
+        <div class="freeze-note">&#10052; Also available in Freeze</div>
+        <div class="badge-row">
+          <span class="badge badge-salt">Salt Nic</span>
+          <span class="badge badge-sub">Sub-Ohm</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="back-bar">
+      <a href="menu.html" class="back-btn">&larr; Back to Menu</a>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2026 The Vapor Place &mdash; Must be 21+ to purchase.
+  </footer>
+
+</div>
+</body>
+</html>
