@@ -144,7 +144,7 @@
     const MRKT_PLCE = {
       'SALT MRKT PLCE Blood Orange Tangoberry':     { title: 'Blood Orange Tangoberry',     subtitle: 'Blood Orange, Grapefruit &amp; Tangoberries',        desc: 'A bright and vibrant mix of sweet blood orange, juicy grapefruit, and fresh tangoberries!' },
       'SALT MRKT PLCE Forbidden Berry':             { title: 'Forbidden Berry',             subtitle: 'Tropical Fruit &amp; Mixed Berries',                  desc: 'Perfectly captures the flavors of tropical fruit intermingled with a mixed berry combination – forbidden fruit tastes the best.' },
-      'SALT MRKT PLCE Fuji Pear Mangoberry':        { title: 'Fuji Pear Mangoberry',        subtitle: 'Fuji Apple, Pear, Mango &amp; Berries',               desc: 'A blend of fresh fuji apples, sweet pears, ripe mangos, and succulent berries. A tropical fruit explosion!' },
+      'SALT MRKT PLCE Fuji Pear Mangoberry':        { title: 'Fuji Pear Mangoberry',        subtitle: 'Fuji Apple, Pear, Mango &amp; Berries',               desc: 'A blend of fresh fuji apples, sweet pears, ripe mangos, and succulent berries. A tropical fruit explosion!', icon: '🍎' },
       'SALT MRKT PLCE Pineapple Peach Dragonberry': { title: 'Pineapple Peach Dragonberry', subtitle: 'Pineapple, Peach &amp; Dragonfruit',                  desc: 'Juicy pineapple infused with sweet peaches and a touch of dragonfruit.' },
       'SALT MRKT PLCE Watermelon Hula Berry Lime':  { title: 'Watermelon Hula Berry Lime',  subtitle: 'Watermelon, Hula Berry &amp; Lime',                   desc: 'An infusion of sweet watermelon, hula berry, and fresh-squeezed lime.' },
       'SALT MRKT PLCE Thai Apple Melon Razz':       { title: 'Thai Apple Melon Razz',       subtitle: 'Apple, Melon &amp; Raspberry',                        desc: 'Bold apple, lush melon, and zesty raspberry come together in a lively, flavorful vapor.' },
@@ -224,6 +224,7 @@
                 <img src="images/mrkt-plce-logo.svg" alt="MRKT PLCE" style="max-height:56px;width:auto;margin-bottom:8px;display:block;margin-left:auto;margin-right:auto;">
                 <div class="menu-item-name">${mrkt.title}</div>
                 <div style="font-size:0.9rem;color:#b8860b;margin-top:6px;">${mrkt.subtitle}</div>
+                ${mrkt.icon ? `<div style="font-size:1.5rem;margin-top:6px;">${mrkt.icon}</div>` : ''}
               </div>
               ${item.image ? `<img src="images/${item.image}" alt="${mrkt.title}" style="width:180px;border-radius:6px;object-fit:contain;max-height:140px;background:#fff;">` : '<div style="width:180px;"></div>'}
               <div style="font-size:0.85rem;color:#555;line-height:1.65;text-align:left;">${mrkt.desc}</div>
