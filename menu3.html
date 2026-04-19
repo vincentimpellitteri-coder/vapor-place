@@ -141,7 +141,14 @@
   <script src="js/app.js"></script>
   <script src="js/menu-data.js?v=3"></script>
   <script>
-    let allItems = MENU_DATA;
+    const FUJI2 = {
+      name: 'SALT MRKT PLCE Fuji Pear Mangoberry #2',
+      types: ['SALT', 'SUB'],
+      profile: 'Salt 30ml: 24mg / 48mg  ·  Sub-Ohm 100ml: 0mg / 3mg / 6mg | Fuji Apple, Pear, Mango, Berry',
+      image: 'mrkt-plce-fuji-pear-mangoberry.jpg',
+      tags: 'MRKT PLCE, Fuji, Pear, Mango, Berry, Apple, Tropical'
+    };
+    let allItems = [...MENU_DATA, FUJI2];
     let activeType = 'ALL';
     const typeLabels = { DISP: 'Disposable', SALT: 'Salt Nic', SUB: 'Sub-Ohm', KIT: 'Kit' };
     const PINNED_NAMES = ["SALT Slapple", "SALT MRKT PLCE Fuji Pear Mangoberry"];
@@ -216,10 +223,10 @@
         div.className = 'menu-item';
         div.innerHTML = `
           <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;margin-bottom:10px;">
-            ${item.name === 'SALT MRKT PLCE Fuji Pear Mangoberry'
+            ${item.name === 'SALT MRKT PLCE Fuji Pear Mangoberry' || item.name === 'SALT MRKT PLCE Fuji Pear Mangoberry #2'
               ? `<div style="text-align:center;">
                    <img src="images/mrkt-plce-logo.svg" alt="MRKT PLCE" style="max-height:60px;width:auto;margin-bottom:6px;display:block;margin-left:auto;margin-right:auto;">
-                   <div class="menu-item-name">Fuji Pear Mangoberry</div>
+                   <div class="menu-item-name">${item.name === 'SALT MRKT PLCE Fuji Pear Mangoberry #2' ? 'Fuji Pear Mangoberry #2' : 'Fuji Pear Mangoberry'}</div>
                    <div style="font-size:0.98rem;color:#b8860b;margin-top:6px;">Pear, Mango, Apple &amp; Raspberry</div>
                  </div>`
               : `<div style="text-align:center;">
@@ -234,10 +241,12 @@
                    <div style="margin-top:4px;"><span style="color:#b8860b;">Body:</span> Tropical mango creaminess — smooth &amp; velvety.</div>
                    <div style="margin-top:4px;"><span style="color:#b8860b;">Exhale:</span> Bold burst of Mixed Berries with a lingering tangy sweetness.</div>
                  </div>`
+              : item.name === 'SALT MRKT PLCE Fuji Pear Mangoberry #2'
+              ? `<div style="font-size:0.82rem;color:#555;line-height:1.6;text-align:left;">A blend of fresh fuji apples, sweet pears, ripe mangos, and succulent berries. A tropical fruit explosion!</div>`
               : `<div style="font-size:0.82rem;color:#555;text-align:center;">${sizes}</div>`}
           </div>
-          ${item.name === 'SALT MRKT PLCE Fuji Pear Mangoberry'
-            ? `<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;margin-top:10px;border-top:1px solid #2a2a2a;padding-top:10px;">
+          ${item.name === 'SALT MRKT PLCE Fuji Pear Mangoberry' || item.name === 'SALT MRKT PLCE Fuji Pear Mangoberry #2'
+            ? `<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;margin-top:10px;border-top:1px solid #ddd;padding-top:10px;">
                  <div style="display:flex;align-items:center;gap:6px;">
                    <span style="font-size:0.78rem;color:#555;">30ml</span>
                    <span class="menu-item-type type-SALT">Salt Nic</span>
