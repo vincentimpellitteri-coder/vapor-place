@@ -302,6 +302,7 @@
               </div>
               <div style="text-align:center;">
                 <img src="images/${mrkt.imageIced}" alt="Iced ${mrkt.title}" style="width:160px;border-radius:6px;object-fit:contain;max-height:130px;background:#fff;">
+                ${mrkt.bottomIcon ? `<div style="font-size:2.1rem;margin-top:4px;">${mrkt.bottomIcon}</div>` : ''}
                 ${iceBadge(mrkt.iceLevelIced)}
               </div>
             </div>
@@ -321,9 +322,7 @@
                   <span style="font-size:0.82rem;color:#555;">${cSubStr}</span>
                 </div>
               </div>
-              <div style="flex:1;display:flex;justify-content:flex-end;align-items:center;">
-                ${mrkt.bottomIcon ? `<span style="font-size:1.4rem;">${mrkt.bottomIcon}</span>` : ''}
-              </div>
+              <div style="flex:1;"></div>
             </div>
           `;
         } else if (mrkt && mrkt.solo) {
