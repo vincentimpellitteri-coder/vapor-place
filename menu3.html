@@ -154,6 +154,10 @@
         desc: 'Perfectly captures the flavors of tropical fruit intermingled with a mixed berry combination – forbidden fruit tastes the best.',
         imageIced: 'mrkt-plce-iced-forbidden-berry.jpg',
         iceLevelRegular: 0, iceLevelIced: 3, combo: true },
+      'MRKT PLCE Fuji Pear Mangoberry Collection': { title: 'Fuji Pear Mangoberry',        subtitle: 'Fuji Apple, Pear, Mango &amp; Berries', icon: '🍎 🍐 🥭 🍓 🫐',
+        desc: 'A blend of fresh fuji apples, sweet pears, ripe mangos, and succulent berries. A tropical fruit explosion!',
+        imageIced: 'mrkt-plce-iced-fuji-pear-mangoberry.jpg',
+        iceLevelRegular: 0, iceLevelIced: 3, combo: true },
     };
 
     const FORBIDDEN_COMBO = {
@@ -163,7 +167,14 @@
       image: 'mrkt-plce-forbidden-berry.jpg',
       tags: 'MRKT PLCE, Forbidden Berry, Strawberry, Raspberry, Blackberry, Ice, Iced, Berry, Tropical'
     };
-    let allItems = [...MENU_DATA, FORBIDDEN_COMBO];
+    const FUJI_COMBO = {
+      name: 'MRKT PLCE Fuji Pear Mangoberry Collection',
+      types: ['SALT', 'SUB'],
+      profile: 'Salt 30ml: 24mg / 48mg · Sub-Ohm 100ml: 0mg / 3mg / 6mg | Fuji Apple, Pear, Mango, Berry',
+      image: 'mrkt-plce-fuji-pear-mangoberry.jpg',
+      tags: 'MRKT PLCE, Fuji, Pear, Mango, Berry, Apple, Ice, Iced, Tropical'
+    };
+    let allItems = [...MENU_DATA, FORBIDDEN_COMBO, FUJI_COMBO];
     let activeType = 'ALL';
     const typeLabels = { DISP: 'Disposable', SALT: 'Salt Nic', SUB: 'Sub-Ohm', KIT: 'Kit' };
 
