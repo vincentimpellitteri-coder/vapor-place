@@ -302,12 +302,11 @@
               </div>
               <div style="text-align:center;">
                 <img src="images/${mrkt.imageIced}" alt="Iced ${mrkt.title}" style="width:160px;border-radius:6px;object-fit:contain;max-height:130px;background:#fff;">
-                ${mrkt.bottomIcon ? `<div style="font-size:2.1rem;margin-top:4px;">${mrkt.bottomIcon}</div>` : ''}
                 ${iceBadge(mrkt.iceLevelIced)}
               </div>
             </div>
-            <div style="display:flex;align-items:center;margin-top:10px;border-top:1px solid #ddd;padding-top:10px;">
-              <div style="flex:1;display:flex;justify-content:flex-start;">
+            <div style="display:grid;grid-template-columns:160px 1fr 160px;align-items:center;margin-top:10px;border-top:1px solid #ddd;padding-top:10px;">
+              <div style="text-align:left;">
                 <span style="font-size:0.82rem;color:#555;">${cVgPg}</span>
               </div>
               <div style="display:flex;flex-direction:column;gap:6px;align-items:center;">
@@ -322,7 +321,9 @@
                   <span style="font-size:0.82rem;color:#555;">${cSubStr}</span>
                 </div>
               </div>
-              <div style="flex:1;"></div>
+              <div style="text-align:center;">
+                ${mrkt.bottomIcon ? `<span style="font-size:2.1rem;">${mrkt.bottomIcon}</span>` : ''}
+              </div>
             </div>
           `;
         } else if (mrkt && mrkt.solo) {
