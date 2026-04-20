@@ -439,9 +439,9 @@
               <span style="font-size:0.82rem;color:#555;">${mrkt.subStr}</span>
             </div>` : '';
           div.innerHTML = `
-            <div style="display:grid;grid-template-columns:160px 1fr 160px;align-items:start;gap:20px;margin-bottom:10px;">
-              <div style="text-align:center;">
-                <img src="images/${item.image}" alt="${mrkt.title}" style="width:160px;border-radius:6px;object-fit:contain;max-height:200px;background:#fff;">
+            <div style="display:grid;grid-template-columns:160px 1fr 160px;align-items:stretch;gap:20px;margin-bottom:10px;">
+              <div style="display:flex;flex-direction:column;">
+                <img src="images/${item.image}" alt="${mrkt.title}" style="width:160px;border-radius:6px;object-fit:contain;flex:1;background:#fff;">
                 ${iceBadge(mrkt.iceLevel)}
               </div>
               <div style="text-align:center;">
