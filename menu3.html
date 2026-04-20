@@ -174,7 +174,13 @@
       image: 'mrkt-plce-fuji-pear-mangoberry.jpg',
       tags: 'MRKT PLCE, Fuji, Pear, Mango, Berry, Apple, Ice, Iced, Tropical'
     };
-    let allItems = [...MENU_DATA, FORBIDDEN_COMBO, FUJI_COMBO];
+    const COMBO_REPLACED = new Set([
+      'SALT MRKT PLCE Forbidden Berry',
+      'SALT MRKT PLCE Iced Forbidden Berry',
+      'SALT MRKT PLCE Fuji Pear Mangoberry',
+      'SALT MRKT PLCE Iced Fuji Pear Mangoberry',
+    ]);
+    let allItems = [...MENU_DATA.filter(i => !COMBO_REPLACED.has(i.name)), FORBIDDEN_COMBO, FUJI_COMBO];
     let activeType = 'ALL';
     const typeLabels = { DISP: 'Disposable', SALT: 'Salt Nic', SUB: 'Sub-Ohm', KIT: 'Kit' };
 
