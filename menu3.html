@@ -162,6 +162,12 @@
         desc: 'A blend of fresh fuji apples, sweet pears, ripe mangos, and succulent berries. A tropical fruit explosion!',
         imageIced: 'mrkt-plce-iced-fuji-pear-mangoberry.jpg',
         iceLevelRegular: 0, iceLevelIced: 3, bottomIcon: '🧊', combo: true },
+      'Slapple Collection': { title: 'Slapple', subtitle: 'Apple &amp; Blue Razz', icon: '🍎 🫐',
+        desc: 'A collaboration between Reds Apple and Keep It 100. Crisp red apple meets bold blue raspberry candy for a sweet, fruity slam.',
+        imageIced: 'slapple-iced.jpg',
+        logo: 'reds-logo.jpg', logoStyle: 'max-height:60px;width:auto;background:transparent;',
+        saltSize: '30ml', saltStr: '30mg / 50mg', subSize: '100ml', subStr: '0mg / 3mg / 6mg', vgpg: '70VG/30PG',
+        iceLevelRegular: 0, iceLevelIced: 3, bottomIcon: '🧊', combo: true },
     };
 
     const FORBIDDEN_COMBO = {
@@ -183,6 +189,14 @@
     const WATERMELON_SOLO  = { name: 'MRKT PLCE Watermelon Hula Berry Lime Card',  types: ['SALT','SUB'], profile: 'Salt 30ml: 24mg / 48mg · Sub-Ohm 100ml: 0mg / 3mg / 6mg | Watermelon, Hula Berry, Lime',          image: 'mrkt-plce-watermelon-hula-berry-lime.jpg',  tags: 'MRKT PLCE, Watermelon, Hula Berry, Lime, Berry, Tropical' };
     const THAI_SOLO        = { name: 'MRKT PLCE Thai Apple Melon Razz Card',       types: ['SALT','SUB'], profile: 'Salt 30ml: 24mg / 48mg · Sub-Ohm 100ml: 0mg / 3mg / 6mg | Apple, Melon, Raspberry',              image: 'mrkt-plce-thai-apple-melon-razz.jpg',       tags: 'MRKT PLCE, Thai Apple, Melon, Raspberry, Razz, Fruit' };
 
+    const SLAPPLE_COMBO = {
+      name: 'Slapple Collection',
+      types: ['SALT', 'SUB'],
+      profile: 'Salt 30ml: 30mg / 50mg · Sub-Ohm 100ml: 0mg / 3mg / 6mg | Apple, Blue Razz',
+      image: 'slapple.jpg',
+      tags: 'Slapple, Apple, Blue Razz, Blue Raspberry, Reds Apple, Keep It 100, Ice, Iced, Candy, Fruit'
+    };
+
     const COMBO_REPLACED = new Set([
       'SALT MRKT PLCE Forbidden Berry',       'SALT MRKT PLCE Iced Forbidden Berry',
       'SALT MRKT PLCE Fuji Pear Mangoberry',  'SALT MRKT PLCE Iced Fuji Pear Mangoberry',
@@ -190,6 +204,7 @@
       'SALT MRKT PLCE Pineapple Peach Dragonberry',
       'SALT MRKT PLCE Watermelon Hula Berry Lime',
       'SALT MRKT PLCE Thai Apple Melon Razz',
+      'SALT Slapple & Slapple Ice',
     ]);
     const mkReds = (flavor, image, imageIced, icon, desc) => ({
       name: `Reds Apple ${flavor} Collection`,
@@ -204,7 +219,7 @@
     const REDS_STRAWBERRY  = mkReds('Apple Strawberry',  '7daze-reds-apple-strawberry.png',    '7daze-reds-iced-apple-strawberry-ice.png');
     const REDS_WATERMELON  = mkReds('Apple Watermelon',  '7daze-reds-apple-watermelon.png',    '7daze-reds-iced-apple-watermelon-iced.png');
 
-    let allItems = [...MENU_DATA.filter(i => !COMBO_REPLACED.has(i.name)), FORBIDDEN_COMBO, FUJI_COMBO, BLOOD_SOLO, PINE_SOLO, WATERMELON_SOLO, THAI_SOLO, REDS_BERRIES, REDS_GOLDKIWI, REDS_GRAPE, REDS_ORIGINAL, REDS_STRAWBERRY, REDS_WATERMELON];
+    let allItems = [...MENU_DATA.filter(i => !COMBO_REPLACED.has(i.name)), FORBIDDEN_COMBO, FUJI_COMBO, BLOOD_SOLO, PINE_SOLO, WATERMELON_SOLO, THAI_SOLO, REDS_BERRIES, REDS_GOLDKIWI, REDS_GRAPE, REDS_ORIGINAL, REDS_STRAWBERRY, REDS_WATERMELON, SLAPPLE_COMBO];
     let activeType = 'ALL';
     const typeLabels = { DISP: 'Disposable', SALT: 'Salt Nic', SUB: 'Sub-Ohm', KIT: 'Kit' };
 
