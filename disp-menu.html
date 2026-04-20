@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Disp. Menu — The Vapor Place</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .menu-controls {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #0d0d0d;
+      padding: 12px 0;
+      margin-bottom: 16px;
+    }
+    #menu-search {
+      flex: 1;
+      min-width: 200px;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 8px;
+      color: #f0f0f0;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1rem;
+      padding: 10px 16px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    #menu-search:focus { border-color: #00e5ff; }
+    #menu-count { color: #999; font-size: 0.85rem; margin-bottom: 16px; }
+    .menu-list { display: flex; flex-direction: column; gap: 12px; }
+    .menu-item {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 8px;
+      padding: 14px 16px;
+      transition: border-color 0.2s;
+    }
+    .menu-item:hover { border-color: #00e5ff44; }
+    .menu-item-name { font-size: 1.19rem; color: #f0f0f0; font-weight: 600; }
+    .menu-item-type {
+      display: inline-block;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.55rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 2px 7px;
+      border-radius: 4px;
+      margin-right: 4px;
+      text-transform: uppercase;
+    }
+    .type-DISP { background: rgba(0,229,255,0.12); color: #00e5ff; }
+    #no-results { display:none; text-align:center; color:#999; padding:60px 0; font-size:1rem; }
+  </style>
+</head>
+<body id="inner-page">
+<div style="position:relative;z-index:1;">
+
+  <header>
+    <div class="header-inner">
+      <a href="home.html" class="logo-link">
+        <img src="images/logo.png" alt="The Vapor Place" class="logo-img">
+      </a>
+      <span class="badge-21">21+</span>
+    </div>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="hours.html">Hours</a>
+      <a href="menu.html">Menu</a>
+      <a href="menu2.html">Menu #2</a>
+      <a href="disp-menu.html" class="active">Disp. Menu</a>
+      <a href="menu3.html">Menu #3</a>
+      <a href="brands.html">Brands</a>
+      <a href="featured.html">Featured</a>
+      <a href="top-sellers.html">Top Sellers</a>
+      <a href="locations.html">Locations</a>
+      <a href="contact.html">Contact</a>
+      <a href="info.html">Info</a>
+      <a href="rewards.html">Rewards</a>
+      <a href="kits.html">Kits</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Disp. <span style="color:#00e5ff">Menu</span></h1>
+
+    <div class="menu-controls">
+      <input id="menu-search" type="text" placeholder="Search by name or flavor..." spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
+    </div>
+
+    <div id="menu-count"></div>
+    <div class="menu-list" id="menu-list"></div>
+    <div id="no-results">No items match your search.</div>
+  </main>
+
+  <footer>
+    &copy; 2026 The Vapor Place &mdash; Must be 21+ to purchase.
+  </footer>
+
+  <script src="js/app.js"></script>
+  <script src="js/menu-data.js?v=3"></script>
+  <script>
+    const isDisp = i => i.types ? i.types.includes('DISP') : i.name.startsWith('DISP ');
+    let allItems = MENU_DATA.filter(isDisp);
+    const typeLabels = { DISP: 'Disposable' };
+
+    render();
+
+    function render() {
+      const query = document.getElementById('menu-search').value.toLowerCase();
+      const list = document.getElementById('menu-list');
+      const count = document.getElementById('menu-count');
+      const noResults = document.getElementById('no-results');
+
+      const filtered = allItems.filter(item => {
+        return !query ||
+          item.name.toLowerCase().includes(query) ||
+          item.profile.toLowerCase().includes(query) ||
+          (item.tags && item.tags.toLowerCase().includes(query));
+      }).sort((a, b) => {
+        const nameA = a.name.replace(/^DISP\s+/, '').toLowerCase();
+        const nameB = b.name.replace(/^DISP\s+/, '').toLowerCase();
+        return nameA.localeCompare(nameB);
+      });
+
+      count.textContent = filtered.length + ' item' + (filtered.length !== 1 ? 's' : '');
+      list.innerHTML = '';
+      noResults.style.display = filtered.length === 0 ? 'block' : 'none';
+
+      filtered.forEach(item => {
+        const displayName = item.name.replace(/^DISP\s+/, '');
+
+        let sizes = '';
+        let flavor = '';
+        if (item.profile && item.profile.includes('|')) {
+          [sizes, flavor] = item.profile.split('|').map(s => s.trim());
+        } else {
+          sizes = item.profile || '';
+        }
+
+        const div = document.createElement('div');
+        div.className = 'menu-item';
+        div.innerHTML = `
+          <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;margin-bottom:10px;">
+            <div style="text-align:center;">
+              <div class="menu-item-name">${displayName}</div>
+              ${flavor ? `<div style="font-size:0.98rem;color:#ffcc00;margin-top:6px;">${flavor}</div>` : ''}
+            </div>
+            ${item.image ? `<img src="images/${item.image}" alt="${displayName}" style="width:180px;border-radius:6px;object-fit:contain;max-height:140px;background:#111;">` : '<div style="width:180px;"></div>'}
+            <div style="font-size:0.82rem;color:#aaa;text-align:center;">${sizes}</div>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-top:4px;">
+            <span class="menu-item-type type-DISP">Disposable</span>
+          </div>
+          ${item.price ? `<div style="font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:700;color:#aaff00;margin-top:8px;text-align:center;">${item.price}</div>` : ''}
+          ${item.link ? `<a href="${item.link}" style="display:block;margin-top:10px;font-size:0.75rem;color:#00e5ff;text-decoration:none;font-family:'Orbitron',sans-serif;letter-spacing:0.05em;text-align:center;">Learn More &rarr;</a>` : ''}
+        `;
+        list.appendChild(div);
+      });
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('q')) {
+      document.getElementById('menu-search').value = params.get('q');
+      render();
+    }
+
+    document.getElementById('menu-search').addEventListener('input', render);
+  </script>
+
+</div>
+</body>
+</html>
