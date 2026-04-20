@@ -140,6 +140,15 @@
       { name: 'Cassadaga Cannoli Be Cookie',    types: ['SALT','SUB'], image: 'cassadaga-cookie.jpg',    profile: 'Salt 30ml: 25mg / 50mg  ·  Sub-Ohm 60ml: 0mg / 3mg / 6mg / 9mg | Cookie &amp; Vanilla Cream',      tags: 'Cassadaga, Cannoli, Be Cookie, Cookie, Vanilla, Cream, Dessert' },
       { name: 'Cassadaga Cannoli Be Breakfast', types: ['SALT','SUB'], image: 'cassadaga-breakfast.jpg', profile: 'Salt 30ml: 25mg / 50mg  ·  Sub-Ohm 60ml: 0mg / 3mg / 6mg / 9mg | Fruity Cereal &amp; Milk',        tags: 'Cassadaga, Cannoli, Be Breakfast, Cereal, Milk, Dessert' },
     ];
+    const CN_ITEMS = [
+      { name: 'Cloud Nurdz Blue Raspberry Lemon',    types: ['SALT','SUB'], image: 'cloud-nurdz-blue-raspberry-lemon.jpg',    profile: 'Salt 30ml  ·  Sub-Ohm 100ml: 0mg / 3mg / 6mg | Blue Razz, Lemon, Candy',         tags: 'Cloud Nurdz, Blue Razz, Lemon, Candy, Sour' },
+      { name: 'Cloud Nurdz Grape Apple',             types: ['SALT','SUB'], image: 'cloud-nurdz-grape-apple.jpg',             profile: 'Salt 30ml  ·  Sub-Ohm 100ml: 0mg / 3mg / 6mg | Grape, Green Apple, Candy',       tags: 'Cloud Nurdz, Grape, Green Apple, Candy' },
+      { name: 'Cloud Nurdz Grape Strawberry',        types: ['SALT','SUB'], image: 'cloud-nurdz-grape-strawberry.jpg',        profile: 'Salt 30ml  ·  Sub-Ohm 100ml: 0mg / 3mg / 6mg | Grape, Strawberry, Candy',       tags: 'Cloud Nurdz, Grape, Strawberry, Candy' },
+      { name: 'Cloud Nurdz Sour Watermelon Strawberry', types: ['SALT','SUB'], image: 'cloud-nurdz-sour-watermelon-strawberry.jpg', profile: 'Salt 30ml  ·  Sub-Ohm 100ml: 0mg / 3mg / 6mg | Sour, Watermelon, Strawberry', tags: 'Cloud Nurdz, Sour, Watermelon, Strawberry, Candy' },
+      { name: 'Cloud Nurdz Watermelon Apple',        types: ['SALT','SUB'], image: 'cloud-nurdz-watermelon-apple.jpg',        profile: 'Salt 30ml  ·  Sub-Ohm 100ml: 0mg / 3mg / 6mg | Watermelon, Green Apple',        tags: 'Cloud Nurdz, Watermelon, Apple, Candy' },
+      { name: 'Cloud Nurdz Watermelon Berry',        types: ['SALT','SUB'], image: 'cloud-nurdz-watermelon-berry.jpg',        profile: 'Salt 30ml  ·  Sub-Ohm 100ml: 0mg / 3mg / 6mg | Watermelon, Mixed Berry',         tags: 'Cloud Nurdz, Watermelon, Berry, Strawberry, Candy' },
+    ];
+
     const CK_ITEMS = [
       { name: 'Candy King Batch',                      types: ['SALT','SUB'], image: 'candy-king-batch.jpg',               profile: 'Salt 30ml: 35mg / 50mg  ·  Sub-Ohm 100ml: 0mg / 3mg / 6mg | Sour Patch, Orange, Cherry, Lemon, Lime',   tags: 'Candy King, Batch, Sour Patch, Candy, Gummy' },
       { name: 'Candy King Gush',                       types: ['SALT','SUB'], image: 'candy-king-gush.jpg',                profile: 'Salt 30ml: 35mg / 50mg  ·  Sub-Ohm 100ml: 0mg / 3mg / 6mg | Gushers, Blueberry, Raspberry, Strawberry', tags: 'Candy King, Gush, Gushers, Blueberry, Raspberry, Strawberry, Candy' },
@@ -159,7 +168,7 @@
       'SUB Alt Zero Excision Virus - The electrifying original lemon lime citrus dew.',
       'SUB Alt Zero Excision X Rated - Sweet blueberry tart yogurt.',
     ]);
-    let allItems = [...MENU_DATA.filter(i => i.name !== 'SALT Cassadaga Cannoli' && i.name !== 'SALT Candy King' && !EXCISION_REPLACED.has(i.name)), ...CASS_ITEMS, ...CK_ITEMS, ...EXCISION_ITEMS];
+    let allItems = [...MENU_DATA.filter(i => i.name !== 'SALT Cassadaga Cannoli' && i.name !== 'SALT Candy King' && i.name !== 'SALT Cloud Nurdz' && !EXCISION_REPLACED.has(i.name)), ...CASS_ITEMS, ...CK_ITEMS, ...CN_ITEMS, ...EXCISION_ITEMS];
     let activeType = 'ALL';
     const typeLabels = { DISP: 'Disposable', SALT: 'Salt Nic', SUB: 'Sub-Ohm', KIT: 'Kit' };
     const PINNED_NAMES = ["SALT Slapple", "SALT MRKT PLCE Fuji Pear Mangoberry"];
