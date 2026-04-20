@@ -133,7 +133,14 @@
   <script src="js/app.js"></script>
   <script src="js/menu-data.js?v=3"></script>
   <script>
-    let allItems = MENU_DATA;
+    const CASS_ITEMS = [
+      { name: 'Cassadaga Cannoli Be One',       types: ['SALT','SUB'], image: 'cassadaga-one.jpg',       profile: 'Salt 30ml: 25mg / 50mg  ·  Sub-Ohm 60ml: 0mg / 3mg / 6mg / 9mg | Classic Cannoli Cream',          tags: 'Cassadaga, Cannoli, Be One, Cream, Dessert' },
+      { name: 'Cassadaga Cannoli Be Nuts',      types: ['SALT','SUB'], image: 'cassadaga-nuts.jpg',      profile: 'Salt 30ml: 25mg / 50mg  ·  Sub-Ohm 60ml: 0mg / 3mg / 6mg / 9mg | Peanut Butter &amp; Nuts',       tags: 'Cassadaga, Cannoli, Be Nuts, Peanut Butter, Nuts, Dessert' },
+      { name: 'Cassadaga Cannoli Be Graham',    types: ['SALT','SUB'], image: 'cassadaga-graham.jpg',    profile: 'Salt 30ml: 25mg / 50mg  ·  Sub-Ohm 60ml: 0mg / 3mg / 6mg / 9mg | Honey Graham &amp; Caramel',      tags: 'Cassadaga, Cannoli, Be Graham, Graham Cracker, Caramel, Dessert' },
+      { name: 'Cassadaga Cannoli Be Cookie',    types: ['SALT','SUB'], image: 'cassadaga-cookie.jpg',    profile: 'Salt 30ml: 25mg / 50mg  ·  Sub-Ohm 60ml: 0mg / 3mg / 6mg / 9mg | Cookie &amp; Vanilla Cream',      tags: 'Cassadaga, Cannoli, Be Cookie, Cookie, Vanilla, Cream, Dessert' },
+      { name: 'Cassadaga Cannoli Be Breakfast', types: ['SALT','SUB'], image: 'cassadaga-breakfast.jpg', profile: 'Salt 30ml: 25mg / 50mg  ·  Sub-Ohm 60ml: 0mg / 3mg / 6mg / 9mg | Fruity Cereal &amp; Milk',        tags: 'Cassadaga, Cannoli, Be Breakfast, Cereal, Milk, Dessert' },
+    ];
+    let allItems = [...MENU_DATA.filter(i => i.name !== 'SALT Cassadaga Cannoli'), ...CASS_ITEMS];
     let activeType = 'ALL';
     const typeLabels = { DISP: 'Disposable', SALT: 'Salt Nic', SUB: 'Sub-Ohm', KIT: 'Kit' };
     const PINNED_NAMES = ["SALT Slapple", "SALT MRKT PLCE Fuji Pear Mangoberry"];
