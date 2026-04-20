@@ -140,7 +140,16 @@
       { name: 'Cassadaga Cannoli Be Cookie',    types: ['SALT','SUB'], image: 'cassadaga-cookie.jpg',    profile: 'Salt 30ml: 25mg / 50mg  ·  Sub-Ohm 60ml: 0mg / 3mg / 6mg / 9mg | Cookie &amp; Vanilla Cream',      tags: 'Cassadaga, Cannoli, Be Cookie, Cookie, Vanilla, Cream, Dessert' },
       { name: 'Cassadaga Cannoli Be Breakfast', types: ['SALT','SUB'], image: 'cassadaga-breakfast.jpg', profile: 'Salt 30ml: 25mg / 50mg  ·  Sub-Ohm 60ml: 0mg / 3mg / 6mg / 9mg | Fruity Cereal &amp; Milk',        tags: 'Cassadaga, Cannoli, Be Breakfast, Cereal, Milk, Dessert' },
     ];
-    let allItems = [...MENU_DATA.filter(i => i.name !== 'SALT Cassadaga Cannoli'), ...CASS_ITEMS];
+    const EXCISION_ITEMS = [
+      { name: 'Alt Zero Excision Virus',    types: ['SALT','SUB'], image: 'excision-virus.jpg',    profile: 'Salt 30ml: 20mg / 40mg  ·  Sub-Ohm 60ml: 0mg / 3mg / 6mg | Lemon, Lime, Citrus Dew', tags: 'Alt Zero, Excision, Virus, Lemon, Lime, Citrus' },
+      { name: 'Alt Zero Excision Antidote', types: ['SALT','SUB'], image: 'excision-antidote.jpg', profile: 'Salt 30ml: 20mg / 40mg  ·  Sub-Ohm 60ml: 0mg / 3mg / 6mg | Iced Lemon Lime Citrus Dew', tags: 'Alt Zero, Excision, Antidote, Lemon, Lime, Citrus, Ice, Iced' },
+      { name: 'Alt Zero Excision X Rated',  types: ['SUB'],        image: 'excision-x-rated.jpg',  profile: 'Sub-Ohm 60ml: 0mg / 3mg / 6mg | Blueberry Tart Yogurt',                             tags: 'Alt Zero, Excision, X Rated, Blueberry, Yogurt, Cream, Dessert' },
+    ];
+    const EXCISION_REPLACED = new Set([
+      'SUB Alt Zero Excision Virus - The electrifying original lemon lime citrus dew.',
+      'SUB Alt Zero Excision X Rated - Sweet blueberry tart yogurt.',
+    ]);
+    let allItems = [...MENU_DATA.filter(i => i.name !== 'SALT Cassadaga Cannoli' && !EXCISION_REPLACED.has(i.name)), ...CASS_ITEMS, ...EXCISION_ITEMS];
     let activeType = 'ALL';
     const typeLabels = { DISP: 'Disposable', SALT: 'Salt Nic', SUB: 'Sub-Ohm', KIT: 'Kit' };
     const PINNED_NAMES = ["SALT Slapple", "SALT MRKT PLCE Fuji Pear Mangoberry"];
