@@ -140,6 +140,16 @@
       { name: 'Cassadaga Cannoli Be Cookie',    types: ['SALT','SUB'], image: 'cassadaga-cookie.jpg',    profile: 'Salt 30ml: 25mg / 50mg  ·  Sub-Ohm 60ml: 0mg / 3mg / 6mg / 9mg | Cookie &amp; Vanilla Cream',      tags: 'Cassadaga, Cannoli, Be Cookie, Cookie, Vanilla, Cream, Dessert' },
       { name: 'Cassadaga Cannoli Be Breakfast', types: ['SALT','SUB'], image: 'cassadaga-breakfast.jpg', profile: 'Salt 30ml: 25mg / 50mg  ·  Sub-Ohm 60ml: 0mg / 3mg / 6mg / 9mg | Fruity Cereal &amp; Milk',        tags: 'Cassadaga, Cannoli, Be Breakfast, Cereal, Milk, Dessert' },
     ];
+    const CK_ITEMS = [
+      { name: 'Candy King Batch',                      types: ['SALT','SUB'], image: 'candy-king-batch.jpg',               profile: 'Salt 30ml: 35mg / 50mg  ·  Sub-Ohm 100ml: 0mg / 3mg / 6mg | Sour Patch, Orange, Cherry, Lemon, Lime',   tags: 'Candy King, Batch, Sour Patch, Candy, Gummy' },
+      { name: 'Candy King Gush',                       types: ['SALT','SUB'], image: 'candy-king-gush.jpg',                profile: 'Salt 30ml: 35mg / 50mg  ·  Sub-Ohm 100ml: 0mg / 3mg / 6mg | Gushers, Blueberry, Raspberry, Strawberry', tags: 'Candy King, Gush, Gushers, Blueberry, Raspberry, Strawberry, Candy' },
+      { name: 'Candy King Peachy Rings',               types: ['SALT','SUB'], image: 'candy-king-peachy-rings.jpg',        profile: 'Salt 30ml: 35mg / 50mg  ·  Sub-Ohm 100ml: 0mg / 3mg / 6mg | Sweet Peach Gummy Rings',                  tags: 'Candy King, Peachy Rings, Peach, Gummy, Candy' },
+      { name: 'Candy King Pink Squares',               types: ['SALT','SUB'], image: 'candy-king-pink-squares.jpg',        profile: 'Salt 30ml: 35mg / 50mg  ·  Sub-Ohm 100ml: 0mg / 3mg / 6mg | Pink Starburst Candy',                     tags: 'Candy King, Pink Squares, Starburst, Strawberry, Candy' },
+      { name: 'Candy King Strawberry Watermelon',      types: ['SALT','SUB'], image: 'candy-king-strawberry-watermelon.jpg', profile: 'Salt 30ml: 35mg / 50mg  ·  Sub-Ohm 100ml: 0mg / 3mg / 6mg | Strawberry, Watermelon, Bubblegum',       tags: 'Candy King, Strawberry, Watermelon, Bubblegum, Candy' },
+      { name: 'Candy King Swedish',                    types: ['SALT','SUB'], image: 'candy-king-swedish.jpg',             profile: 'Salt 30ml: 35mg / 50mg  ·  Sub-Ohm 100ml: 0mg / 3mg / 6mg | Swedish Fish, Strawberry, Raspberry',       tags: 'Candy King, Swedish, Swedish Fish, Gummy, Candy' },
+      { name: 'Candy King Worms',                      types: ['SALT','SUB'], image: 'candy-king-worms.jpg',               profile: 'Salt 30ml: 35mg / 50mg  ·  Sub-Ohm 100ml: 0mg / 3mg / 6mg | Gummy Worms, Orange, Lime, Lemon, Cherry',  tags: 'Candy King, Worms, Gummy, Citrus, Candy' },
+    ];
+
     const EXCISION_ITEMS = [
       { name: 'Alt Zero Excision Virus',    types: ['SALT','SUB'], image: 'excision-virus.jpg',    profile: 'Salt 30ml: 20mg / 40mg  ·  Sub-Ohm 60ml: 0mg / 3mg / 6mg | Lemon, Lime, Citrus Dew', tags: 'Alt Zero, Excision, Virus, Lemon, Lime, Citrus' },
       { name: 'Alt Zero Excision Antidote', types: ['SALT','SUB'], image: 'excision-antidote.jpg', profile: 'Salt 30ml: 20mg / 40mg  ·  Sub-Ohm 60ml: 0mg / 3mg / 6mg | Iced Lemon Lime Citrus Dew', tags: 'Alt Zero, Excision, Antidote, Lemon, Lime, Citrus, Ice, Iced' },
@@ -149,7 +159,7 @@
       'SUB Alt Zero Excision Virus - The electrifying original lemon lime citrus dew.',
       'SUB Alt Zero Excision X Rated - Sweet blueberry tart yogurt.',
     ]);
-    let allItems = [...MENU_DATA.filter(i => i.name !== 'SALT Cassadaga Cannoli' && !EXCISION_REPLACED.has(i.name)), ...CASS_ITEMS, ...EXCISION_ITEMS];
+    let allItems = [...MENU_DATA.filter(i => i.name !== 'SALT Cassadaga Cannoli' && i.name !== 'SALT Candy King' && !EXCISION_REPLACED.has(i.name)), ...CASS_ITEMS, ...CK_ITEMS, ...EXCISION_ITEMS];
     let activeType = 'ALL';
     const typeLabels = { DISP: 'Disposable', SALT: 'Salt Nic', SUB: 'Sub-Ohm', KIT: 'Kit' };
     const PINNED_NAMES = ["SALT Slapple", "SALT MRKT PLCE Fuji Pear Mangoberry"];
