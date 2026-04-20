@@ -162,6 +162,18 @@
         desc: 'A blend of fresh fuji apples, sweet pears, ripe mangos, and succulent berries. A tropical fruit explosion!',
         imageIced: 'mrkt-plce-iced-fuji-pear-mangoberry.jpg',
         iceLevelRegular: 0, iceLevelIced: 3, bottomIcon: '🧊', combo: true },
+      'Air Factory Menthol Card':   { title: 'Air Factory Menthol',   subtitle: 'Cool Menthol &amp; Ice', icon: '🌿 ❄️',
+        desc: 'A smooth, classic menthol with a refreshingly cold exhale.',
+        saltSize: '30ml', saltStr: '18mg / 36mg', subSize: '60ml', subStr: '0mg / 3mg / 6mg', vgpg: '70VG/30PG',
+        iceLevel: 4, soloRight: true },
+      'Air Factory Mint Card':      { title: 'Air Factory Mint',      subtitle: 'Spearmint &amp; Ice',      icon: '🌿 🧊',
+        desc: 'Crisp spearmint with a clean, icy finish.',
+        saltSize: '30ml', saltStr: '18mg / 36mg', subSize: '60ml', subStr: '0mg / 3mg / 6mg', vgpg: '70VG/30PG',
+        iceLevel: 3, soloRight: true },
+      'Air Factory Unflavored Card': { title: 'Air Factory Unflavored', subtitle: 'Pure &amp; Flavorless',  icon: '💨',
+        desc: 'Zero flavor, zero color — just smooth, clean vapor.',
+        subSize: '60ml', subStr: '0mg / 3mg / 6mg', vgpg: '70VG/30PG',
+        iceLevel: 0, soloRight: true },
       'Glacial Mint Card': { title: 'Glacial Mint', subtitle: 'Pure Mint &amp; Ice', icon: '🌿 ❄️',
         desc: 'An intensely cool blast of fresh mint with a deep icy exhale. 7 Daze\'s coldest flavor.',
         saltSize: '30ml', saltStr: '30mg / 50mg', subSize: '100ml', subStr: '0mg / 3mg / 6mg', vgpg: '70VG/30PG',
@@ -193,6 +205,10 @@
     const WATERMELON_SOLO  = { name: 'MRKT PLCE Watermelon Hula Berry Lime Card',  types: ['SALT','SUB'], profile: 'Salt 30ml: 24mg / 48mg · Sub-Ohm 100ml: 0mg / 3mg / 6mg | Watermelon, Hula Berry, Lime',          image: 'mrkt-plce-watermelon-hula-berry-lime.jpg',  tags: 'MRKT PLCE, Watermelon, Hula Berry, Lime, Berry, Tropical' };
     const THAI_SOLO        = { name: 'MRKT PLCE Thai Apple Melon Razz Card',       types: ['SALT','SUB'], profile: 'Salt 30ml: 24mg / 48mg · Sub-Ohm 100ml: 0mg / 3mg / 6mg | Apple, Melon, Raspberry',              image: 'mrkt-plce-thai-apple-melon-razz.jpg',       tags: 'MRKT PLCE, Thai Apple, Melon, Raspberry, Razz, Fruit' };
 
+    const AF_MENTHOL_CARD   = { name: 'Air Factory Menthol Card',   types: ['SALT','SUB'], profile: 'Salt 30ml: 18mg / 36mg · Sub-Ohm 60ml: 0mg / 3mg / 6mg | Menthol, Ice', image: 'air-factory-menthol.jpg',   tags: 'Air Factory, Menthol, Ice, Cool' };
+    const AF_MINT_CARD      = { name: 'Air Factory Mint Card',      types: ['SALT','SUB'], profile: 'Salt 30ml: 18mg / 36mg · Sub-Ohm 60ml: 0mg / 3mg / 6mg | Mint, Ice',     image: 'air-factory-mint.jpg',      tags: 'Air Factory, Mint, Ice, Spearmint' };
+    const AF_UNFLAVORED_CARD = { name: 'Air Factory Unflavored Card', types: ['SUB'],       profile: 'Sub-Ohm 60ml: 0mg / 3mg / 6mg | Unflavored',                             image: 'air-factory-unflavored.jpg', tags: 'Air Factory, Unflavored, Flavorless' };
+
     const GLACIAL_MINT_CARD = {
       name: 'Glacial Mint Card',
       types: ['SALT', 'SUB'],
@@ -218,6 +234,7 @@
       'SALT MRKT PLCE Thai Apple Melon Razz',
       'SALT Slapple & Slapple Ice',
       'SALT 7 Daze Glacial Mint',
+      'SALT Air Factory Menthol', 'SALT Air Factory Mint', 'SUB Air Factory Unflavored',
     ]);
     const mkReds = (flavor, image, imageIced, icon, desc) => ({
       name: `Reds Apple ${flavor} Collection`,
@@ -232,7 +249,7 @@
     const REDS_STRAWBERRY  = mkReds('Apple Strawberry',  '7daze-reds-apple-strawberry.png',    '7daze-reds-iced-apple-strawberry-ice.png');
     const REDS_WATERMELON  = mkReds('Apple Watermelon',  '7daze-reds-apple-watermelon.png',    '7daze-reds-iced-apple-watermelon-iced.png');
 
-    let allItems = [...MENU_DATA.filter(i => !COMBO_REPLACED.has(i.name)), FORBIDDEN_COMBO, FUJI_COMBO, BLOOD_SOLO, PINE_SOLO, WATERMELON_SOLO, THAI_SOLO, REDS_BERRIES, REDS_GOLDKIWI, REDS_GRAPE, REDS_ORIGINAL, REDS_STRAWBERRY, REDS_WATERMELON, SLAPPLE_COMBO, GLACIAL_MINT_CARD];
+    let allItems = [...MENU_DATA.filter(i => !COMBO_REPLACED.has(i.name)), FORBIDDEN_COMBO, FUJI_COMBO, BLOOD_SOLO, PINE_SOLO, WATERMELON_SOLO, THAI_SOLO, REDS_BERRIES, REDS_GOLDKIWI, REDS_GRAPE, REDS_ORIGINAL, REDS_STRAWBERRY, REDS_WATERMELON, SLAPPLE_COMBO, GLACIAL_MINT_CARD, AF_MENTHOL_CARD, AF_MINT_CARD, AF_UNFLAVORED_CARD];
     let activeType = 'ALL';
     const typeLabels = { DISP: 'Disposable', SALT: 'Salt Nic', SUB: 'Sub-Ohm', KIT: 'Kit' };
 
@@ -392,11 +409,19 @@
             </div>
           `;
         } else if (mrkt && mrkt.soloRight) {
-          const srSaltSz  = mrkt.saltSize || '30ml';
-          const srSaltStr = mrkt.saltStr  || '24mg / 48mg';
-          const srSubSz   = mrkt.subSize  || '100ml';
-          const srSubStr  = mrkt.subStr   || '0mg / 3mg / 6mg';
-          const srVgPg    = mrkt.vgpg     || '70VG/30PG';
+          const srVgPg = mrkt.vgpg || '70VG/30PG';
+          const srSaltRow = mrkt.saltSize ? `
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span style="font-size:0.78rem;color:#555;">${mrkt.saltSize}</span>
+              <span class="menu-item-type type-SALT">Salt Nic</span>
+              <span style="font-size:0.82rem;color:#555;">${mrkt.saltStr}</span>
+            </div>` : '';
+          const srSubRow = mrkt.subSize ? `
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span style="font-size:0.78rem;color:#555;">${mrkt.subSize}</span>
+              <span class="menu-item-type type-SUB">Sub-Ohm</span>
+              <span style="font-size:0.82rem;color:#555;">${mrkt.subStr}</span>
+            </div>` : '';
           div.innerHTML = `
             <div style="display:grid;grid-template-columns:160px 1fr 160px;align-items:start;gap:20px;margin-bottom:10px;">
               <div></div>
@@ -408,7 +433,7 @@
               </div>
               <div style="text-align:center;">
                 <img src="images/${item.image}" alt="${mrkt.title}" style="width:160px;border-radius:6px;object-fit:contain;max-height:130px;background:#fff;">
-                ${iceBadge(mrkt.iceLevel)}
+                ${iceBadge(mrkt.iceLevel || 0)}
               </div>
             </div>
             <div style="display:grid;grid-template-columns:160px 1fr 160px;align-items:center;margin-top:10px;border-top:1px solid #ddd;padding-top:10px;">
@@ -416,16 +441,7 @@
                 <span style="font-size:0.82rem;color:#555;">${srVgPg}</span>
               </div>
               <div style="display:flex;flex-direction:column;gap:6px;align-items:center;">
-                <div style="display:flex;align-items:center;gap:6px;">
-                  <span style="font-size:0.78rem;color:#555;">${srSaltSz}</span>
-                  <span class="menu-item-type type-SALT">Salt Nic</span>
-                  <span style="font-size:0.82rem;color:#555;">${srSaltStr}</span>
-                </div>
-                <div style="display:flex;align-items:center;gap:6px;">
-                  <span style="font-size:0.78rem;color:#555;">${srSubSz}</span>
-                  <span class="menu-item-type type-SUB">Sub-Ohm</span>
-                  <span style="font-size:0.82rem;color:#555;">${srSubStr}</span>
-                </div>
+                ${srSaltRow}${srSubRow}
               </div>
               <div></div>
             </div>
