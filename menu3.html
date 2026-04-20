@@ -142,14 +142,12 @@
   <script src="js/menu-data.js?v=3"></script>
   <script>
     const MRKT_PLCE = {
-      'SALT MRKT PLCE Blood Orange Tangoberry':     { title: 'Blood Orange Tangoberry',     subtitle: 'Blood Orange, Grapefruit &amp; Tangoberries',        desc: 'A bright and vibrant mix of sweet blood orange, juicy grapefruit, and fresh tangoberries!', icon: '🍊 🍓 🫐', iceLevel: 0 },
-      'SALT MRKT PLCE Forbidden Berry':             { title: 'Forbidden Berry',             subtitle: 'Tropical Fruit &amp; Mixed Berries',                  desc: 'Perfectly captures the flavors of tropical fruit intermingled with a mixed berry combination – forbidden fruit tastes the best.', icon: '🥝 🍍 🍓 🫐', iceLevel: 0 },
-      'SALT MRKT PLCE Fuji Pear Mangoberry':        { title: 'Fuji Pear Mangoberry',        subtitle: 'Fuji Apple, Pear, Mango &amp; Berries',               desc: 'A blend of fresh fuji apples, sweet pears, ripe mangos, and succulent berries. A tropical fruit explosion!', icon: '🍎 🍐 🥭 🍓 🫐', iceLevel: 0 },
-      'SALT MRKT PLCE Pineapple Peach Dragonberry': { title: 'Pineapple Peach Dragonberry', subtitle: 'Pineapple, Peach &amp; Dragonfruit',                  desc: 'Juicy pineapple infused with sweet peaches and a touch of dragonfruit.', icon: '🍍 🍑', iceLevel: 0 },
-      'SALT MRKT PLCE Watermelon Hula Berry Lime':  { title: 'Watermelon Hula Berry Lime',  subtitle: 'Watermelon, Hula Berry &amp; Lime',                   desc: 'An infusion of sweet watermelon, hula berry, and fresh-squeezed lime.', icon: '🍈 🫐 🍋‍🟩', iceLevel: 0 },
-      'SALT MRKT PLCE Thai Apple Melon Razz':       { title: 'Thai Apple Melon Razz',       subtitle: 'Apple, Melon &amp; Raspberry',                        desc: 'Bold apple, lush melon, and zesty raspberry come together in a lively, flavorful vapor.', icon: '🍎 🍈', iceLevel: 0 },
       'SALT MRKT PLCE Iced Fuji Pear Mangoberry':   { title: 'Iced Fuji Pear Mangoberry',   subtitle: 'Fuji Apple, Pear, Mango &amp; Berries &mdash; Iced',  desc: 'All the tropical freshness of Fuji Pear Mangoberry, finished with a cool icy exhale.', icon: '🍎 🍐 🥭 🍓 🫐 🧊', iceLevel: 3 },
       'SALT MRKT PLCE Iced Forbidden Berry':        { title: 'Iced Forbidden Berry',        subtitle: 'Tropical Fruit &amp; Mixed Berries &mdash; Iced',     desc: 'The beloved Forbidden Berry blend elevated with a refreshing burst of ice.', icon: '🥝 🍍 🍓 🫐', iceLevel: 3 },
+      'MRKT PLCE Blood Orange Tangoberry Card':     { title: 'Blood Orange Tangoberry',     subtitle: 'Blood Orange, Grapefruit &amp; Tangoberries',        desc: 'A bright and vibrant mix of sweet blood orange, juicy grapefruit, and fresh tangoberries!', icon: '🍊 🍓 🫐', iceLevel: 0, solo: true },
+      'MRKT PLCE Pineapple Peach Dragonberry Card': { title: 'Pineapple Peach Dragonberry', subtitle: 'Pineapple, Peach &amp; Dragonfruit',                  desc: 'Juicy pineapple infused with sweet peaches and a touch of dragonfruit.', icon: '🍍 🍑', iceLevel: 0, solo: true },
+      'MRKT PLCE Watermelon Hula Berry Lime Card':  { title: 'Watermelon Hula Berry Lime',  subtitle: 'Watermelon, Hula Berry &amp; Lime',                   desc: 'An infusion of sweet watermelon, hula berry, and fresh-squeezed lime.', icon: '🍈 🫐 🍋‍🟩', iceLevel: 0, solo: true },
+      'MRKT PLCE Thai Apple Melon Razz Card':       { title: 'Thai Apple Melon Razz',       subtitle: 'Apple, Melon &amp; Raspberry',                        desc: 'Bold apple, lush melon, and zesty raspberry come together in a lively, flavorful vapor.', icon: '🍎 🍈', iceLevel: 0, solo: true },
       'MRKT PLCE Forbidden Berry Collection':      { title: 'Forbidden Berry',             subtitle: 'Tropical Fruit &amp; Mixed Berries', icon: '🥝 🍍 🍓 🫐',
         desc: 'Perfectly captures the flavors of tropical fruit intermingled with a mixed berry combination – forbidden fruit tastes the best.',
         imageIced: 'mrkt-plce-iced-forbidden-berry.jpg',
@@ -174,13 +172,20 @@
       image: 'mrkt-plce-fuji-pear-mangoberry.jpg',
       tags: 'MRKT PLCE, Fuji, Pear, Mango, Berry, Apple, Ice, Iced, Tropical'
     };
+    const BLOOD_SOLO       = { name: 'MRKT PLCE Blood Orange Tangoberry Card',     types: ['SALT','SUB'], profile: 'Salt 30ml: 24mg / 48mg · Sub-Ohm 100ml: 0mg / 3mg / 6mg | Blood Orange, Grapefruit, Tangoberries', image: 'mrkt-plce-blood-orange-tangoberry.jpg',     tags: 'MRKT PLCE, Blood Orange, Grapefruit, Tangoberries, Citrus, Berry' };
+    const PINE_SOLO        = { name: 'MRKT PLCE Pineapple Peach Dragonberry Card', types: ['SALT','SUB'], profile: 'Salt 30ml: 24mg / 48mg · Sub-Ohm 100ml: 0mg / 3mg / 6mg | Pineapple, Peach, Dragonfruit',        image: 'mrkt-plce-pineapple-peach-dragonberry.jpg', tags: 'MRKT PLCE, Pineapple, Peach, Dragonberry, Dragonfruit, Tropical' };
+    const WATERMELON_SOLO  = { name: 'MRKT PLCE Watermelon Hula Berry Lime Card',  types: ['SALT','SUB'], profile: 'Salt 30ml: 24mg / 48mg · Sub-Ohm 100ml: 0mg / 3mg / 6mg | Watermelon, Hula Berry, Lime',          image: 'mrkt-plce-watermelon-hula-berry-lime.jpg',  tags: 'MRKT PLCE, Watermelon, Hula Berry, Lime, Berry, Tropical' };
+    const THAI_SOLO        = { name: 'MRKT PLCE Thai Apple Melon Razz Card',       types: ['SALT','SUB'], profile: 'Salt 30ml: 24mg / 48mg · Sub-Ohm 100ml: 0mg / 3mg / 6mg | Apple, Melon, Raspberry',              image: 'mrkt-plce-thai-apple-melon-razz.jpg',       tags: 'MRKT PLCE, Thai Apple, Melon, Raspberry, Razz, Fruit' };
+
     const COMBO_REPLACED = new Set([
-      'SALT MRKT PLCE Forbidden Berry',
-      'SALT MRKT PLCE Iced Forbidden Berry',
-      'SALT MRKT PLCE Fuji Pear Mangoberry',
-      'SALT MRKT PLCE Iced Fuji Pear Mangoberry',
+      'SALT MRKT PLCE Forbidden Berry',       'SALT MRKT PLCE Iced Forbidden Berry',
+      'SALT MRKT PLCE Fuji Pear Mangoberry',  'SALT MRKT PLCE Iced Fuji Pear Mangoberry',
+      'SALT MRKT PLCE Blood Orange Tangoberry',
+      'SALT MRKT PLCE Pineapple Peach Dragonberry',
+      'SALT MRKT PLCE Watermelon Hula Berry Lime',
+      'SALT MRKT PLCE Thai Apple Melon Razz',
     ]);
-    let allItems = [...MENU_DATA.filter(i => !COMBO_REPLACED.has(i.name)), FORBIDDEN_COMBO, FUJI_COMBO];
+    let allItems = [...MENU_DATA.filter(i => !COMBO_REPLACED.has(i.name)), FORBIDDEN_COMBO, FUJI_COMBO, BLOOD_SOLO, PINE_SOLO, WATERMELON_SOLO, THAI_SOLO];
     let activeType = 'ALL';
     const typeLabels = { DISP: 'Disposable', SALT: 'Salt Nic', SUB: 'Sub-Ohm', KIT: 'Kit' };
 
@@ -272,6 +277,40 @@
               <div style="text-align:center;">
                 <img src="images/${mrkt.imageIced}" alt="Iced ${mrkt.title}" style="width:160px;border-radius:6px;object-fit:contain;max-height:130px;background:#fff;">
                 ${iceBadge(mrkt.iceLevelIced)}
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;margin-top:10px;border-top:1px solid #ddd;padding-top:10px;">
+              <div style="flex:1;display:flex;justify-content:flex-start;">
+                <span style="font-size:0.82rem;color:#555;">70VG/30PG</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:6px;align-items:center;">
+                <div style="display:flex;align-items:center;gap:6px;">
+                  <span style="font-size:0.78rem;color:#555;">30ml</span>
+                  <span class="menu-item-type type-SALT">Salt Nic</span>
+                  <span style="font-size:0.82rem;color:#555;">24mg / 48mg</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:6px;">
+                  <span style="font-size:0.78rem;color:#555;">100ml</span>
+                  <span class="menu-item-type type-SUB">Sub-Ohm</span>
+                  <span style="font-size:0.82rem;color:#555;">0mg / 3mg / 6mg</span>
+                </div>
+              </div>
+              <div style="flex:1;"></div>
+            </div>
+          `;
+        } else if (mrkt && mrkt.solo) {
+          div.innerHTML = `
+            <div style="display:grid;grid-template-columns:auto 1fr;align-items:start;gap:20px;margin-bottom:10px;">
+              <div style="text-align:center;">
+                <img src="images/${item.image}" alt="${mrkt.title}" style="width:160px;border-radius:6px;object-fit:contain;max-height:130px;background:#fff;">
+                ${iceBadge(mrkt.iceLevel)}
+              </div>
+              <div style="text-align:center;">
+                <img src="images/mrkt-plce-logo.svg" alt="MRKT PLCE" style="max-height:56px;width:auto;margin-bottom:8px;display:block;margin-left:auto;margin-right:auto;">
+                <div class="menu-item-name">${mrkt.title}</div>
+                <div style="font-size:0.9rem;color:#b8860b;margin-top:6px;">${mrkt.subtitle}</div>
+                ${mrkt.icon ? `<div style="font-size:1.5rem;margin-top:8px;">${mrkt.icon}</div>` : ''}
+                <div style="font-size:0.85rem;color:#555;line-height:1.65;margin-top:10px;text-align:left;">${mrkt.desc}</div>
               </div>
             </div>
             <div style="display:flex;align-items:center;margin-top:10px;border-top:1px solid #ddd;padding-top:10px;">
