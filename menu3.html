@@ -168,6 +168,11 @@
         imageIced: 'excision-antidote.jpg',
         saltSize: '30ml', saltStr: '20mg / 40mg', subSize: '60ml', subStr: '0mg / 3mg / 6mg', vgpg: '70VG/30PG',
         iceLevelRegular: 0, iceLevelIced: 3, bottomIcon: '🧊', combo: true },
+      'Alt Zero X Rated Card': { title: 'X Rated', subtitle: 'Blueberry Tart Yogurt', icon: '🫐 🍦',
+        desc: 'Sweet, creamy blueberry yogurt with a smooth tangy finish.',
+        logo: 'excision-logo.jpg', logoStyle: 'max-height:60px;width:auto;background:transparent;',
+        subSize: '60ml', subStr: '0mg / 3mg / 6mg', vgpg: '70VG/30PG',
+        iceLevel: 0, solo: true },
       'Alt Zero Just Blues Card': { title: 'Just Blues', subtitle: 'Blue Razz &amp; Blueberry Candy', icon: '🫐 💙',
         desc: 'A burst of sour blueberries and bold blue raspberry candy exploding with every hit.',
         logo: 'alt-zero-logo.webp', logoStyle: 'max-height:60px;width:auto;background:transparent;',
@@ -228,6 +233,8 @@
 
     const VIRUS_COMBO = { name: 'Alt Zero Virus Antidote Collection', types: ['SALT','SUB'], profile: 'Salt 30ml: 20mg / 40mg · Sub-Ohm 60ml: 0mg / 3mg / 6mg | Lemon, Lime, Citrus', image: 'excision-virus.jpg', tags: 'Alt Zero, Excision, Virus, Antidote, Lemon, Lime, Citrus, Ice, Iced' };
 
+    const AZ_XRATED_CARD = { name: 'Alt Zero X Rated Card', types: ['SUB'], profile: 'Sub-Ohm 60ml: 0mg / 3mg / 6mg | Blueberry, Yogurt, Vanilla, Cream, Dessert', image: 'excision-x-rated.jpg', tags: 'Alt Zero, Excision, X Rated, Blueberry, Yogurt, Cream, Dessert' };
+
     const AZ_JUST_BLUES_CARD = { name: 'Alt Zero Just Blues Card', types: ['SALT','SUB'], profile: 'Salt 30ml: 20mg / 40mg · Sub-Ohm 100ml: 0mg / 3mg / 6mg | Blue Razz, Blueberry, Candy', image: 'alt-zero-just-blues.jpg', tags: 'Alt Zero, Just Blues, Blue Razz, Blueberry, Candy, Fruit' };
     const AZ_JUST_REDS_CARD  = { name: 'Alt Zero Just Reds Card',  types: ['SALT','SUB'], profile: 'Salt 30ml: 20mg / 40mg · Sub-Ohm 100ml: 0mg / 3mg / 6mg | Strawberry, Watermelon, Cherry, Fruit Punch', image: 'alt-zero-just-reds.jpg', tags: 'Alt Zero, Just Reds, Strawberry, Watermelon, Cherry, Fruit Punch, Candy' };
 
@@ -266,6 +273,7 @@
       'SALT Alt Zero Paradox', 'SALT Alt Zero Paradox on the Rocks',
       'SALT Alt Zero Just Blues', 'SALT Alt Zero Just Reds',
       'SUB Alt Zero Excision Virus - The electrifying original lemon lime citrus dew.',
+      'SUB Alt Zero Excision X Rated - Sweet blueberry tart yogurt.',
     ]);
     const mkReds = (flavor, image, imageIced, icon, desc) => ({
       name: `Reds Apple ${flavor} Collection`,
@@ -280,7 +288,7 @@
     const REDS_STRAWBERRY  = mkReds('Apple Strawberry',  '7daze-reds-apple-strawberry.png',    '7daze-reds-iced-apple-strawberry-ice.png');
     const REDS_WATERMELON  = mkReds('Apple Watermelon',  '7daze-reds-apple-watermelon.png',    '7daze-reds-iced-apple-watermelon-iced.png');
 
-    let allItems = [...MENU_DATA.filter(i => !COMBO_REPLACED.has(i.name)), FORBIDDEN_COMBO, FUJI_COMBO, BLOOD_SOLO, PINE_SOLO, WATERMELON_SOLO, THAI_SOLO, REDS_BERRIES, REDS_GOLDKIWI, REDS_GRAPE, REDS_ORIGINAL, REDS_STRAWBERRY, REDS_WATERMELON, SLAPPLE_COMBO, GLACIAL_MINT_CARD, AF_MENTHOL_CARD, AF_MINT_CARD, AF_UNFLAVORED_CARD, PARADOX_COMBO, AZ_JUST_BLUES_CARD, AZ_JUST_REDS_CARD, VIRUS_COMBO];
+    let allItems = [...MENU_DATA.filter(i => !COMBO_REPLACED.has(i.name)), FORBIDDEN_COMBO, FUJI_COMBO, BLOOD_SOLO, PINE_SOLO, WATERMELON_SOLO, THAI_SOLO, REDS_BERRIES, REDS_GOLDKIWI, REDS_GRAPE, REDS_ORIGINAL, REDS_STRAWBERRY, REDS_WATERMELON, SLAPPLE_COMBO, GLACIAL_MINT_CARD, AF_MENTHOL_CARD, AF_MINT_CARD, AF_UNFLAVORED_CARD, PARADOX_COMBO, AZ_JUST_BLUES_CARD, AZ_JUST_REDS_CARD, VIRUS_COMBO, AZ_XRATED_CARD];
     let activeType = 'ALL';
     const typeLabels = { DISP: 'Disposable', SALT: 'Salt Nic', SUB: 'Sub-Ohm', KIT: 'Kit' };
 
