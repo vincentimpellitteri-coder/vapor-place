@@ -332,6 +332,16 @@
         desc: 'An intensely cool blast of fresh mint with a deep icy exhale. 7 Daze\'s coldest flavor.',
         saltSize: '30ml', saltStr: '30mg / 50mg', subSize: '100ml', subStr: '0mg / 3mg / 6mg', vgpg: '70VG/30PG',
         iceLevel: 5, soloRight: true },
+      'Fusion Pineapple Coconut Banana Collection': { title: 'Pineapple Coconut Banana', subtitle: 'Pineapple, Coconut &amp; Banana', icon: '🍍 🥥 🍌',
+        desc: 'A tropical pina colada blend of ripe pineapple, fresh coconut, and sweet banana.',
+        logo: null, imageIced: '7-daze-iced-fusion-pineapple-coconut-banana-iced.png',
+        saltSize: '30ml', saltStr: '30mg / 50mg', subSize: '100ml', subStr: '0mg / 3mg / 6mg', vgpg: '70VG/30PG',
+        iceLevelRegular: 0, iceLevelIced: 3, bottomIcon: '🧊', combo: true },
+      'Fusion Raspberry Green Apple Watermelon Collection': { title: 'Raspberry Green Apple Watermelon', subtitle: 'Raspberry, Green Apple &amp; Watermelon', icon: '🫐 🍏 🍉',
+        desc: 'Bold raspberry, crisp green apple, and juicy watermelon in one vibrant blend.',
+        logo: null, imageIced: '7-daze-iced-fusion-raspberry-green-apple-watermelon-iced.png',
+        saltSize: '30ml', saltStr: '30mg / 50mg', subSize: '100ml', subStr: '0mg / 3mg / 6mg', vgpg: '70VG/30PG',
+        iceLevelRegular: 0, iceLevelIced: 3, bottomIcon: '🧊', combo: true },
       'Slapple Collection': { title: 'Slapple', subtitle: 'Apple &amp; Blue Razz', icon: '🍎 🫐',
         desc: 'A collaboration between Reds Apple and Keep It 100. Crisp red apple meets bold blue raspberry candy for a sweet, fruity slam.',
         imageIced: 'slapple-iced.jpg',
@@ -416,6 +426,8 @@
       'SALT MRKT PLCE Pineapple Peach Dragonberry',
       'SALT MRKT PLCE Watermelon Hula Berry Lime',
       'SALT MRKT PLCE Thai Apple Melon Razz',
+      'SALT Fusion Pineapple Coconut Banana & Pineapple Coconut Banana Iced',
+      'SALT Fusion Raspberry Green Apple Watermelon & Raspberry Green Apple Watermelon Iced',
       'SALT Slapple & Slapple Ice',
       'SALT 7 Daze Glacial Mint',
       'SALT Air Factory Menthol', 'SALT Air Factory Mint', 'SUB Air Factory Unflavored',
@@ -435,6 +447,9 @@
       profile: `Salt 30ml: 30mg / 50mg · Sub-Ohm 100ml: 0mg / 3mg / 6mg | ${flavor}`,
       image, tags: `Reds Apple, 7Daze, ${flavor}, Apple, Ice, Iced`
     });
+    const FUSION_PCB_COMBO  = { name: 'Fusion Pineapple Coconut Banana Collection', types: ['SALT','SUB'], image: '7-daze-fusion-pineapple-coconut-banana.png', profile: 'Salt 30ml: 30mg / 50mg · Sub-Ohm 100ml: 0mg / 3mg / 6mg | Pineapple, Coconut, Banana', tags: 'Fusion, 7 Daze, Pineapple, Coconut, Banana, Ice, Iced' };
+    const FUSION_RGAW_COMBO = { name: 'Fusion Raspberry Green Apple Watermelon Collection', types: ['SALT','SUB'], image: '7-daze-fusion-raspberry-green-apple-watermelon.png', profile: 'Salt 30ml: 30mg / 50mg · Sub-Ohm 100ml: 0mg / 3mg / 6mg | Raspberry, Green Apple, Watermelon', tags: 'Fusion, 7 Daze, Raspberry, Green Apple, Watermelon, Ice, Iced' };
+
     const REDS_BERRIES     = mkReds('Apple Berries',     '7daze-reds-apple-berries.png',       '7daze-reds-iced-apple-berries-iced.png');
     const REDS_GOLDKIWI    = mkReds('Apple Gold Kiwi',   '7daze-reds-apple-gold-kiwi.png',     '7daze-reds-apple-gold-kiwi-iced.png');
     const REDS_GRAPE       = mkReds('Apple Grape',       '7daze-reds-apple-grape.png',         '7daze-reds-iced-apple-grape-iced.png');
@@ -445,7 +460,8 @@
     let allItems = [...MENU_DATA.filter(i => !COMBO_REPLACED.has(i.name)), FORBIDDEN_COMBO, FUJI_COMBO, BLOOD_SOLO, PINE_SOLO, WATERMELON_SOLO, THAI_SOLO, REDS_BERRIES, REDS_GOLDKIWI, REDS_GRAPE, REDS_ORIGINAL, REDS_STRAWBERRY, REDS_WATERMELON, SLAPPLE_COMBO, GLACIAL_MINT_CARD, AF_MENTHOL_CARD, AF_MINT_CARD, AF_UNFLAVORED_CARD, PARADOX_COMBO, AZ_JUST_BLUES_CARD, AZ_JUST_REDS_CARD, VIRUS_COMBO, AZ_XRATED_CARD,
       CASS_ONE_CARD, CASS_NUTS_CARD, CASS_GRAH_CARD, CASS_COOK_CARD, CASS_BREK_CARD,
       CK_BATCH_CARD, CK_GUSH_CARD, CK_PEACH_CARD, CK_PINK_CARD, CK_SWBG_CARD, CK_SWED_CARD, CK_WORM_CARD,
-      CN_BRL_CARD, CN_GA_CARD, CN_GS_CARD, CN_SWS_CARD, CN_WA_CARD, CN_WB_CARD];
+      CN_BRL_CARD, CN_GA_CARD, CN_GS_CARD, CN_SWS_CARD, CN_WA_CARD, CN_WB_CARD,
+      FUSION_PCB_COMBO, FUSION_RGAW_COMBO];
     let activeType = 'ALL';
     const typeLabels = { DISP: 'Disposable', SALT: 'Salt Nic', SUB: 'Sub-Ohm', KIT: 'Kit' };
 
