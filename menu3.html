@@ -162,6 +162,11 @@
         desc: 'A blend of fresh fuji apples, sweet pears, ripe mangos, and succulent berries. A tropical fruit explosion!',
         imageIced: 'mrkt-plce-iced-fuji-pear-mangoberry.jpg',
         iceLevelRegular: 0, iceLevelIced: 3, bottomIcon: '🧊', combo: true },
+      'Alt Zero Paradox Collection': { title: 'Paradox', subtitle: 'Grape, Citrus &amp; Blackberry', icon: '🍇 🍋 🫐',
+        desc: 'A pitch-black Mountain Dew-inspired blend with bold citrus, grape, and deep dark fruits.',
+        logo: null, imageIced: 'alt-zero-excision-paradox-on-the-rocks.jpg',
+        saltSize: '30ml', saltStr: '20mg / 40mg', subSize: '60ml', subStr: '0mg / 3mg / 6mg', vgpg: '70VG/30PG',
+        iceLevelRegular: 0, iceLevelIced: 3, bottomIcon: '🧊', combo: true },
       'Air Factory Menthol Card':   { title: 'Air Factory Menthol',   subtitle: 'Cool Menthol &amp; Ice', icon: '🌿 ❄️',
         desc: 'A smooth, classic menthol with a refreshingly cold exhale.',
         saltSize: '30ml', saltStr: '18mg / 36mg', subSize: '60ml', subStr: '0mg / 3mg / 6mg', vgpg: '70VG/30PG',
@@ -205,6 +210,8 @@
     const WATERMELON_SOLO  = { name: 'MRKT PLCE Watermelon Hula Berry Lime Card',  types: ['SALT','SUB'], profile: 'Salt 30ml: 24mg / 48mg · Sub-Ohm 100ml: 0mg / 3mg / 6mg | Watermelon, Hula Berry, Lime',          image: 'mrkt-plce-watermelon-hula-berry-lime.jpg',  tags: 'MRKT PLCE, Watermelon, Hula Berry, Lime, Berry, Tropical' };
     const THAI_SOLO        = { name: 'MRKT PLCE Thai Apple Melon Razz Card',       types: ['SALT','SUB'], profile: 'Salt 30ml: 24mg / 48mg · Sub-Ohm 100ml: 0mg / 3mg / 6mg | Apple, Melon, Raspberry',              image: 'mrkt-plce-thai-apple-melon-razz.jpg',       tags: 'MRKT PLCE, Thai Apple, Melon, Raspberry, Razz, Fruit' };
 
+    const PARADOX_COMBO = { name: 'Alt Zero Paradox Collection', types: ['SALT','SUB'], profile: 'Salt 30ml: 20mg / 40mg · Sub-Ohm 60ml: 0mg / 3mg / 6mg | Grape, Citrus, Blackberry', image: 'alt-zero-excision-paradox.jpg', tags: 'Alt Zero, Paradox, Grape, Citrus, Blackberry, Ice, Iced, Mountain Dew' };
+
     const AF_MENTHOL_CARD   = { name: 'Air Factory Menthol Card',   types: ['SALT','SUB'], profile: 'Salt 30ml: 18mg / 36mg · Sub-Ohm 60ml: 0mg / 3mg / 6mg | Menthol, Ice', image: 'air-factory-menthol.jpg',   tags: 'Air Factory, Menthol, Ice, Cool' };
     const AF_MINT_CARD      = { name: 'Air Factory Mint Card',      types: ['SALT','SUB'], profile: 'Salt 30ml: 18mg / 36mg · Sub-Ohm 60ml: 0mg / 3mg / 6mg | Mint, Ice',     image: 'air-factory-mint.jpg',      tags: 'Air Factory, Mint, Ice, Spearmint' };
     const AF_UNFLAVORED_CARD = { name: 'Air Factory Unflavored Card', types: ['SUB'],       profile: 'Sub-Ohm 60ml: 0mg / 3mg / 6mg | Unflavored',                             image: 'air-factory-unflavored.jpg', tags: 'Air Factory, Unflavored, Flavorless' };
@@ -235,6 +242,7 @@
       'SALT Slapple & Slapple Ice',
       'SALT 7 Daze Glacial Mint',
       'SALT Air Factory Menthol', 'SALT Air Factory Mint', 'SUB Air Factory Unflavored',
+      'SALT Alt Zero Paradox', 'SALT Alt Zero Paradox on the Rocks',
     ]);
     const mkReds = (flavor, image, imageIced, icon, desc) => ({
       name: `Reds Apple ${flavor} Collection`,
@@ -249,7 +257,7 @@
     const REDS_STRAWBERRY  = mkReds('Apple Strawberry',  '7daze-reds-apple-strawberry.png',    '7daze-reds-iced-apple-strawberry-ice.png');
     const REDS_WATERMELON  = mkReds('Apple Watermelon',  '7daze-reds-apple-watermelon.png',    '7daze-reds-iced-apple-watermelon-iced.png');
 
-    let allItems = [...MENU_DATA.filter(i => !COMBO_REPLACED.has(i.name)), FORBIDDEN_COMBO, FUJI_COMBO, BLOOD_SOLO, PINE_SOLO, WATERMELON_SOLO, THAI_SOLO, REDS_BERRIES, REDS_GOLDKIWI, REDS_GRAPE, REDS_ORIGINAL, REDS_STRAWBERRY, REDS_WATERMELON, SLAPPLE_COMBO, GLACIAL_MINT_CARD, AF_MENTHOL_CARD, AF_MINT_CARD, AF_UNFLAVORED_CARD];
+    let allItems = [...MENU_DATA.filter(i => !COMBO_REPLACED.has(i.name)), FORBIDDEN_COMBO, FUJI_COMBO, BLOOD_SOLO, PINE_SOLO, WATERMELON_SOLO, THAI_SOLO, REDS_BERRIES, REDS_GOLDKIWI, REDS_GRAPE, REDS_ORIGINAL, REDS_STRAWBERRY, REDS_WATERMELON, SLAPPLE_COMBO, GLACIAL_MINT_CARD, AF_MENTHOL_CARD, AF_MINT_CARD, AF_UNFLAVORED_CARD, PARADOX_COMBO];
     let activeType = 'ALL';
     const typeLabels = { DISP: 'Disposable', SALT: 'Salt Nic', SUB: 'Sub-Ohm', KIT: 'Kit' };
 
@@ -325,7 +333,7 @@
           </div>`;
 
         if (mrkt && mrkt.combo) {
-          const cLogo    = mrkt.logo    || 'mrkt-plce-logo.svg';
+          const cLogo    = 'logo' in mrkt ? mrkt.logo : 'mrkt-plce-logo.svg';
           const cLogoSty = mrkt.logoStyle || 'max-height:56px;width:auto;';
           const cVgPg    = mrkt.vgpg   || '70VG/30PG';
           const cSaltSz  = mrkt.saltSize || '30ml';
@@ -339,7 +347,7 @@
                 ${iceBadge(mrkt.iceLevelRegular)}
               </div>
               <div style="text-align:center;">
-                <img src="images/${cLogo}" alt="${mrkt.title}" style="${cLogoSty}margin-bottom:8px;display:block;margin-left:auto;margin-right:auto;">
+                ${cLogo ? `<img src="images/${cLogo}" alt="${mrkt.title}" style="${cLogoSty}margin-bottom:8px;display:block;margin-left:auto;margin-right:auto;">` : ''}
                 <div class="menu-item-name">${mrkt.title}</div>
                 <div style="font-size:0.9rem;color:#b8860b;margin-top:6px;">${mrkt.subtitle}</div>
                 ${mrkt.icon ? `<div style="font-size:1.5rem;margin-top:8px;">${mrkt.icon}</div>` : ''}
