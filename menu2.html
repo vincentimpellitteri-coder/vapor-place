@@ -114,7 +114,6 @@
       <input id="menu-search" type="text" placeholder="Search by name or flavor..." spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
       <div class="filter-btns">
         <button class="filter-btn active" data-type="ALL">All</button>
-        <button class="filter-btn" data-type="DISP">Disposables</button>
         <button class="filter-btn" data-type="SALT">Salts</button>
         <button class="filter-btn" data-type="SUB">Sub-Ohm</button>
         <button class="filter-btn" data-type="KIT">Kits</button>
@@ -168,7 +167,8 @@
       'SUB Alt Zero Excision Virus - The electrifying original lemon lime citrus dew.',
       'SUB Alt Zero Excision X Rated - Sweet blueberry tart yogurt.',
     ]);
-    let allItems = [...MENU_DATA.filter(i => i.name !== 'SALT Cassadaga Cannoli' && i.name !== 'SALT Candy King' && i.name !== 'SALT Cloud Nurdz' && !EXCISION_REPLACED.has(i.name)), ...CASS_ITEMS, ...CK_ITEMS, ...CN_ITEMS, ...EXCISION_ITEMS];
+    const isDisp = i => i.types ? i.types.includes('DISP') : i.name.startsWith('DISP ');
+    let allItems = [...MENU_DATA.filter(i => !isDisp(i) && i.name !== 'SALT Cassadaga Cannoli' && i.name !== 'SALT Candy King' && i.name !== 'SALT Cloud Nurdz' && !EXCISION_REPLACED.has(i.name)), ...CASS_ITEMS, ...CK_ITEMS, ...CN_ITEMS, ...EXCISION_ITEMS];
     let activeType = 'ALL';
     const typeLabels = { DISP: 'Disposable', SALT: 'Salt Nic', SUB: 'Sub-Ohm', KIT: 'Kit' };
     const PINNED_NAMES = ["SALT Slapple", "SALT MRKT PLCE Fuji Pear Mangoberry"];
