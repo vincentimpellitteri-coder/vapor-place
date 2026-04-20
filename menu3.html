@@ -182,7 +182,7 @@
       'Candy King Strawberry Watermelon Card': { title: 'Strawberry Watermelon', subtitle: 'Strawberry, Watermelon &amp; Bubblegum',   icon: '🍓 🍉 🫧', desc: 'Sweet strawberry and juicy watermelon wrapped in a soft bubblegum finish.', logo: 'candy-king-logo.jpg', logoStyle: 'max-height:60px;width:auto;background:transparent;', saltSize: '30ml', saltStr: '35mg / 50mg', subSize: '100ml', subStr: '0mg / 3mg / 6mg', vgpg: '70VG/30PG', iceLevel: 0, solo: true },
       'Candy King Swedish Card':            { title: 'Swedish',            subtitle: 'Swedish Fish, Strawberry &amp; Raspberry',        icon: '🐟 🍓', desc: 'The classic Swedish Fish candy taste — sweet red fruit gummy perfection.', logo: 'candy-king-logo.jpg', logoStyle: 'max-height:60px;width:auto;background:transparent;', saltSize: '30ml', saltStr: '35mg / 50mg', subSize: '100ml', subStr: '0mg / 3mg / 6mg', vgpg: '70VG/30PG', iceLevel: 0, solo: true },
       'Candy King Worms Card':              { title: 'Worms',              subtitle: 'Gummy Worms, Orange, Lime, Lemon &amp; Cherry',   icon: '🐛 🍊', desc: 'Tangy citrus gummy worms bursting with orange, lime, lemon, strawberry, and cherry.', logo: 'candy-king-logo.jpg', logoStyle: 'max-height:60px;width:auto;background:transparent;', saltSize: '30ml', saltStr: '35mg / 50mg', subSize: '100ml', subStr: '0mg / 3mg / 6mg', vgpg: '70VG/30PG', iceLevel: 0, solo: true },
-      'Barista Brew Salted Caramel Macchiato Card': { title: 'Salted Caramel Macchiato', subtitle: 'Caramel, Espresso &amp; Cream', icon: '☕ 🍮',
+      'SALT Barista Brew Salted Caramel Macchiato': { title: 'Salted Caramel Macchiato', subtitle: 'Caramel, Espresso &amp; Cream', icon: '☕ 🍮',
         desc: 'A rich, velvety salted caramel macchiato — bold espresso layered with smooth cream and sweet caramel.',
         logo: 'barista-brew-logo.webp', logoStyle: 'max-height:60px;width:auto;background:transparent;',
         saltSize: '30ml', saltStr: '', subSize: '100ml', subStr: '0mg / 3mg / 6mg', vgpg: '70VG/30PG',
@@ -278,8 +278,6 @@
     const CASS_COOK_CARD = { name: 'Cassadaga Be Cookie Card',    types: ['SALT','SUB'], profile: 'Salt 30ml: 25mg / 50mg · Sub-Ohm 100ml: 0mg / 3mg / 6mg / 9mg | Cookie, Vanilla, Cream',  image: 'cassadaga-cookie.jpg',    tags: 'Cassadaga, Cannoli, Be Cookie, Cookie, Vanilla, Cream, Dessert' };
     const CASS_BREK_CARD = { name: 'Cassadaga Be Breakfast Card', types: ['SALT','SUB'], profile: 'Salt 30ml: 25mg / 50mg · Sub-Ohm 100ml: 0mg / 3mg / 6mg / 9mg | Cereal, Milk',            image: 'cassadaga-breakfast.jpg', tags: 'Cassadaga, Cannoli, Be Breakfast, Cereal, Milk, Dessert' };
 
-    const BB_SCM_CARD = { name: 'Barista Brew Salted Caramel Macchiato Card', types: ['SALT','SUB'], image: 'barista-brew-salted-caramel.jpg', profile: 'Salt 30ml · Sub-Ohm 100ml: 0mg / 3mg / 6mg | Caramel, Coffee, Espresso, Cream, Dessert', tags: 'Barista Brew, Caramel, Coffee, Espresso, Cream, Dessert' };
-
     const AZ_XRATED_CARD = { name: 'Alt Zero X Rated Card', types: ['SUB'], profile: 'Sub-Ohm 60ml: 0mg / 3mg / 6mg | Blueberry, Yogurt, Vanilla, Cream, Dessert', image: 'excision-x-rated.jpg', tags: 'Alt Zero, Excision, X Rated, Blueberry, Yogurt, Cream, Dessert' };
 
     const AZ_JUST_BLUES_CARD = { name: 'Alt Zero Just Blues Card', types: ['SALT','SUB'], profile: 'Salt 30ml: 20mg / 40mg · Sub-Ohm 100ml: 0mg / 3mg / 6mg | Blue Razz, Blueberry, Candy', image: 'alt-zero-just-blues.jpg', tags: 'Alt Zero, Just Blues, Blue Razz, Blueberry, Candy, Fruit' };
@@ -326,7 +324,6 @@
       'SALT Cloud Nurdz',
       'SALT Chubby Vapes Purp - Delicious, grape infused bubblegum.',
       'SUB Chubby Vapes Purp -  - Delicious, grape infused bubblegum.',
-      'SALT Barista Brew Salted Caramel Macchiato',
     ]);
     const mkReds = (flavor, image, imageIced, icon, desc) => ({
       name: `Reds Apple ${flavor} Collection`,
@@ -344,8 +341,7 @@
     let allItems = [...MENU_DATA.filter(i => !COMBO_REPLACED.has(i.name)), FORBIDDEN_COMBO, FUJI_COMBO, BLOOD_SOLO, PINE_SOLO, WATERMELON_SOLO, THAI_SOLO, REDS_BERRIES, REDS_GOLDKIWI, REDS_GRAPE, REDS_ORIGINAL, REDS_STRAWBERRY, REDS_WATERMELON, SLAPPLE_COMBO, GLACIAL_MINT_CARD, AF_MENTHOL_CARD, AF_MINT_CARD, AF_UNFLAVORED_CARD, PARADOX_COMBO, AZ_JUST_BLUES_CARD, AZ_JUST_REDS_CARD, VIRUS_COMBO, AZ_XRATED_CARD,
       CASS_ONE_CARD, CASS_NUTS_CARD, CASS_GRAH_CARD, CASS_COOK_CARD, CASS_BREK_CARD,
       CK_BATCH_CARD, CK_GUSH_CARD, CK_PEACH_CARD, CK_PINK_CARD, CK_SWBG_CARD, CK_SWED_CARD, CK_WORM_CARD,
-      CN_BRL_CARD, CN_GA_CARD, CN_GS_CARD, CN_SWS_CARD, CN_WA_CARD, CN_WB_CARD,
-      BB_SCM_CARD];
+      CN_BRL_CARD, CN_GA_CARD, CN_GS_CARD, CN_SWS_CARD, CN_WA_CARD, CN_WB_CARD];
     let activeType = 'ALL';
     const typeLabels = { DISP: 'Disposable', SALT: 'Salt Nic', SUB: 'Sub-Ohm', KIT: 'Kit' };
 
