@@ -169,6 +169,12 @@
         imageIced: 'excision-antidote.jpg',
         saltSize: '30ml', saltStr: '20mg / 40mg', subSize: '60ml', subStr: '0mg / 3mg / 6mg', vgpg: '70VG/30PG',
         iceLevelRegular: 0, iceLevelIced: 3, bottomIcon: '🧊', combo: true },
+      'Cloud Nurdz Blue Raspberry Lemon Card': { title: 'Blue Raspberry Lemon',    subtitle: 'Blue Razz &amp; Lemon Candy',          icon: '🫐 🍋', desc: 'Tart blue raspberry meets fresh lemon in a sour candy burst.', logo: null, saltSize: '30ml', saltStr: '30mg / 50mg', subSize: '100ml', subStr: '0mg / 3mg / 6mg', vgpg: '70VG/30PG', iceLevel: 0, solo: true },
+      'Cloud Nurdz Grape Apple Card':          { title: 'Grape Apple',             subtitle: 'Grape &amp; Green Apple Candy',        icon: '🍇 🍏', desc: 'Sweet grape and crisp green apple candy blended together.', logo: null, saltSize: '30ml', saltStr: '30mg / 50mg', subSize: '100ml', subStr: '0mg / 3mg / 6mg', vgpg: '70VG/30PG', iceLevel: 0, solo: true },
+      'Cloud Nurdz Grape Strawberry Card':     { title: 'Grape Strawberry',        subtitle: 'Grape &amp; Strawberry Candy',         icon: '🍇 🍓', desc: 'Juicy grape and ripe strawberry candy in every puff.', logo: null, saltSize: '30ml', saltStr: '30mg / 50mg', subSize: '100ml', subStr: '0mg / 3mg / 6mg', vgpg: '70VG/30PG', iceLevel: 0, solo: true },
+      'Cloud Nurdz Sour Watermelon Strawberry Card': { title: 'Sour Watermelon Strawberry', subtitle: 'Sour Watermelon &amp; Strawberry', icon: '🍉 🍓', desc: 'Sour candy watermelon and strawberry with a tangy kick.', logo: null, saltSize: '30ml', saltStr: '30mg / 50mg', subSize: '100ml', subStr: '0mg / 3mg / 6mg', vgpg: '70VG/30PG', iceLevel: 0, solo: true },
+      'Cloud Nurdz Watermelon Apple Card':     { title: 'Watermelon Apple',        subtitle: 'Watermelon &amp; Green Apple',         icon: '🍉 🍏', desc: 'Fresh watermelon with a crisp green apple candy finish.', logo: null, saltSize: '30ml', saltStr: '30mg / 50mg', subSize: '100ml', subStr: '0mg / 3mg / 6mg', vgpg: '70VG/30PG', iceLevel: 0, solo: true },
+      'Cloud Nurdz Watermelon Berry Card':     { title: 'Watermelon Berry',        subtitle: 'Watermelon &amp; Mixed Berry',         icon: '🍉 🫐', desc: 'Sweet watermelon blended with a medley of mixed berries.', logo: null, saltSize: '30ml', saltStr: '30mg / 50mg', subSize: '100ml', subStr: '0mg / 3mg / 6mg', vgpg: '70VG/30PG', iceLevel: 0, solo: true },
       'Candy King Batch Card':              { title: 'Batch',              subtitle: 'Sour Patch, Orange, Cherry, Lemon &amp; Lime',  icon: '🍊 🍋 🍒', desc: 'A bold mix of sour patch-inspired orange, cherry, lemon, and lime candy.', logo: 'candy-king-logo.jpg', logoStyle: 'max-height:60px;width:auto;background:transparent;', saltSize: '30ml', saltStr: '35mg / 50mg', subSize: '100ml', subStr: '0mg / 3mg / 6mg', vgpg: '70VG/30PG', iceLevel: 0, solo: true },
       'Candy King Gush Card':               { title: 'Gush',               subtitle: 'Gushers, Blueberry, Raspberry &amp; Strawberry',  icon: '🍇 🍓 🍏', desc: 'Bursting fruit candy inspired by Gushers — blueberry, raspberry, strawberry, and green apple.', logo: 'candy-king-logo.jpg', logoStyle: 'max-height:60px;width:auto;background:transparent;', saltSize: '30ml', saltStr: '35mg / 50mg', subSize: '100ml', subStr: '0mg / 3mg / 6mg', vgpg: '70VG/30PG', iceLevel: 0, solo: true },
       'Candy King Peachy Rings Card':       { title: 'Peachy Rings',       subtitle: 'Sweet Peach Gummy Rings',                         icon: '🍑 🍬', desc: 'Sweet, chewy peach-flavored gummy candy rings.', logo: 'candy-king-logo.jpg', logoStyle: 'max-height:60px;width:auto;background:transparent;', saltSize: '30ml', saltStr: '35mg / 50mg', subSize: '100ml', subStr: '0mg / 3mg / 6mg', vgpg: '70VG/30PG', iceLevel: 0, solo: true },
@@ -246,6 +252,13 @@
 
     const VIRUS_COMBO = { name: 'Alt Zero Virus Antidote Collection', types: ['SALT','SUB'], profile: 'Salt 30ml: 20mg / 40mg · Sub-Ohm 60ml: 0mg / 3mg / 6mg | Lemon, Lime, Citrus', image: 'excision-virus.jpg', tags: 'Alt Zero, Excision, Virus, Antidote, Lemon, Lime, Citrus, Ice, Iced' };
 
+    const CN_BRL_CARD  = { name: 'Cloud Nurdz Blue Raspberry Lemon Card',    types: ['SALT','SUB'], image: 'cloud-nurdz-blue-raspberry-lemon.jpg',    profile: 'Salt 30ml: 30mg / 50mg · Sub-Ohm 100ml: 0mg / 3mg / 6mg | Blue Razz, Lemon', tags: 'Cloud Nurdz, Blue Razz, Lemon, Candy' };
+    const CN_GA_CARD   = { name: 'Cloud Nurdz Grape Apple Card',             types: ['SALT','SUB'], image: 'cloud-nurdz-grape-apple.jpg',             profile: 'Salt 30ml: 30mg / 50mg · Sub-Ohm 100ml: 0mg / 3mg / 6mg | Grape, Green Apple', tags: 'Cloud Nurdz, Grape, Apple, Candy' };
+    const CN_GS_CARD   = { name: 'Cloud Nurdz Grape Strawberry Card',        types: ['SALT','SUB'], image: 'cloud-nurdz-grape-strawberry.jpg',        profile: 'Salt 30ml: 30mg / 50mg · Sub-Ohm 100ml: 0mg / 3mg / 6mg | Grape, Strawberry', tags: 'Cloud Nurdz, Grape, Strawberry, Candy' };
+    const CN_SWS_CARD  = { name: 'Cloud Nurdz Sour Watermelon Strawberry Card', types: ['SALT','SUB'], image: 'cloud-nurdz-sour-watermelon-strawberry.jpg', profile: 'Salt 30ml: 30mg / 50mg · Sub-Ohm 100ml: 0mg / 3mg / 6mg | Sour, Watermelon, Strawberry', tags: 'Cloud Nurdz, Sour, Watermelon, Strawberry, Candy' };
+    const CN_WA_CARD   = { name: 'Cloud Nurdz Watermelon Apple Card',        types: ['SALT','SUB'], image: 'cloud-nurdz-watermelon-apple.jpg',        profile: 'Salt 30ml: 30mg / 50mg · Sub-Ohm 100ml: 0mg / 3mg / 6mg | Watermelon, Apple', tags: 'Cloud Nurdz, Watermelon, Apple, Candy' };
+    const CN_WB_CARD   = { name: 'Cloud Nurdz Watermelon Berry Card',        types: ['SALT','SUB'], image: 'cloud-nurdz-watermelon-berry.jpg',        profile: 'Salt 30ml: 30mg / 50mg · Sub-Ohm 100ml: 0mg / 3mg / 6mg | Watermelon, Berry', tags: 'Cloud Nurdz, Watermelon, Berry, Candy' };
+
     const CK_BATCH_CARD  = { name: 'Candy King Batch Card',              types: ['SALT','SUB'], image: 'candy-king-batch.jpg',               profile: 'Salt 30ml: 35mg / 50mg · Sub-Ohm 100ml: 0mg / 3mg / 6mg | Sour Patch, Orange, Cherry, Lemon, Lime', tags: 'Candy King, Batch, Sour Patch, Candy' };
     const CK_GUSH_CARD   = { name: 'Candy King Gush Card',               types: ['SALT','SUB'], image: 'candy-king-gush.jpg',                profile: 'Salt 30ml: 35mg / 50mg · Sub-Ohm 100ml: 0mg / 3mg / 6mg | Gushers, Blueberry, Raspberry, Strawberry', tags: 'Candy King, Gush, Gushers, Blueberry, Candy' };
     const CK_PEACH_CARD  = { name: 'Candy King Peachy Rings Card',       types: ['SALT','SUB'], image: 'candy-king-peachy-rings.jpg',        profile: 'Salt 30ml: 35mg / 50mg · Sub-Ohm 100ml: 0mg / 3mg / 6mg | Peach Gummy Rings',                        tags: 'Candy King, Peachy Rings, Peach, Gummy, Candy' };
@@ -303,6 +316,7 @@
       'SUB Alt Zero Excision X Rated - Sweet blueberry tart yogurt.',
       'SALT Cassadaga Cannoli',
       'SALT Candy King',
+      'SALT Cloud Nurdz',
       'SALT Chubby Vapes Purp - Delicious, grape infused bubblegum.',
       'SUB Chubby Vapes Purp -  - Delicious, grape infused bubblegum.',
     ]);
@@ -321,7 +335,8 @@
 
     let allItems = [...MENU_DATA.filter(i => !COMBO_REPLACED.has(i.name)), FORBIDDEN_COMBO, FUJI_COMBO, BLOOD_SOLO, PINE_SOLO, WATERMELON_SOLO, THAI_SOLO, REDS_BERRIES, REDS_GOLDKIWI, REDS_GRAPE, REDS_ORIGINAL, REDS_STRAWBERRY, REDS_WATERMELON, SLAPPLE_COMBO, GLACIAL_MINT_CARD, AF_MENTHOL_CARD, AF_MINT_CARD, AF_UNFLAVORED_CARD, PARADOX_COMBO, AZ_JUST_BLUES_CARD, AZ_JUST_REDS_CARD, VIRUS_COMBO, AZ_XRATED_CARD,
       CASS_ONE_CARD, CASS_NUTS_CARD, CASS_GRAH_CARD, CASS_COOK_CARD, CASS_BREK_CARD,
-      CK_BATCH_CARD, CK_GUSH_CARD, CK_PEACH_CARD, CK_PINK_CARD, CK_SWBG_CARD, CK_SWED_CARD, CK_WORM_CARD];
+      CK_BATCH_CARD, CK_GUSH_CARD, CK_PEACH_CARD, CK_PINK_CARD, CK_SWBG_CARD, CK_SWED_CARD, CK_WORM_CARD,
+      CN_BRL_CARD, CN_GA_CARD, CN_GS_CARD, CN_SWS_CARD, CN_WA_CARD, CN_WB_CARD];
     let activeType = 'ALL';
     const typeLabels = { DISP: 'Disposable', SALT: 'Salt Nic', SUB: 'Sub-Ohm', KIT: 'Kit' };
 
