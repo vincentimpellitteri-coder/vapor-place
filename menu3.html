@@ -272,7 +272,7 @@
         const iceDotsHtml = (level) => [1,2,3,4,5].map(i =>
           `<span style="display:inline-block;width:11px;height:11px;border-radius:50%;background:${i <= level ? '#0088aa' : '#ddd'};"></span>`
         ).join('');
-        const iceBadge = (level) => `
+        const iceBadge = (level) => level === 0 ? '' : `
           <div style="display:flex;align-items:center;gap:6px;margin-top:6px;">
             <span style="font-family:'Orbitron',sans-serif;font-size:0.55rem;font-weight:700;letter-spacing:0.08em;color:#0088aa;">ICE</span>
             <div style="display:flex;gap:3px;">${iceDotsHtml(level)}</div>
