@@ -168,6 +168,11 @@
         imageIced: 'excision-antidote.jpg',
         saltSize: '30ml', saltStr: '20mg / 40mg', subSize: '60ml', subStr: '0mg / 3mg / 6mg', vgpg: '70VG/30PG',
         iceLevelRegular: 0, iceLevelIced: 3, bottomIcon: '🧊', combo: true },
+      'Cassadaga Be One Card':       { title: 'Cannoli Be One',       subtitle: 'Classic Cannoli Cream',               icon: '🥐 🍦', desc: 'Classic cannoli cream filling — smooth, sweet, and perfectly indulgent.', logo: 'cassadaga-logo.jpg', logoStyle: 'max-height:60px;width:auto;background:transparent;', saltSize: '30ml', saltStr: '25mg / 50mg', subSize: '100ml', subStr: '0mg / 3mg / 6mg / 9mg', vgpg: '70VG/30PG', iceLevel: 0, solo: true },
+      'Cassadaga Be Nuts Card':      { title: 'Cannoli Be Nuts',      subtitle: 'Peanut Butter &amp; Nuts Cannoli',     icon: '🥜 🥐', desc: 'Rich cannoli cream loaded with peanut butter and roasted nuts.', logo: 'cassadaga-logo.jpg', logoStyle: 'max-height:60px;width:auto;background:transparent;', saltSize: '30ml', saltStr: '25mg / 50mg', subSize: '100ml', subStr: '0mg / 3mg / 6mg / 9mg', vgpg: '70VG/30PG', iceLevel: 0, solo: true },
+      'Cassadaga Be Graham Card':    { title: 'Cannoli Be Graham',    subtitle: 'Honey Graham &amp; Caramel Cannoli',   icon: '🍯 🥐', desc: 'Cannoli cream with honey graham cracker and a touch of smooth caramel.', logo: 'cassadaga-logo.jpg', logoStyle: 'max-height:60px;width:auto;background:transparent;', saltSize: '30ml', saltStr: '25mg / 50mg', subSize: '100ml', subStr: '0mg / 3mg / 6mg / 9mg', vgpg: '70VG/30PG', iceLevel: 0, solo: true },
+      'Cassadaga Be Cookie Card':    { title: 'Cannoli Be Cookie',    subtitle: 'Cookie &amp; Vanilla Cream Cannoli',  icon: '🍪 🥐', desc: 'Cannoli filled with cookie crumble and luscious vanilla cream.', logo: 'cassadaga-logo.jpg', logoStyle: 'max-height:60px;width:auto;background:transparent;', saltSize: '30ml', saltStr: '25mg / 50mg', subSize: '100ml', subStr: '0mg / 3mg / 6mg / 9mg', vgpg: '70VG/30PG', iceLevel: 0, solo: true },
+      'Cassadaga Be Breakfast Card': { title: 'Cannoli Be Breakfast', subtitle: 'Fruity Cereal &amp; Milk Cannoli',     icon: '🥣 🥐', desc: 'Cannoli cream blended with fruity cereal and a splash of sweet milk.', logo: 'cassadaga-logo.jpg', logoStyle: 'max-height:60px;width:auto;background:transparent;', saltSize: '30ml', saltStr: '25mg / 50mg', subSize: '100ml', subStr: '0mg / 3mg / 6mg / 9mg', vgpg: '70VG/30PG', iceLevel: 0, solo: true },
       'Alt Zero X Rated Card': { title: 'X Rated', subtitle: 'Blueberry Tart Yogurt', icon: '🫐 🍦',
         desc: 'Sweet, creamy blueberry yogurt with a smooth tangy finish.',
         logo: 'excision-logo.jpg', logoStyle: 'max-height:60px;width:auto;background:transparent;',
@@ -233,6 +238,12 @@
 
     const VIRUS_COMBO = { name: 'Alt Zero Virus Antidote Collection', types: ['SALT','SUB'], profile: 'Salt 30ml: 20mg / 40mg · Sub-Ohm 60ml: 0mg / 3mg / 6mg | Lemon, Lime, Citrus', image: 'excision-virus.jpg', tags: 'Alt Zero, Excision, Virus, Antidote, Lemon, Lime, Citrus, Ice, Iced' };
 
+    const CASS_ONE_CARD  = { name: 'Cassadaga Be One Card',       types: ['SALT','SUB'], profile: 'Salt 30ml: 25mg / 50mg · Sub-Ohm 100ml: 0mg / 3mg / 6mg / 9mg | Cream, Dessert',          image: 'cassadaga-one-salt.jpg',       tags: 'Cassadaga, Cannoli, Be One, Cream, Dessert' };
+    const CASS_NUTS_CARD = { name: 'Cassadaga Be Nuts Card',      types: ['SALT','SUB'], profile: 'Salt 30ml: 25mg / 50mg · Sub-Ohm 100ml: 0mg / 3mg / 6mg / 9mg | Peanut Butter, Nuts',    image: 'cassadaga-nuts-salt.jpg',      tags: 'Cassadaga, Cannoli, Be Nuts, Peanut Butter, Nuts, Dessert' };
+    const CASS_GRAH_CARD = { name: 'Cassadaga Be Graham Card',    types: ['SALT','SUB'], profile: 'Salt 30ml: 25mg / 50mg · Sub-Ohm 100ml: 0mg / 3mg / 6mg / 9mg | Graham Cracker, Caramel', image: 'cassadaga-graham-salt.jpg',    tags: 'Cassadaga, Cannoli, Be Graham, Graham Cracker, Caramel, Dessert' };
+    const CASS_COOK_CARD = { name: 'Cassadaga Be Cookie Card',    types: ['SALT','SUB'], profile: 'Salt 30ml: 25mg / 50mg · Sub-Ohm 100ml: 0mg / 3mg / 6mg / 9mg | Cookie, Vanilla, Cream',  image: 'cassadaga-cookie-salt.jpg',    tags: 'Cassadaga, Cannoli, Be Cookie, Cookie, Vanilla, Cream, Dessert' };
+    const CASS_BREK_CARD = { name: 'Cassadaga Be Breakfast Card', types: ['SALT','SUB'], profile: 'Salt 30ml: 25mg / 50mg · Sub-Ohm 100ml: 0mg / 3mg / 6mg / 9mg | Cereal, Milk',            image: 'cassadaga-breakfast-salt.jpg', tags: 'Cassadaga, Cannoli, Be Breakfast, Cereal, Milk, Dessert' };
+
     const AZ_XRATED_CARD = { name: 'Alt Zero X Rated Card', types: ['SUB'], profile: 'Sub-Ohm 60ml: 0mg / 3mg / 6mg | Blueberry, Yogurt, Vanilla, Cream, Dessert', image: 'excision-x-rated.jpg', tags: 'Alt Zero, Excision, X Rated, Blueberry, Yogurt, Cream, Dessert' };
 
     const AZ_JUST_BLUES_CARD = { name: 'Alt Zero Just Blues Card', types: ['SALT','SUB'], profile: 'Salt 30ml: 20mg / 40mg · Sub-Ohm 100ml: 0mg / 3mg / 6mg | Blue Razz, Blueberry, Candy', image: 'alt-zero-just-blues.jpg', tags: 'Alt Zero, Just Blues, Blue Razz, Blueberry, Candy, Fruit' };
@@ -274,6 +285,7 @@
       'SALT Alt Zero Just Blues', 'SALT Alt Zero Just Reds',
       'SUB Alt Zero Excision Virus - The electrifying original lemon lime citrus dew.',
       'SUB Alt Zero Excision X Rated - Sweet blueberry tart yogurt.',
+      'SALT Cassadaga Cannoli',
     ]);
     const mkReds = (flavor, image, imageIced, icon, desc) => ({
       name: `Reds Apple ${flavor} Collection`,
@@ -288,7 +300,8 @@
     const REDS_STRAWBERRY  = mkReds('Apple Strawberry',  '7daze-reds-apple-strawberry.png',    '7daze-reds-iced-apple-strawberry-ice.png');
     const REDS_WATERMELON  = mkReds('Apple Watermelon',  '7daze-reds-apple-watermelon.png',    '7daze-reds-iced-apple-watermelon-iced.png');
 
-    let allItems = [...MENU_DATA.filter(i => !COMBO_REPLACED.has(i.name)), FORBIDDEN_COMBO, FUJI_COMBO, BLOOD_SOLO, PINE_SOLO, WATERMELON_SOLO, THAI_SOLO, REDS_BERRIES, REDS_GOLDKIWI, REDS_GRAPE, REDS_ORIGINAL, REDS_STRAWBERRY, REDS_WATERMELON, SLAPPLE_COMBO, GLACIAL_MINT_CARD, AF_MENTHOL_CARD, AF_MINT_CARD, AF_UNFLAVORED_CARD, PARADOX_COMBO, AZ_JUST_BLUES_CARD, AZ_JUST_REDS_CARD, VIRUS_COMBO, AZ_XRATED_CARD];
+    let allItems = [...MENU_DATA.filter(i => !COMBO_REPLACED.has(i.name)), FORBIDDEN_COMBO, FUJI_COMBO, BLOOD_SOLO, PINE_SOLO, WATERMELON_SOLO, THAI_SOLO, REDS_BERRIES, REDS_GOLDKIWI, REDS_GRAPE, REDS_ORIGINAL, REDS_STRAWBERRY, REDS_WATERMELON, SLAPPLE_COMBO, GLACIAL_MINT_CARD, AF_MENTHOL_CARD, AF_MINT_CARD, AF_UNFLAVORED_CARD, PARADOX_COMBO, AZ_JUST_BLUES_CARD, AZ_JUST_REDS_CARD, VIRUS_COMBO, AZ_XRATED_CARD,
+      CASS_ONE_CARD, CASS_NUTS_CARD, CASS_GRAH_CARD, CASS_COOK_CARD, CASS_BREK_CARD];
     let activeType = 'ALL';
     const typeLabels = { DISP: 'Disposable', SALT: 'Salt Nic', SUB: 'Sub-Ohm', KIT: 'Kit' };
 
