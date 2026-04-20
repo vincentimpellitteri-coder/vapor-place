@@ -162,6 +162,16 @@
         desc: 'A blend of fresh fuji apples, sweet pears, ripe mangos, and succulent berries. A tropical fruit explosion!',
         imageIced: 'mrkt-plce-iced-fuji-pear-mangoberry.jpg',
         iceLevelRegular: 0, iceLevelIced: 3, bottomIcon: '🧊', combo: true },
+      'Alt Zero Just Blues Card': { title: 'Just Blues', subtitle: 'Blue Razz &amp; Blueberry Candy', icon: '🫐 💙',
+        desc: 'A burst of sour blueberries and bold blue raspberry candy exploding with every hit.',
+        logo: 'alt-zero-logo.webp', logoStyle: 'max-height:60px;width:auto;background:transparent;',
+        saltSize: '30ml', saltStr: '20mg / 40mg', subSize: '100ml', subStr: '0mg / 3mg / 6mg', vgpg: '70VG/30PG',
+        iceLevel: 0, solo: true },
+      'Alt Zero Just Reds Card': { title: 'Just Reds', subtitle: 'Strawberry, Watermelon, Cherry &amp; Fruit Punch', icon: '🍓 🍉 🍒',
+        desc: 'A candy-packed mix of strawberry, watermelon, cherry, and fruit punch — every flavor a red.',
+        logo: 'alt-zero-logo.webp', logoStyle: 'max-height:60px;width:auto;background:transparent;',
+        saltSize: '30ml', saltStr: '20mg / 40mg', subSize: '100ml', subStr: '0mg / 3mg / 6mg', vgpg: '70VG/30PG',
+        iceLevel: 0, solo: true },
       'Alt Zero Paradox Collection': { title: 'Paradox', subtitle: 'Grape, Citrus &amp; Blackberry', icon: '🍇 🍋 🫐',
         desc: 'A pitch-black Mountain Dew-inspired blend with bold citrus, grape, and deep dark fruits.',
         logo: 'excision-logo.jpg', logoStyle: 'max-height:60px;width:auto;background:transparent;', imageIced: 'alt-zero-excision-paradox-on-the-rocks.jpg',
@@ -210,6 +220,9 @@
     const WATERMELON_SOLO  = { name: 'MRKT PLCE Watermelon Hula Berry Lime Card',  types: ['SALT','SUB'], profile: 'Salt 30ml: 24mg / 48mg · Sub-Ohm 100ml: 0mg / 3mg / 6mg | Watermelon, Hula Berry, Lime',          image: 'mrkt-plce-watermelon-hula-berry-lime.jpg',  tags: 'MRKT PLCE, Watermelon, Hula Berry, Lime, Berry, Tropical' };
     const THAI_SOLO        = { name: 'MRKT PLCE Thai Apple Melon Razz Card',       types: ['SALT','SUB'], profile: 'Salt 30ml: 24mg / 48mg · Sub-Ohm 100ml: 0mg / 3mg / 6mg | Apple, Melon, Raspberry',              image: 'mrkt-plce-thai-apple-melon-razz.jpg',       tags: 'MRKT PLCE, Thai Apple, Melon, Raspberry, Razz, Fruit' };
 
+    const AZ_JUST_BLUES_CARD = { name: 'Alt Zero Just Blues Card', types: ['SALT','SUB'], profile: 'Salt 30ml: 20mg / 40mg · Sub-Ohm 100ml: 0mg / 3mg / 6mg | Blue Razz, Blueberry, Candy', image: 'alt-zero-just-blues.jpg', tags: 'Alt Zero, Just Blues, Blue Razz, Blueberry, Candy, Fruit' };
+    const AZ_JUST_REDS_CARD  = { name: 'Alt Zero Just Reds Card',  types: ['SALT','SUB'], profile: 'Salt 30ml: 20mg / 40mg · Sub-Ohm 100ml: 0mg / 3mg / 6mg | Strawberry, Watermelon, Cherry, Fruit Punch', image: 'alt-zero-just-reds.jpg', tags: 'Alt Zero, Just Reds, Strawberry, Watermelon, Cherry, Fruit Punch, Candy' };
+
     const PARADOX_COMBO = { name: 'Alt Zero Paradox Collection', types: ['SALT','SUB'], profile: 'Salt 30ml: 20mg / 40mg · Sub-Ohm 60ml: 0mg / 3mg / 6mg | Grape, Citrus, Blackberry', image: 'alt-zero-excision-paradox.jpg', tags: 'Alt Zero, Paradox, Grape, Citrus, Blackberry, Ice, Iced, Mountain Dew' };
 
     const AF_MENTHOL_CARD   = { name: 'Air Factory Menthol Card',   types: ['SALT','SUB'], profile: 'Salt 30ml: 18mg / 36mg · Sub-Ohm 60ml: 0mg / 3mg / 6mg | Menthol, Ice', image: 'air-factory-menthol.jpg',   tags: 'Air Factory, Menthol, Ice, Cool' };
@@ -243,6 +256,7 @@
       'SALT 7 Daze Glacial Mint',
       'SALT Air Factory Menthol', 'SALT Air Factory Mint', 'SUB Air Factory Unflavored',
       'SALT Alt Zero Paradox', 'SALT Alt Zero Paradox on the Rocks',
+      'SALT Alt Zero Just Blues', 'SALT Alt Zero Just Reds',
     ]);
     const mkReds = (flavor, image, imageIced, icon, desc) => ({
       name: `Reds Apple ${flavor} Collection`,
@@ -257,7 +271,7 @@
     const REDS_STRAWBERRY  = mkReds('Apple Strawberry',  '7daze-reds-apple-strawberry.png',    '7daze-reds-iced-apple-strawberry-ice.png');
     const REDS_WATERMELON  = mkReds('Apple Watermelon',  '7daze-reds-apple-watermelon.png',    '7daze-reds-iced-apple-watermelon-iced.png');
 
-    let allItems = [...MENU_DATA.filter(i => !COMBO_REPLACED.has(i.name)), FORBIDDEN_COMBO, FUJI_COMBO, BLOOD_SOLO, PINE_SOLO, WATERMELON_SOLO, THAI_SOLO, REDS_BERRIES, REDS_GOLDKIWI, REDS_GRAPE, REDS_ORIGINAL, REDS_STRAWBERRY, REDS_WATERMELON, SLAPPLE_COMBO, GLACIAL_MINT_CARD, AF_MENTHOL_CARD, AF_MINT_CARD, AF_UNFLAVORED_CARD, PARADOX_COMBO];
+    let allItems = [...MENU_DATA.filter(i => !COMBO_REPLACED.has(i.name)), FORBIDDEN_COMBO, FUJI_COMBO, BLOOD_SOLO, PINE_SOLO, WATERMELON_SOLO, THAI_SOLO, REDS_BERRIES, REDS_GOLDKIWI, REDS_GRAPE, REDS_ORIGINAL, REDS_STRAWBERRY, REDS_WATERMELON, SLAPPLE_COMBO, GLACIAL_MINT_CARD, AF_MENTHOL_CARD, AF_MINT_CARD, AF_UNFLAVORED_CARD, PARADOX_COMBO, AZ_JUST_BLUES_CARD, AZ_JUST_REDS_CARD];
     let activeType = 'ALL';
     const typeLabels = { DISP: 'Disposable', SALT: 'Salt Nic', SUB: 'Sub-Ohm', KIT: 'Kit' };
 
