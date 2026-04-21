@@ -775,18 +775,41 @@
             </div>
           `;
         } else {
+          const brandPfx = ['Monster Labs Custard Monster ','Monster Labs Frozen Fruit Monster ','Monster Labs Fruit Monster ','Monster Labs Jam Monster ','Monster Labs Lemonade Monster ','Monster Labs The Milk ','Monster Labs Tobacco Monster ','Killer Fruits By Vapetasia ','Verdict Vapors Mints ','Verdict Vapors ','Keep It 100 OG ','Keep It 100 ','Propaganda The Hype ','Propaganda ','Bad Drip ','Dinner Lady ','Fruitia Jus ','Fruitia ','Khali ','Lemon Monster ','Met4 ','Naked 100 ','Noms X2 ','Pachamama Syn ','Pachamama ','Pinup Vapors ','Pod Juice Jewel Mint ','Pod Juice ','RAZ Gush ','RAZ LTX ','RAZ ','Smoke Crossroads ','Suicide Bunny ','VGod ','Vapetasia ','Yogi ','Nomenon Free Noms ','Nomenon ','Noms 100 ','Free Noms ','Noms ','Twist ','Juice Head '];
+          let aTitle = displayName;
+          for (const b of brandPfx) { if (aTitle.startsWith(b)) { aTitle = aTitle.slice(b.length); break; } }
+          aTitle = aTitle.replace(/^Sadboy [A-Z] /, '').replace(/^Sadboy (Happy End |Nola Bar Strawberry |Nola Bar |Nola Berry |Nola |Pumpkin Cookie |Pumpkin |Shamrock Cookie |Shamrock |Unicorn Tears |Unicorn )/, '');
+          aTitle = aTitle.replace(/\s*-\s*.+$/, '').trim() || displayName.replace(/\s*-\s*.+$/, '').trim();
+          const saltM = sizes.match(/Salt\s+([\d]+ml(?:\s*\/\s*\d+ml)?)(:\s*([\d\s\/mg]+))?/i);
+          const subM  = sizes.match(/Sub-Ohm\s+([\d]+ml(?:\s*\/\s*\d+ml)?)(:\s*([\d\s\/mg]+))?/i);
+          const aSaltSz  = saltM ? saltM[1].trim() : '';
+          const aSaltStr = saltM && saltM[3] ? saltM[3].trim() : '';
+          const aSubSz   = subM  ? subM[1].trim()  : '';
+          const aSubStr  = subM && subM[3] ? subM[3].trim() : '';
+          const fl = (flavor + ' ' + aTitle).toLowerCase();
+          const aIce = /polar ice|sub zero|arctic wintergreen/.test(fl) ? 5 :
+                       /\bfreeze\b|frost|arctic/.test(fl) ? 4 :
+                       /\bice\b|iced|menthol/.test(fl) ? 3 :
+                       /\bmint\b|\bcool\b|\bchill\b/.test(fl) ? 2 : 0;
+          const aSaltRow = aSaltSz ? `<div style="display:flex;align-items:center;gap:6px;"><span style="font-size:0.78rem;color:#555;">${aSaltSz}</span><span class="menu-item-type type-SALT">Salt Nic</span><span style="font-size:0.82rem;color:#555;">${aSaltStr}</span></div>` : '';
+          const aSubRow  = aSubSz  ? `<div style="display:flex;align-items:center;gap:6px;"><span style="font-size:0.78rem;color:#555;">${aSubSz}</span><span class="menu-item-type type-SUB">Sub-Ohm</span><span style="font-size:0.82rem;color:#555;">${aSubStr}</span></div>` : '';
           div.innerHTML = `
-            <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;margin-bottom:10px;">
-              <div style="text-align:center;">
-                <div class="menu-item-name">${displayName}</div>
-                ${flavor ? `<div style="font-size:0.98rem;color:#b8860b;margin-top:6px;">${flavor}</div>` : ''}
+            <div style="display:grid;grid-template-columns:160px 1fr 160px;align-items:stretch;gap:20px;margin-bottom:10px;">
+              <div style="display:flex;flex-direction:column;">
+                ${item.image ? `<img src="images/${item.image}" alt="${aTitle}" style="width:160px;border-radius:6px;object-fit:contain;flex:1;background:#fff;">` : '<div style="width:160px;flex:1;"></div>'}
+                ${iceBadge(aIce)}
               </div>
-              ${item.image ? `<img src="images/${item.image}" alt="${displayName}" style="width:180px;border-radius:6px;object-fit:contain;max-height:140px;background:#fff;">` : '<div style="width:180px;"></div>'}
-              <div style="font-size:0.82rem;color:#555;text-align:center;">${sizes}</div>
+              <div style="text-align:center;">
+                <div class="menu-item-name">${aTitle}</div>
+                ${flavor ? `<div style="font-size:0.9rem;color:#b8860b;margin-top:6px;">${flavor}</div>` : ''}
+              </div>
+              <div></div>
             </div>
-            <div style="display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-top:4px;">${badgeHtml}</div>
-            ${item.price ? `<div style="font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:700;color:#aaff00;margin-top:8px;text-align:center;">${item.price}</div>` : ''}
-            ${item.link ? `<a href="${item.link}" style="display:block;margin-top:10px;font-size:0.75rem;color:#0088aa;text-decoration:none;font-family:'Orbitron',sans-serif;letter-spacing:0.05em;text-align:center;">Learn More &rarr;</a>` : ''}
+            <div style="display:grid;grid-template-columns:160px 1fr 160px;align-items:center;margin-top:10px;border-top:1px solid #ddd;padding-top:10px;">
+              <div style="text-align:left;"><span style="font-size:0.82rem;color:#555;">70VG/30PG</span></div>
+              <div style="display:flex;flex-direction:column;gap:6px;align-items:center;">${aSaltRow}${aSubRow}</div>
+              <div></div>
+            </div>
           `;
         }
         list.appendChild(div);
