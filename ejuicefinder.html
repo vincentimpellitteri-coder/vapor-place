@@ -487,6 +487,52 @@
     }
     .toast.success { border-color: var(--success); color: var(--success); }
     .toast.danger  { border-color: var(--danger);  color: var(--danger); }
+
+    /* ── Type / Nic Filter Bars ─────────────────────────────── */
+    #type-filter-bar {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 16px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    #nic-filter-bar {
+      background: #0d0d1a;
+      border-bottom: 1px solid var(--border);
+      padding: 8px 16px 10px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .filter-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding-right: 2px;
+      flex-shrink: 0;
+    }
+    .fchip {
+      background: var(--elevated);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      padding: 5px 14px;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .fchip:hover { border-color: var(--purple); color: var(--text); }
+    .fchip.active { background: var(--purple); border-color: var(--purple); color: #fff; }
+    .fchip.ftype-salt.active  { background: #10b981; border-color: #10b981; color: #fff; }
+    .fchip.ftype-sub.active   { background: #fb923c; border-color: #fb923c; color: #fff; }
+    .fchip.ftype-disp.active  { background: #38bdf8; border-color: #38bdf8; color: #111; }
     @keyframes toastIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
   </style>
 </head>
@@ -505,6 +551,22 @@
   <div id="search-wrap">
     <input id="search-input" type="text" placeholder="Search by name, brand, or flavor…" autocomplete="off" spellcheck="false">
     <button id="search-clear" title="Clear">✕</button>
+  </div>
+
+  <div id="type-filter-bar">
+    <span class="filter-label">Type</span>
+    <button class="fchip active" data-type="All">All</button>
+    <button class="fchip ftype-salt" data-type="SALT">Salt Nic</button>
+    <button class="fchip ftype-sub" data-type="SUB">Sub-Ohm</button>
+    <button class="fchip ftype-disp" data-type="DISP">Disposable</button>
+  </div>
+  <div id="nic-filter-bar" class="hidden">
+    <span class="filter-label">Strength</span>
+    <button class="fchip active" data-nic="All">All</button>
+    <button class="fchip" data-nic="0mg">0mg</button>
+    <button class="fchip" data-nic="3mg">3mg</button>
+    <button class="fchip" data-nic="6mg">6mg</button>
+    <button class="fchip" data-nic="12mg">12mg</button>
   </div>
 
   <nav id="tab-bar">
@@ -1219,6 +1281,49 @@ function renderShopHeader() {
 // ── Flavor Tab ─────────────────────────────────────────────
 let activeCategory = 'All';
 
+let activeTypeFilter = 'All';
+let activeNicFilter  = 'All';
+
+function filteredProducts() {
+  let prods = loadProducts();
+  if (activeTypeFilter !== 'All') {
+    prods = prods.filter(p => {
+      if (activeTypeFilter === 'SALT') return p.type === 'SALT' || p.type === 'SALT+SUB';
+      if (activeTypeFilter === 'SUB')  return p.type === 'SUB'  || p.type === 'SALT+SUB';
+      if (activeTypeFilter === 'DISP') return p.type === 'DISP';
+      return true;
+    });
+  }
+  if (activeNicFilter !== 'All' && activeTypeFilter === 'SUB') {
+    prods = prods.filter(p => (p.nicotine || '').includes(activeNicFilter));
+  }
+  return prods;
+}
+
+function syncTypeBar() {
+  document.querySelectorAll('[data-type]').forEach(btn =>
+    btn.classList.toggle('active', btn.dataset.type === activeTypeFilter));
+  document.getElementById('nic-filter-bar').classList.toggle('hidden', activeTypeFilter !== 'SUB');
+}
+
+function syncNicBar() {
+  document.querySelectorAll('[data-nic]').forEach(btn =>
+    btn.classList.toggle('active', btn.dataset.nic === activeNicFilter));
+}
+
+function refreshCurrentView() {
+  if (searchActive) {
+    doSearch(document.getElementById('search-input').value);
+    return;
+  }
+  if (activeTab === 'flavor') { renderFlavorChips(); renderFlavorGrid(); }
+  if (activeTab === 'brand')  { activeBrand ? renderBrandDrill() : renderBrandGrid(); }
+  if (activeTab === 'top10')  renderTop10();
+  if (activeTab === 'deals')  renderDeals();
+}
+
+
+
 function renderFlavorChips() {
   const chips = document.getElementById('flavor-chips');
   const cats = ['All', ...Object.keys(CAT_META)];
@@ -1239,7 +1344,7 @@ function renderFlavorChips() {
 
 function renderFlavorGrid() {
   const grid = document.getElementById('flavor-grid');
-  let products = loadProducts();
+  let products = filteredProducts();
   if (activeCategory !== 'All') products = products.filter(p => p.category === activeCategory);
   if (!products.length) {
     grid.innerHTML = emptyState('🔍', activeCategory === 'All' ? 'No products yet.' : `No ${activeCategory} products yet.`);
@@ -1252,7 +1357,7 @@ function renderFlavorGrid() {
 let activeBrand = null;
 
 function renderBrandGrid() {
-  const products = loadProducts();
+  const products = filteredProducts();
   const brandMap = {};
   products.forEach(p => { brandMap[p.brand] = (brandMap[p.brand] || 0) + 1; });
   const brands = Object.entries(brandMap).sort((a,b) => a[0].localeCompare(b[0]));
@@ -1275,10 +1380,13 @@ function renderBrandGrid() {
 function openBrandDrill(brand) {
   activeBrand = brand;
   document.getElementById('brand-grid-wrap').classList.add('hidden');
-  const drill = document.getElementById('brand-drill');
-  drill.classList.remove('hidden');
-  document.getElementById('brand-drill-title').textContent = brand;
-  const products = loadProducts().filter(p => p.brand === brand);
+  document.getElementById('brand-drill').classList.remove('hidden');
+  renderBrandDrill();
+}
+
+function renderBrandDrill() {
+  document.getElementById('brand-drill-title').textContent = activeBrand;
+  const products = filteredProducts().filter(p => p.brand === activeBrand);
   const grid = document.getElementById('brand-drill-grid');
   grid.innerHTML = products.length ? products.map(p => productCard(p)).join('') : emptyState('📦', 'No products for this brand.');
 }
@@ -1291,7 +1399,7 @@ function closeBrandDrill() {
 
 // ── Top 10 Tab ─────────────────────────────────────────────
 function renderTop10() {
-  const products = loadProducts().filter(p => p.isTop10).slice(0, 10);
+  const products = filteredProducts().filter(p => p.isTop10).slice(0, 10);
   const grid = document.getElementById('top10-grid');
   grid.innerHTML = products.length
     ? products.map((p, i) => productCard(p, { rank: i + 1 })).join('')
@@ -1300,7 +1408,7 @@ function renderTop10() {
 
 // ── Deals Tab ──────────────────────────────────────────────
 function renderDeals() {
-  const products = loadProducts().filter(p => p.isDeal);
+  const products = filteredProducts().filter(p => p.isDeal);
   const grid = document.getElementById('deals-grid');
   grid.innerHTML = products.length
     ? products.map(p => productCard(p)).join('')
@@ -1332,7 +1440,7 @@ function doSearch(q) {
   const resultsView = document.getElementById('search-results-view');
   resultsView.classList.remove('hidden');
   const lower = q.toLowerCase();
-  const matches = loadProducts().filter(p =>
+  const matches = filteredProducts().filter(p =>
     p.name.toLowerCase().includes(lower) ||
     p.brand.toLowerCase().includes(lower) ||
     (p.flavorNotes || '').toLowerCase().includes(lower) ||
@@ -1604,6 +1712,27 @@ document.getElementById('products-tbody').addEventListener('click', e => {
 // Admin search filter
 document.getElementById('admin-search').addEventListener('input', e => {
   renderAdminProducts(e.target.value);
+});
+
+
+// Type filter
+document.querySelectorAll('[data-type]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    activeTypeFilter = btn.dataset.type;
+    activeNicFilter  = 'All';
+    syncTypeBar();
+    syncNicBar();
+    refreshCurrentView();
+  });
+});
+
+// Nic filter
+document.querySelectorAll('[data-nic]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    activeNicFilter = btn.dataset.nic;
+    syncNicBar();
+    refreshCurrentView();
+  });
 });
 
 // ══════════════════════════════════════════════════════════
