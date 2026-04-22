@@ -615,6 +615,11 @@
           </div>
           <div class="form-actions"><button class="btn btn-primary" id="save-pw-btn">Change Password</button></div>
         </div>
+        <div class="settings-section">
+          <h3>Reset Product List</h3>
+          <p style="color:var(--muted);font-size:0.85rem;margin-bottom:12px;">Clears all products and reloads from the built-in master list. Use this after updating the website menu.</p>
+          <div class="form-actions"><button class="btn" id="reset-products-btn" style="background:rgba(239,68,68,0.15);color:#ef4444;border:1px solid #ef4444;">Reset to Master List</button></div>
+        </div>
       </div>
 
       <!-- ADD PRODUCT PANEL -->
@@ -1530,6 +1535,13 @@ document.getElementById('save-pw-btn').addEventListener('click', () => {
   document.getElementById('set-pw-new').value = '';
   document.getElementById('set-pw-confirm').value = '';
   toast('Password updated!');
+});
+
+// Reset to master list
+document.getElementById('reset-products-btn').addEventListener('click', () => {
+  if (!confirm('This will delete all current products and reload from the master list. Continue?')) return;
+  localStorage.removeItem(LS_PRODUCTS);
+  location.reload();
 });
 
 // Add product form
