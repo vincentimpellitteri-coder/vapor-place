@@ -69,6 +69,35 @@
       background-clip: text;
       line-height: 1;
     }
+    #shop-logo { max-height: 64px; max-width: 260px; object-fit: contain; display: block; }
+    #logo-upload-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    #logo-preview {
+      max-height: 56px;
+      max-width: 180px;
+      object-fit: contain;
+      border-radius: 6px;
+      background: var(--elevated);
+      padding: 4px;
+      display: none;
+    }
+    #logo-upload-label {
+      display: inline-block;
+      background: var(--elevated);
+      border: 1px dashed var(--border);
+      border-radius: 8px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      padding: 8px 16px;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    #logo-upload-label:hover { border-color: var(--purple); color: var(--text); }
+    #logo-file { display: none; }
     .shop-meta { display: flex; gap: 18px; flex-wrap: wrap; align-items: center; }
     .shop-meta span { font-size: 0.82rem; color: var(--muted); letter-spacing: 0.02em; }
     .shop-meta span::before { margin-right: 4px; }
@@ -541,7 +570,10 @@
 <!-- ═══════════════ CUSTOMER VIEW ═══════════════ -->
 <div id="customer-view">
   <header id="shop-header">
-    <div id="shop-name">E-Juice Finder</div>
+    <div id="shop-name-wrap">
+      <img id="shop-logo" src="" alt="" style="display:none;">
+      <div id="shop-name">E-Juice Finder</div>
+    </div>
     <div class="shop-meta">
       <span class="addr" id="header-addr"></span>
       <span class="phone" id="header-phone"></span>
@@ -660,6 +692,15 @@
       <!-- SETTINGS PANEL -->
       <div class="admin-panel active" id="panel-settings">
         <div class="panel-title">Shop Settings</div>
+        <div class="settings-section">
+          <h3>Shop Logo</h3>
+          <div id="logo-upload-wrap">
+            <img id="logo-preview" src="" alt="Logo preview">
+            <label id="logo-upload-label" for="logo-file">📁 Choose image…</label>
+            <input type="file" id="logo-file" accept="image/*">
+            <button class="btn btn-secondary" id="logo-remove-btn" style="display:none;">Remove Logo</button>
+          </div>
+        </div>
         <div class="settings-section">
           <h3>Shop Info</h3>
           <div class="form-grid">
@@ -1273,7 +1314,17 @@ function esc(s) {
 
 function renderShopHeader() {
   const shop = getShop();
-  document.getElementById('shop-name').textContent = shop.name || 'E-Juice Finder';
+  const logoEl = document.getElementById('shop-logo');
+  const nameEl = document.getElementById('shop-name');
+  if (shop.logo) {
+    logoEl.src = shop.logo;
+    logoEl.style.display = 'block';
+    nameEl.style.display = 'none';
+  } else {
+    logoEl.style.display = 'none';
+    nameEl.style.display = '';
+    nameEl.textContent = shop.name || 'E-Juice Finder';
+  }
   document.getElementById('header-addr').textContent = shop.address || '';
   document.getElementById('header-phone').textContent = shop.phone || '';
 }
@@ -1510,7 +1561,44 @@ function prefillSettings() {
   document.getElementById('set-name').value  = shop.name    || '';
   document.getElementById('set-addr').value  = shop.address || '';
   document.getElementById('set-phone').value = shop.phone   || '';
+  const preview   = document.getElementById('logo-preview');
+  const removeBtn = document.getElementById('logo-remove-btn');
+  if (shop.logo) {
+    preview.src           = shop.logo;
+    preview.style.display = 'block';
+    removeBtn.style.display = '';
+  } else {
+    preview.style.display   = 'none';
+    removeBtn.style.display = 'none';
+  }
 }
+
+// Logo file picker
+document.getElementById('logo-file').addEventListener('change', function() {
+  const file = this.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const shop = getShop();
+    shop.logo = e.target.result;
+    saveShop(shop);
+    prefillSettings();
+    renderShopHeader();
+    toast('Logo saved!');
+  };
+  reader.readAsDataURL(file);
+  this.value = '';
+});
+
+// Remove logo
+document.getElementById('logo-remove-btn').addEventListener('click', () => {
+  const shop = getShop();
+  delete shop.logo;
+  saveShop(shop);
+  prefillSettings();
+  renderShopHeader();
+  toast('Logo removed.');
+});
 
 // ── Admin Products Table ───────────────────────────────────
 function renderAdminProducts(filter = '') {
