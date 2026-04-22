@@ -832,9 +832,12 @@
 // DATA LAYER
 // ══════════════════════════════════════════════════════════
 
-const LS_PRODUCTS = 'ejf_products';
-const LS_SHOP     = 'ejf_shop';
-const LS_PW       = 'ejf_pw';
+const API = '/api/ejf';
+
+const EJF = {
+  products: [],
+  shop: { name: 'The Vapor Place', address: '', phone: '' },
+};
 
 const CAT_META = {
   'Fruit':      { color: '#10b981', emoji: '🍓', cls: 'cat-fruit' },
@@ -847,20 +850,38 @@ const CAT_META = {
   'Beverage':   { color: '#fb923c', emoji: '🥤', cls: 'cat-beverage' },
 };
 
-function loadProducts() {
-  try { return JSON.parse(localStorage.getItem(LS_PRODUCTS)) || []; }
-  catch(e) { return []; }
+function loadProducts() { return EJF.products; }
+function saveProducts(p) {
+  EJF.products = p;
+  fetch(API + '/products', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(p) })
+    .catch(() => toast('Save failed — check connection.', 'danger'));
 }
-function saveProducts(p) { localStorage.setItem(LS_PRODUCTS, JSON.stringify(p)); }
 
-function getShop() {
-  try { return JSON.parse(localStorage.getItem(LS_SHOP)) || { name: 'E-Juice Finder', address: '', phone: '' }; }
-  catch(e) { return { name: 'E-Juice Finder', address: '', phone: '' }; }
+function getShop() { return EJF.shop; }
+function saveShop(s) {
+  EJF.shop = s;
+  fetch(API + '/shop', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(s) })
+    .catch(() => toast('Save failed — check connection.', 'danger'));
 }
-function saveShop(s) { localStorage.setItem(LS_SHOP, JSON.stringify(s)); }
 
-function getPassword() { return localStorage.getItem(LS_PW) || 'vape123'; }
-function savePassword(p) { localStorage.setItem(LS_PW, p); }
+function getPassword() { return null; } // password only verified via server
+function savePassword(p) {
+  fetch(API + '/password', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password: p }) })
+    .catch(() => toast('Save failed — check connection.', 'danger'));
+}
+
+async function loadFromServer() {
+  try {
+    const [prods, shop] = await Promise.all([
+      fetch(API + '/products').then(r => r.json()),
+      fetch(API + '/shop').then(r => r.json()),
+    ]);
+    EJF.products = Array.isArray(prods) ? prods : [];
+    EJF.shop     = shop || { name: 'The Vapor Place', address: '', phone: '' };
+  } catch(e) {
+    toast('Could not load data from server.', 'danger');
+  }
+}
 
 function genId() { return crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2); }
 
@@ -1696,17 +1717,27 @@ document.getElementById('gate-cancel-btn').addEventListener('click', () => {
   document.getElementById('admin-gate').classList.add('hidden');
 });
 
-document.getElementById('gate-submit-btn').addEventListener('click', () => {
+document.getElementById('gate-submit-btn').addEventListener('click', async () => {
   const pw = document.getElementById('gate-pw-input').value;
-  if (pw === getPassword()) {
-    sessionStorage.setItem('ejfAuth', '1');
-    showAdmin();
-  } else {
-    document.getElementById('gate-error').textContent = 'Incorrect password.';
-    const card = document.getElementById('gate-card');
-    card.classList.remove('shake');
-    void card.offsetWidth;
-    card.classList.add('shake');
+  try {
+    const res = await fetch(API + '/auth', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: pw }),
+    });
+    const data = await res.json();
+    if (data.ok) {
+      sessionStorage.setItem('ejfAuth', '1');
+      showAdmin();
+    } else {
+      document.getElementById('gate-error').textContent = 'Incorrect password.';
+      const card = document.getElementById('gate-card');
+      card.classList.remove('shake');
+      void card.offsetWidth;
+      card.classList.add('shake');
+    }
+  } catch(e) {
+    document.getElementById('gate-error').textContent = 'Server error — try again.';
   }
 });
 
@@ -1725,7 +1756,9 @@ document.getElementById('admin-logout-btn').addEventListener('click', logoutAdmi
 
 // Save shop info
 document.getElementById('save-shop-btn').addEventListener('click', () => {
+  const existing = getShop();
   saveShop({
+    ...existing,
     name:    document.getElementById('set-name').value.trim(),
     address: document.getElementById('set-addr').value.trim(),
     phone:   document.getElementById('set-phone').value.trim(),
@@ -1747,9 +1780,11 @@ document.getElementById('save-pw-btn').addEventListener('click', () => {
 });
 
 // Reset to master list
-document.getElementById('reset-products-btn').addEventListener('click', () => {
+document.getElementById('reset-products-btn').addEventListener('click', async () => {
   if (!confirm('This will delete all current products and reload from the master list. Continue?')) return;
-  localStorage.removeItem(LS_PRODUCTS);
+  EJF.products = [];
+  await fetch(API + '/products', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: '[]' })
+    .catch(() => {});
   location.reload();
 });
 
@@ -1851,9 +1886,13 @@ document.querySelectorAll('[data-nic]').forEach(btn => {
 // ══════════════════════════════════════════════════════════
 // INIT
 // ══════════════════════════════════════════════════════════
-seedIfEmpty();
-renderShopHeader();
-switchTab('flavor');
+async function init() {
+  await loadFromServer();
+  seedIfEmpty();
+  renderShopHeader();
+  switchTab('flavor');
+}
+init();
 </script>
 </body>
 </html>
