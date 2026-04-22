@@ -392,6 +392,10 @@
       'SALT Kaleidoscopic Clouds Sunset': { title: 'Sunset', subtitle: 'Raspberry &amp; Orange Fruit', icon: '🌅 🍊 🫐',
         desc: 'A tropical blend of raspberry and orange for a warm sunset vibe.',
         logo: null, saltSize: '30ml', saltStr: '24mg / 48mg', subSize: '100ml', subStr: '0mg / 3mg / 6mg', vgpg: '70VG/30PG', iceLevel: 0, solo: true },
+      'SALT Pinup Vapors Beach Betty': { title: 'Beach Betty', subtitle: 'Pineapple, Coconut, Tropical Fruit &amp; Berries', icon: '🍍 🥥 🍓',
+        desc: 'A tropical getaway in every puff — fresh pineapple and coconut blended with a mysterious mix of tropical fruits and berries.',
+        logo: null, saltSize: '30ml', saltStr: '15mg / 25mg / 50mg', subSize: '60ml', subStr: '0mg / 3mg / 6mg', vgpg: '70VG/30PG',
+        iceLevel: 0, imgWidth: 184, solo: true },
       'SALT Barista Brew Salted Caramel Macchiato': { title: 'Salted Caramel Macchiato', subtitle: 'Caramel, Espresso &amp; Cream', icon: '☕ 🍮',
         desc: 'A rich, velvety salted caramel macchiato — bold espresso layered with smooth cream and sweet caramel.',
         logo: 'barista-brew-logo.webp', logoStyle: 'max-height:60px;width:auto;background:transparent;',
@@ -712,10 +716,11 @@
               <span class="menu-item-type type-SUB">Sub-Ohm</span>
               <span style="font-size:0.82rem;color:#555;">${mrkt.subStr}</span>
             </div>` : '';
+          const soloImgW = mrkt.imgWidth || 160;
           div.innerHTML = `
-            <div style="display:grid;grid-template-columns:160px 1fr 160px;align-items:stretch;gap:20px;margin-bottom:10px;">
+            <div style="display:grid;grid-template-columns:${soloImgW}px 1fr ${soloImgW}px;align-items:stretch;gap:20px;margin-bottom:10px;">
               <div style="display:flex;flex-direction:column;">
-                <img src="images/${item.image}" alt="${mrkt.title}" style="width:160px;border-radius:6px;object-fit:contain;flex:1;background:#fff;">
+                <img src="images/${item.image}" alt="${mrkt.title}" style="width:${soloImgW}px;border-radius:6px;object-fit:contain;flex:1;background:#fff;">
                 ${iceBadge(mrkt.iceLevel)}
               </div>
               <div style="text-align:center;">
@@ -727,7 +732,7 @@
               </div>
               <div></div>
             </div>
-            <div style="display:grid;grid-template-columns:160px 1fr 160px;align-items:center;margin-top:10px;border-top:1px solid #ddd;padding-top:10px;">
+            <div style="display:grid;grid-template-columns:${soloImgW}px 1fr ${soloImgW}px;align-items:center;margin-top:10px;border-top:1px solid #ddd;padding-top:10px;">
               <div style="text-align:left;">
                 <span style="font-size:0.82rem;color:#555;">${mrkt.vgpg || '70VG/30PG'}</span>
               </div>
