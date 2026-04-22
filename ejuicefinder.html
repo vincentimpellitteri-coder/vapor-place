@@ -862,7 +862,7 @@ function genId() { return crypto.randomUUID ? crypto.randomUUID() : Math.random(
 
 // ── Seed Data ─────────────────────────────────────────────
 function seedIfEmpty() {
-  if (loadProducts().length) return;
+  const existing = loadProducts();
   const seed = [
     {"id":"b3194bc6-8252-4907-b07f-6e26a1e62d5f","name":"B Pop","brand":"Geek Bar Pulse","category":"Candy","flavorNotes":"Pineapple, Banana, Citrus, Strawberry, Bubble Gum","type":"DISP","size":"","nicotine":"","vgpg":"","price":0,"isDeal":false,"dealNote":"","isTop10":false,"image":"geek-bar-pulse-b-pop.jpg","notes":""},
     {"id":"3f84e334-1d51-4831-97e2-f80e8efcff08","name":"Blue Razz Ice","brand":"Geek Bar Pulse","category":"Fruit","flavorNotes":"Blue Razz, Blue Raspberry","type":"DISP","size":"","nicotine":"","vgpg":"","price":0,"isDeal":false,"dealNote":"","isTop10":false,"image":"geek-bar-pulse-blue-razz-ice.png","notes":""},
@@ -1246,7 +1246,16 @@ function seedIfEmpty() {
     {"id":"aafafb74-d320-45da-83cc-c95001571c55","name":"Iced Fuji Pear Mangoberry","brand":"MRKT PLCE","category":"Fruit","flavorNotes":"Fuji Apple, Pear, Mango, Berry","type":"SALT+SUB","size":"Salt 30ml / Sub 100ml","nicotine":"Salt: 24mg / 48mg · Sub: 0mg / 3mg / 6mg","vgpg":"","price":0,"isDeal":false,"dealNote":"","isTop10":false,"image":"mrkt-plce-iced-fuji-pear-mangoberry.jpg","notes":""},
     {"id":"da706645-8644-4e69-acc7-5e56f646a10b","name":"Iced Forbidden Berry","brand":"MRKT PLCE","category":"Fruit","flavorNotes":"Tropical Fruit, Mixed Berries","type":"SALT+SUB","size":"Salt 30ml / Sub 100ml","nicotine":"Salt: 24mg / 48mg · Sub: 0mg / 3mg / 6mg","vgpg":"","price":0,"isDeal":false,"dealNote":"","isTop10":false,"image":"mrkt-plce-iced-forbidden-berry.jpg","notes":""}
   ];
-  saveProducts(seed);
+  if (!existing.length) {
+    saveProducts(seed);
+    return;
+  }
+  // Restore any seed products accidentally deleted (matched by brand + name)
+  const existingKeys = new Set(existing.map(p => p.brand + '|' + p.name));
+  const missing = seed.filter(p => !existingKeys.has(p.brand + '|' + p.name));
+  if (missing.length) {
+    saveProducts([...existing, ...missing]);
+  }
 }
 
 // ══════════════════════════════════════════════════════════
@@ -1778,6 +1787,7 @@ document.getElementById('products-tbody').addEventListener('click', e => {
 
   if (action === 'delete') {
     const name = products[idx].name;
+    if (!confirm(`Delete "${name}"? This cannot be undone.`)) return;
     products.splice(idx, 1);
     saveProducts(products);
     renderAdminProducts(document.getElementById('admin-search').value);
