@@ -176,6 +176,7 @@
       position: relative;
     }
     .product-card:hover { border-color: var(--purple); transform: translateY(-2px); }
+    .card-img { width: 100%; max-height: 180px; object-fit: contain; background: #111; display: block; }
     .card-stripe { height: 4px; width: 100%; flex-shrink: 0; }
     .card-body { padding: 14px 14px 12px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
     .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
@@ -651,7 +652,8 @@
             <div class="form-group"><label class="form-label">Nicotine Options</label><input class="form-input" id="f-nic" type="text" placeholder="3mg / 6mg / 12mg"></div>
             <div class="form-group"><label class="form-label">VG/PG Ratio</label><input class="form-input" id="f-vgpg" type="text" placeholder="70VG/30PG"></div>
             <div class="form-group"><label class="form-label">Price ($)</label><input class="form-input" id="f-price" type="number" step="0.01" min="0" placeholder="14.99"></div>
-            <div class="form-group full"><label class="form-label">Internal Notes</label><input class="form-input" id="f-internal" type="text" placeholder="Optional staff notes"></div>
+            <div class="form-group"><label class="form-label">Image Filename</label><input class="form-input" id="f-image" type="text" placeholder="e.g. mrkt-plce-forbidden-berry.jpg"></div>
+            <div class="form-group"><label class="form-label">Internal Notes</label><input class="form-input" id="f-internal" type="text" placeholder="Optional staff notes"></div>
             <div class="form-group full">
               <div class="form-check">
                 <input type="checkbox" id="f-deal">
@@ -753,18 +755,22 @@ function genId() { return crypto.randomUUID ? crypto.randomUUID() : Math.random(
 function seedIfEmpty() {
   if (loadProducts().length) return;
   const seed = [
-    { id: genId(), name: 'Lava Flow', brand: 'Naked 100', category: 'Fruit', flavorNotes: 'Strawberry, Coconut, Pineapple', type: 'SALT', size: '60ml', nicotine: '25mg / 50mg', vgpg: '50VG/50PG', price: 15.99, isDeal: false, dealNote: '', isTop10: true, notes: '' },
-    { id: genId(), name: 'Blueberry Jam', brand: 'Jam Monster', category: 'Dessert', flavorNotes: 'Blueberry Jam, Butter, Toast', type: 'SALT', size: '30ml', nicotine: '24mg / 48mg', vgpg: '75VG/25PG', price: 12.99, isDeal: true, dealNote: '2 for $22', isTop10: true, notes: '' },
-    { id: genId(), name: 'Unicorn Milk', brand: 'Cuttwood', category: 'Dessert', flavorNotes: 'Strawberry, Cream, Vanilla, Milk', type: 'SUB', size: '60ml', nicotine: '0mg / 3mg / 6mg', vgpg: '70VG/30PG', price: 13.99, isDeal: false, dealNote: '', isTop10: true, notes: '' },
-    { id: genId(), name: 'Watermelon Apple', brand: 'Cloud Nurdz', category: 'Candy', flavorNotes: 'Watermelon, Green Apple, Candy', type: 'SALT', size: '100ml', nicotine: '30mg / 50mg', vgpg: '70VG/30PG', price: 19.99, isDeal: true, dealNote: 'Weekend Special — $17.99', isTop10: false, notes: '' },
-    { id: genId(), name: 'Sub Zero', brand: 'Halo', category: 'Menthol/Ice', flavorNotes: 'Glacier Menthol, Arctic Ice', type: 'SUB', size: '100ml', nicotine: '0mg / 3mg / 6mg', vgpg: '70VG/30PG', price: 16.99, isDeal: false, dealNote: '', isTop10: true, notes: '' },
-    { id: genId(), name: 'Classic Frapp', brand: 'Brewed Awakening', category: 'Coffee', flavorNotes: 'Coffee, Caramel, Hazelnut, Cream', type: 'SALT', size: '30ml', nicotine: '18mg / 35mg / 50mg', vgpg: '70VG/30PG', price: 12.99, isDeal: false, dealNote: '', isTop10: true, notes: '' },
-    { id: genId(), name: 'Sour Apple', brand: 'Propaganda', category: 'Candy', flavorNotes: 'Sour Green Apple, Candy, Tart', type: 'SALT', size: '30ml', nicotine: '30mg / 50mg', vgpg: '70VG/30PG', price: 11.99, isDeal: false, dealNote: '', isTop10: false, notes: '' },
-    { id: genId(), name: 'Blue Razz Ice', brand: 'Geek Bar Pulse', category: 'Menthol/Ice', flavorNotes: 'Blue Raspberry, Ice, Menthol', type: 'DISP', size: '16000 puffs', nicotine: '50mg', vgpg: '—', price: 17.99, isDeal: true, dealNote: 'Buy 2 Get 1 Free', isTop10: false, notes: '' },
-    { id: genId(), name: 'Bold', brand: 'Tobacco Monster', category: 'Tobacco', flavorNotes: 'Tobacco, Hazelnut, Vanilla', type: 'SALT', size: '30ml', nicotine: '24mg / 48mg', vgpg: '75VG/25PG', price: 12.99, isDeal: false, dealNote: '', isTop10: false, notes: '' },
-    { id: genId(), name: 'Mango Strawberry', brand: 'Juice Head', category: 'Beverage', flavorNotes: 'Mango, Strawberry, Tropical, Juice', type: 'SALT', size: '100ml', nicotine: '25mg / 50mg', vgpg: '70VG/30PG', price: 19.99, isDeal: false, dealNote: '', isTop10: true, notes: '' },
-    { id: genId(), name: 'Fuji Pear Mangoberry', brand: 'MRKT PLCE', category: 'Fruit', flavorNotes: 'Fuji Apple, Pear, Mango, Berries', type: 'SALT', size: '30ml', nicotine: '25mg / 50mg', vgpg: '70VG/30PG', price: 0, isDeal: false, dealNote: '', isTop10: false, notes: '' },
-    { id: genId(), name: 'Fuji Pear Mangoberry', brand: 'MRKT PLCE', category: 'Fruit', flavorNotes: 'Fuji Apple, Pear, Mango, Berries', type: 'SUB', size: '100ml', nicotine: '0mg / 3mg / 6mg', vgpg: '70VG/30PG', price: 0, isDeal: false, dealNote: '', isTop10: false, notes: '' },
+    { id: genId(), name: 'Lava Flow', brand: 'Naked 100', category: 'Fruit', flavorNotes: 'Strawberry, Coconut, Pineapple', type: 'SALT', size: '60ml', nicotine: '25mg / 50mg', vgpg: '50VG/50PG', price: 15.99, isDeal: false, dealNote: '', isTop10: true, image: '', notes: '' },
+    { id: genId(), name: 'Blueberry Jam', brand: 'Jam Monster', category: 'Dessert', flavorNotes: 'Blueberry Jam, Butter, Toast', type: 'SALT', size: '30ml', nicotine: '24mg / 48mg', vgpg: '75VG/25PG', price: 12.99, isDeal: true, dealNote: '2 for $22', isTop10: true, image: '', notes: '' },
+    { id: genId(), name: 'Unicorn Milk', brand: 'Cuttwood', category: 'Dessert', flavorNotes: 'Strawberry, Cream, Vanilla, Milk', type: 'SUB', size: '60ml', nicotine: '0mg / 3mg / 6mg', vgpg: '70VG/30PG', price: 13.99, isDeal: false, dealNote: '', isTop10: true, image: '', notes: '' },
+    { id: genId(), name: 'Watermelon Apple', brand: 'Cloud Nurdz', category: 'Candy', flavorNotes: 'Watermelon, Green Apple, Candy', type: 'SALT', size: '100ml', nicotine: '30mg / 50mg', vgpg: '70VG/30PG', price: 19.99, isDeal: true, dealNote: 'Weekend Special — $17.99', isTop10: false, image: '', notes: '' },
+    { id: genId(), name: 'Sub Zero', brand: 'Halo', category: 'Menthol/Ice', flavorNotes: 'Glacier Menthol, Arctic Ice', type: 'SUB', size: '100ml', nicotine: '0mg / 3mg / 6mg', vgpg: '70VG/30PG', price: 16.99, isDeal: false, dealNote: '', isTop10: true, image: '', notes: '' },
+    { id: genId(), name: 'Classic Frapp', brand: 'Brewed Awakening', category: 'Coffee', flavorNotes: 'Coffee, Caramel, Hazelnut, Cream', type: 'SALT', size: '30ml', nicotine: '18mg / 35mg / 50mg', vgpg: '70VG/30PG', price: 12.99, isDeal: false, dealNote: '', isTop10: true, image: '', notes: '' },
+    { id: genId(), name: 'Sour Apple', brand: 'Propaganda', category: 'Candy', flavorNotes: 'Sour Green Apple, Candy, Tart', type: 'SALT', size: '30ml', nicotine: '30mg / 50mg', vgpg: '70VG/30PG', price: 11.99, isDeal: false, dealNote: '', isTop10: false, image: '', notes: '' },
+    { id: genId(), name: 'Blue Razz Ice', brand: 'Geek Bar Pulse', category: 'Menthol/Ice', flavorNotes: 'Blue Raspberry, Ice, Menthol', type: 'DISP', size: '16000 puffs', nicotine: '50mg', vgpg: '—', price: 17.99, isDeal: true, dealNote: 'Buy 2 Get 1 Free', isTop10: false, image: '', notes: '' },
+    { id: genId(), name: 'Bold', brand: 'Tobacco Monster', category: 'Tobacco', flavorNotes: 'Tobacco, Hazelnut, Vanilla', type: 'SALT', size: '30ml', nicotine: '24mg / 48mg', vgpg: '75VG/25PG', price: 12.99, isDeal: false, dealNote: '', isTop10: false, image: '', notes: '' },
+    { id: genId(), name: 'Mango Strawberry', brand: 'Juice Head', category: 'Beverage', flavorNotes: 'Mango, Strawberry, Tropical, Juice', type: 'SALT', size: '100ml', nicotine: '25mg / 50mg', vgpg: '70VG/30PG', price: 19.99, isDeal: false, dealNote: '', isTop10: true, image: '', notes: '' },
+    { id: genId(), name: 'Fuji Pear Mangoberry', brand: 'MRKT PLCE', category: 'Fruit', flavorNotes: 'Fuji Apple, Pear, Mango, Berries', type: 'SALT', size: '30ml', nicotine: '25mg / 50mg', vgpg: '70VG/30PG', price: 0, isDeal: false, dealNote: '', isTop10: false, image: '', notes: '' },
+    { id: genId(), name: 'Fuji Pear Mangoberry', brand: 'MRKT PLCE', category: 'Fruit', flavorNotes: 'Fuji Apple, Pear, Mango, Berries', type: 'SUB', size: '100ml', nicotine: '0mg / 3mg / 6mg', vgpg: '70VG/30PG', price: 0, isDeal: false, dealNote: '', isTop10: false, image: '', notes: '' },
+    { id: genId(), name: 'Forbidden Berry', brand: 'MRKT PLCE', category: 'Fruit', flavorNotes: 'Tropical Fruit, Mixed Berries, Strawberry, Raspberry, Blackberry', type: 'SALT', size: '30ml', nicotine: '24mg / 48mg', vgpg: '70VG/30PG', price: 0, isDeal: false, dealNote: '', isTop10: false, image: 'mrkt-plce-forbidden-berry.jpg', notes: '' },
+    { id: genId(), name: 'Forbidden Berry', brand: 'MRKT PLCE', category: 'Fruit', flavorNotes: 'Tropical Fruit, Mixed Berries, Strawberry, Raspberry, Blackberry', type: 'SUB', size: '100ml', nicotine: '0mg / 3mg / 6mg', vgpg: '70VG/30PG', price: 0, isDeal: false, dealNote: '', isTop10: false, image: 'mrkt-plce-forbidden-berry.jpg', notes: '' },
+    { id: genId(), name: 'Iced Forbidden Berry', brand: 'MRKT PLCE', category: 'Menthol/Ice', flavorNotes: 'Tropical Fruit, Mixed Berries, Ice, Menthol', type: 'SALT', size: '30ml', nicotine: '24mg / 48mg', vgpg: '70VG/30PG', price: 0, isDeal: false, dealNote: '', isTop10: false, image: 'mrkt-plce-iced-forbidden-berry.jpg', notes: '' },
+    { id: genId(), name: 'Iced Forbidden Berry', brand: 'MRKT PLCE', category: 'Menthol/Ice', flavorNotes: 'Tropical Fruit, Mixed Berries, Ice, Menthol', type: 'SUB', size: '100ml', nicotine: '0mg / 3mg / 6mg', vgpg: '70VG/30PG', price: 0, isDeal: false, dealNote: '', isTop10: false, image: 'mrkt-plce-iced-forbidden-berry.jpg', notes: '' },
   ];
   saveProducts(seed);
 }
@@ -793,6 +799,7 @@ function productCard(p, opts = {}) {
   return `
     <div class="product-card">
       ${top10Num}
+      ${p.image ? `<img class="card-img" src="images/${esc(p.image)}" alt="${esc(p.name)}" loading="lazy">` : ''}
       <div class="card-stripe" style="background:${cat.color};"></div>
       <div class="card-body">
         <div class="card-top">
@@ -1174,6 +1181,7 @@ document.getElementById('add-product-form').addEventListener('submit', e => {
     isDeal:      document.getElementById('f-deal').checked,
     dealNote:    document.getElementById('f-deal-note').value.trim(),
     isTop10:     document.getElementById('f-top10').checked,
+    image:       document.getElementById('f-image').value.trim(),
     notes:       document.getElementById('f-internal').value.trim(),
   };
   products.push(p);
