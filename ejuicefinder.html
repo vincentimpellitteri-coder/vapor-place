@@ -286,13 +286,17 @@
     #deals-header h2 { font-family: var(--font-head); font-size: 1.8rem; letter-spacing: 0.04em; color: var(--gold); }
     #deals-header p { font-size: 0.82rem; color: var(--muted); margin-top: 4px; }
     .deal-note-strip {
-      font-size: 0.75rem;
-      color: var(--gold);
-      background: rgba(245,158,11,0.1);
-      border-radius: 4px;
-      padding: 3px 8px;
-      margin-top: 4px;
-      display: inline-block;
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      background: rgba(245,158,11,0.92);
+      color: #111;
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-align: center;
+      padding: 7px 10px;
+      z-index: 2;
+      letter-spacing: 0.01em;
+      border-radius: var(--radius) var(--radius) 0 0;
     }
 
     /* ── Empty State ─────────────────────────────────────────── */
@@ -1285,6 +1289,7 @@ function productCard(p, opts = {}) {
   return `
     <div class="product-card">
       ${top10Num}
+      ${dealNoteEl}
       ${p.image ? `<img class="card-img" src="images/${esc(p.image)}" alt="${esc(p.name)}" loading="lazy">` : ''}
       <div class="card-stripe" style="background:${cat.color};"></div>
       <div class="card-body">
@@ -1296,7 +1301,6 @@ function productCard(p, opts = {}) {
           <div class="cat-emoji">${cat.emoji}</div>
         </div>
         ${p.flavorNotes ? `<div class="card-notes">${esc(p.flavorNotes)}</div>` : ''}
-        ${dealNoteEl}
         <div class="card-footer">
           <div class="card-price">${priceStr}</div>
           <div class="card-badges">
