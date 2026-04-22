@@ -1794,10 +1794,21 @@ document.getElementById('products-tbody').addEventListener('click', e => {
     renderStats();
     toast(`"${name}" deleted.`, 'danger');
   } else if (action === 'deal') {
-    products[idx].isDeal = !products[idx].isDeal;
-    saveProducts(products);
-    renderAdminProducts(document.getElementById('admin-search').value);
-    toast(products[idx].isDeal ? 'Marked as deal.' : 'Deal removed.');
+    if (products[idx].isDeal) {
+      products[idx].isDeal = false;
+      products[idx].dealNote = '';
+      saveProducts(products);
+      renderAdminProducts(document.getElementById('admin-search').value);
+      toast('Deal removed.');
+    } else {
+      const note = prompt('Enter deal description (e.g. "2 for $20", "Buy 2 Get 1 Free"):');
+      if (note === null) return;
+      products[idx].isDeal = true;
+      products[idx].dealNote = note.trim();
+      saveProducts(products);
+      renderAdminProducts(document.getElementById('admin-search').value);
+      toast('Marked as deal.');
+    }
   } else if (action === 'top10') {
     products[idx].isTop10 = !products[idx].isTop10;
     saveProducts(products);
