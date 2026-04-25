@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RAZ TN9000 — The Vapor Place</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .back-btn {
+      display: inline-block;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #00e5ff;
+      border: 1px solid #00e5ff;
+      border-radius: 6px;
+      padding: 10px 20px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .back-btn:hover { background: rgba(0,229,255,0.1); }
+    .back-bar { margin: 24px 0; }
+    .flavor-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+      margin: 32px 0;
+    }
+    .flavor-card {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 10px;
+      padding: 20px 16px;
+      text-align: center;
+      transition: border-color 0.2s;
+    }
+    .flavor-card:hover { border-color: #00e5ff44; }
+    .flavor-card img {
+      width: 100%;
+      max-height: 240px;
+      object-fit: contain;
+      border-radius: 6px;
+      background: #111;
+      margin-bottom: 14px;
+    }
+    .flavor-name { font-size: 1.1rem; font-weight: 700; color: #f0f0f0; margin-bottom: 6px; }
+    .flavor-desc { font-size: 0.85rem; color: #ffcc00; margin-bottom: 6px; }
+    .badge-row { display: flex; gap: 6px; justify-content: center; margin-top: 10px; }
+    .badge {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.55rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      background: rgba(0,229,255,0.12);
+      color: #00e5ff;
+    }
+    h1 span { color: #00e5ff; }
+  </style>
+</head>
+<body id="inner-page">
+<div style="position:relative;z-index:1;">
+
+  <header>
+    <div class="header-inner">
+      <a href="home.html" class="logo-link">
+        <img src="images/logo.png" alt="The Vapor Place" class="logo-img">
+      </a>
+      <span class="badge-21">21+</span>
+    </div>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="hours.html">Hours</a>
+      <a href="menu.html">Menu</a>
+      <a href="menu2.html">Menu #2</a>
+      <a href="disp-menu.html">Disp. Menu</a>
+      <a href="menu3.html">Menu #3</a>
+      <a href="brands.html">Brands</a>
+      <a href="featured.html">Featured</a>
+      <a href="top-sellers.html">Top Sellers</a>
+      <a href="locations.html">Locations</a>
+      <a href="contact.html">Contact</a>
+      <a href="info.html">Info</a>
+      <a href="rewards.html">Rewards</a>
+      <a href="kits.html">Kits</a>
+      <a href="ejuicefinder.html">E-Juice Finder</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="back-bar">
+      <a href="raz.html" class="back-btn">&larr; Back to RAZ</a>
+    </div>
+
+    <h1>RAZ <span>TN9000</span></h1>
+    <p style="color:#888;margin-bottom:8px;">9,000 Puffs &nbsp;&middot;&nbsp; Disposable</p>
+
+    <div class="flavor-grid">
+
+      <div class="flavor-card">
+        <img src="images/raz-tn9000-blue-raz-ice.jpg" alt="Blue Raz Ice">
+        <div class="flavor-name">Blue Raz Ice</div>
+        <div class="flavor-desc">Blue Raspberry, Blue Razz</div>
+        <div class="badge-row"><span class="badge">Disposable</span></div>
+      </div>
+
+      <div class="flavor-card">
+        <img src="images/raz-tn9000-blueberry-watermelon.jpg" alt="Blueberry Watermelon">
+        <div class="flavor-name">Blueberry Watermelon</div>
+        <div class="flavor-desc">Blueberry, Watermelon</div>
+        <div class="badge-row"><span class="badge">Disposable</span></div>
+      </div>
+
+      <div class="flavor-card">
+        <img src="images/raz-tn9000-cherry-lemon.jpg" alt="Cherry Lemon">
+        <div class="flavor-name">Cherry Lemon</div>
+        <div class="flavor-desc">Cherry, Lemon</div>
+        <div class="badge-row"><span class="badge">Disposable</span></div>
+      </div>
+
+      <div class="flavor-card">
+        <img src="images/raz-tn9000-dragon-fruit-lemonade.jpg" alt="Dragon Fruit Lemonade">
+        <div class="flavor-name">Dragon Fruit Lemonade</div>
+        <div class="flavor-desc">Dragon Fruit, Lemonade, Lemon</div>
+        <div class="badge-row"><span class="badge">Disposable</span></div>
+      </div>
+
+      <div class="flavor-card">
+        <img src="images/raz-tn9000-graham-twist.jpg" alt="Graham Twist">
+        <div class="flavor-name">Graham Twist</div>
+        <div class="flavor-desc">Graham, Honey</div>
+        <div class="badge-row"><span class="badge">Disposable</span></div>
+      </div>
+
+      <div class="flavor-card">
+        <img src="images/raz-tn9000-grape-ice.jpg" alt="Grape Ice">
+        <div class="flavor-name">Grape Ice</div>
+        <div class="flavor-desc">Grape</div>
+        <div class="badge-row"><span class="badge">Disposable</span></div>
+      </div>
+
+      <div class="flavor-card">
+        <img src="images/raz-tn9000-mango-colada.jpg" alt="Mango Colada">
+        <div class="flavor-name">Mango Colada</div>
+        <div class="flavor-desc">Mango, Coconut, Pineapple</div>
+        <div class="badge-row"><span class="badge">Disposable</span></div>
+      </div>
+
+      <div class="flavor-card">
+        <img src="images/raz-tn9000-miami-mint.jpg" alt="Miami Mint">
+        <div class="flavor-name">Miami Mint</div>
+        <div class="flavor-desc">Mint, Citrus, Lemon, Lime</div>
+        <div class="badge-row"><span class="badge">Disposable</span></div>
+      </div>
+
+      <div class="flavor-card">
+        <img src="images/raz-tn9000-night-crawler.jpg" alt="Night Crawler">
+        <div class="flavor-name">Night Crawler</div>
+        <div class="flavor-desc">Mystery, Gummy Worm</div>
+        <div class="badge-row"><span class="badge">Disposable</span></div>
+      </div>
+
+      <div class="flavor-card">
+        <img src="images/raz-tn9000-polar-ice.jpg" alt="Polar Ice">
+        <div class="flavor-name">Polar Ice</div>
+        <div class="flavor-desc">Mint, Cool</div>
+        <div class="badge-row"><span class="badge">Disposable</span></div>
+      </div>
+
+      <div class="flavor-card">
+        <img src="images/raz-tn9000-strawberry-ice.jpg" alt="Strawberry Ice">
+        <div class="flavor-name">Strawberry Ice</div>
+        <div class="flavor-desc">Strawberry</div>
+        <div class="badge-row"><span class="badge">Disposable</span></div>
+      </div>
+
+      <div class="flavor-card">
+        <img src="images/raz-tn9000-strawberry-shortcake.jpg" alt="Strawberry Shortcake">
+        <div class="flavor-name">Strawberry Shortcake</div>
+        <div class="flavor-desc">Strawberry, Cake, Cream, Vanilla</div>
+        <div class="badge-row"><span class="badge">Disposable</span></div>
+      </div>
+
+      <div class="flavor-card">
+        <img src="images/raz-tn9000-triple-berry-ice.jpg" alt="Triple Berry Ice">
+        <div class="flavor-name">Triple Berry Ice</div>
+        <div class="flavor-desc">Raspberry, Blueberry, Blackberry</div>
+        <div class="badge-row"><span class="badge">Disposable</span></div>
+      </div>
+
+      <div class="flavor-card">
+        <img src="images/raz-tn9000-watermelon-ice.jpg" alt="Watermelon Ice">
+        <div class="flavor-name">Watermelon Ice</div>
+        <div class="flavor-desc">Watermelon, Lush Ice</div>
+        <div class="badge-row"><span class="badge">Disposable</span></div>
+      </div>
+
+      <div class="flavor-card">
+        <img src="images/raz-tn9000-orange-raspberry.jpg" alt="Orange Raspberry">
+        <div class="flavor-name">Orange Raspberry</div>
+        <div class="flavor-desc">Orange, Raspberry, Citrus</div>
+        <div class="badge-row"><span class="badge">Disposable</span></div>
+      </div>
+
+    </div>
+  </main>
+
+</div>
+</body>
+</html>

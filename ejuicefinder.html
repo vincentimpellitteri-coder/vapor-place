@@ -1458,14 +1458,21 @@ function renderBrandGrid() {
     grid.innerHTML = emptyState('🏷', 'No brands yet.');
     return;
   }
-  grid.innerHTML = brands.map(([brand, count]) =>
-    `<div class="brand-card" data-brand="${esc(brand)}">
-      <div class="brand-card-name">${esc(brand)}</div>
+  grid.innerHTML = brands.map(([brand, count]) => {
+    const displayName = brand === 'RAZ TN9000' ? 'RAZ' : brand;
+    return `<div class="brand-card" data-brand="${esc(brand)}">
+      <div class="brand-card-name">${esc(displayName)}</div>
       <div class="brand-card-count">${count} product${count !== 1 ? 's' : ''}</div>
-    </div>`
-  ).join('');
+    </div>`;
+  }).join('');
   grid.querySelectorAll('.brand-card').forEach(card => {
-    card.addEventListener('click', () => openBrandDrill(card.dataset.brand));
+    card.addEventListener('click', () => {
+      if (card.dataset.brand === 'RAZ TN9000') {
+        window.location.href = 'raz.html';
+      } else {
+        openBrandDrill(card.dataset.brand);
+      }
+    });
   });
 }
 
