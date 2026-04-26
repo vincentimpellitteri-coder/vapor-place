@@ -576,12 +576,12 @@
       height: 100%;
     }
     #admin-overlay.open { display: block; }
-    #admin-header {
+    #stock-header {
       display: flex; align-items: center; justify-content: space-between;
       padding: 18px 24px; border-bottom: 1px solid #222;
       position: sticky; top: 0; background: #0d0d0d; z-index: 1;
     }
-    #admin-header h2 { font-family: var(--font-head); font-size: 1rem; letter-spacing: 0.1em; color: #00e5ff; margin: 0; }
+    #stock-header h2 { font-family: var(--font-head); font-size: 1rem; letter-spacing: 0.1em; color: #00e5ff; margin: 0; }
     #admin-logout {
       font-family: var(--font-head); font-size: 0.6rem; letter-spacing: 0.1em;
       color: #666; border: 1px solid #333; border-radius: 5px;
@@ -613,7 +613,7 @@
     .admin-item-name { font-size: 0.9rem; color: #f0f0f0; flex: 1; }
     .admin-item-brand { font-size: 0.72rem; color: #555; }
     .admin-item.out-of-stock .admin-item-name { color: #444; text-decoration: line-through; }
-    #admin-body { padding: 0 24px 40px; max-width: 800px; margin: 0 auto; }
+    #stock-body { padding: 0 24px 40px; max-width: 800px; margin: 0 auto; }
 
     #pw-modal {
       display: none; position: fixed; inset: 0; z-index: 9999;
@@ -2126,11 +2126,11 @@ document.getElementById('stock-search').addEventListener('input', e => {
 
 <!-- Admin Panel -->
 <div id="admin-overlay">
-  <div id="admin-header">
+  <div id="stock-header">
     <h2>STOCK MANAGER</h2>
     <button id="admin-logout" onclick="closeAdminPanel()">EXIT</button>
   </div>
-  <div id="admin-body">
+  <div id="stock-body">
     <input id="stock-search" type="text" placeholder="Search items or brands...">
     <div id="admin-stats"></div>
     <div id="admin-list"></div>
