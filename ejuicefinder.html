@@ -568,6 +568,75 @@
     .fchip.ftype-sub.active   { background: #fb923c; border-color: #fb923c; color: #fff; }
     .fchip.ftype-disp.active  { background: #38bdf8; border-color: #38bdf8; color: #111; }
     @keyframes toastIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+    /* ── Admin ─────────────────────────────────────────────── */
+    #admin-overlay {
+      display: none; position: fixed; inset: 0; z-index: 9000;
+      background: #0d0d0d; overflow-y: auto;
+    }
+    #admin-overlay.open { display: block; }
+    #admin-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 24px; border-bottom: 1px solid #222;
+      position: sticky; top: 0; background: #0d0d0d; z-index: 1;
+    }
+    #admin-header h2 { font-family: var(--font-head); font-size: 1rem; letter-spacing: 0.1em; color: #00e5ff; margin: 0; }
+    #admin-logout {
+      font-family: var(--font-head); font-size: 0.6rem; letter-spacing: 0.1em;
+      color: #666; border: 1px solid #333; border-radius: 5px;
+      padding: 6px 14px; cursor: pointer; background: none; text-transform: uppercase;
+      transition: all 0.2s;
+    }
+    #admin-logout:hover { color: #f0f0f0; border-color: #666; }
+    #admin-search {
+      width: 100%; box-sizing: border-box; margin: 16px 0 8px;
+      background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 8px;
+      color: #f0f0f0; padding: 10px 14px; font-size: 0.9rem; outline: none;
+    }
+    #admin-search:focus { border-color: #00e5ff44; }
+    #admin-stats { font-size: 0.78rem; color: #555; margin-bottom: 16px; }
+    #admin-stats span { color: #00e5ff; }
+    .admin-brand-group { margin-bottom: 24px; }
+    .admin-brand-label {
+      font-family: var(--font-head); font-size: 0.65rem; letter-spacing: 0.12em;
+      color: #555; text-transform: uppercase; padding: 8px 0 6px;
+      border-bottom: 1px solid #1a1a1a; margin-bottom: 4px;
+    }
+    .admin-item {
+      display: flex; align-items: center; gap: 14px;
+      padding: 9px 4px; border-bottom: 1px solid #111;
+      transition: background 0.1s;
+    }
+    .admin-item:hover { background: #111; }
+    .admin-item input[type=checkbox] { width: 18px; height: 18px; accent-color: #00e5ff; cursor: pointer; flex-shrink: 0; }
+    .admin-item-name { font-size: 0.9rem; color: #f0f0f0; flex: 1; }
+    .admin-item-brand { font-size: 0.72rem; color: #555; }
+    .admin-item.out-of-stock .admin-item-name { color: #444; text-decoration: line-through; }
+    #admin-body { padding: 0 24px 40px; max-width: 800px; margin: 0 auto; }
+
+    #pw-modal {
+      display: none; position: fixed; inset: 0; z-index: 9999;
+      background: rgba(0,0,0,0.92); align-items: center; justify-content: center;
+    }
+    #pw-modal.open { display: flex; }
+    #pw-box {
+      background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 12px;
+      padding: 36px 32px; width: 320px; text-align: center;
+    }
+    #pw-box h3 { font-family: var(--font-head); color: #00e5ff; font-size: 0.85rem; letter-spacing: 0.12em; margin: 0 0 20px; }
+    #pw-input {
+      width: 100%; box-sizing: border-box; background: #111; border: 1px solid #333;
+      border-radius: 7px; color: #f0f0f0; padding: 10px 14px; font-size: 1rem;
+      outline: none; margin-bottom: 14px; text-align: center; letter-spacing: 0.1em;
+    }
+    #pw-input:focus { border-color: #00e5ff44; }
+    #pw-submit {
+      width: 100%; padding: 11px; background: #00e5ff; color: #111;
+      border: none; border-radius: 7px; font-family: var(--font-head);
+      font-size: 0.7rem; letter-spacing: 0.1em; cursor: pointer; font-weight: 700;
+    }
+    #pw-submit:hover { background: #00c8e0; }
+    #pw-error { color: #f87171; font-size: 0.8rem; margin-top: 10px; min-height: 18px; }
   </style>
 </head>
 <body>
@@ -1428,8 +1497,16 @@ let activeCategory = 'All';
 let activeTypeFilter = 'All';
 let activeNicFilter  = 'All';
 
+const STOCK_KEY = 'tvp_stock';
+const ADMIN_PW  = 'tvpadmin';
+function getStock() {
+  try { return JSON.parse(localStorage.getItem(STOCK_KEY)) || {}; } catch { return {}; }
+}
+function setStock(obj) { localStorage.setItem(STOCK_KEY, JSON.stringify(obj)); }
+
 function filteredProducts() {
-  let prods = loadProducts();
+  const stock = getStock();
+  let prods = loadProducts().filter(p => stock[p.id] !== false);
   if (activeTypeFilter !== 'All') {
     prods = prods.filter(p => {
       if (activeTypeFilter === 'SALT') return p.type === 'SALT' || p.type === 'SALT+SUB';
@@ -1949,8 +2026,115 @@ async function init() {
   seedIfEmpty();
   renderShopHeader();
   switchTab('flavor');
+  if (new URLSearchParams(window.location.search).has('admin')) openAdminLogin();
 }
 init();
+
+// ══════════════════════════════════════════════════════════
+// ADMIN — STOCK MANAGER
+// ══════════════════════════════════════════════════════════
+function isInStock(id) { return getStock()[id] !== false; }
+
+function openAdminLogin() {
+  document.getElementById('pw-modal').classList.add('open');
+  document.getElementById('pw-input').focus();
+}
+function closeAdminLogin() { document.getElementById('pw-modal').classList.remove('open'); }
+
+function submitPassword() {
+  const val = document.getElementById('pw-input').value;
+  if (val === ADMIN_PW) {
+    closeAdminLogin();
+    openAdminPanel();
+  } else {
+    document.getElementById('pw-error').textContent = 'Incorrect password.';
+    document.getElementById('pw-input').value = '';
+    document.getElementById('pw-input').focus();
+  }
+}
+
+function openAdminPanel() {
+  document.getElementById('admin-overlay').classList.add('open');
+  renderAdminList('');
+}
+function closeAdminPanel() {
+  document.getElementById('admin-overlay').classList.remove('open');
+  history.replaceState(null, '', window.location.pathname);
+  refreshCurrentView();
+}
+
+function renderAdminList(query) {
+  const all = loadProducts();
+  const stock = getStock();
+  const q = query.toLowerCase();
+  const filtered = q ? all.filter(p =>
+    p.name.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q)
+  ) : all;
+
+  const inStockCount = all.filter(p => stock[p.id] !== false).length;
+  document.getElementById('admin-stats').innerHTML =
+    `<span>${inStockCount}</span> of <span>${all.length}</span> items in stock`;
+
+  const byBrand = {};
+  filtered.forEach(p => { (byBrand[p.brand] = byBrand[p.brand] || []).push(p); });
+  const brands = Object.keys(byBrand).sort();
+
+  document.getElementById('admin-list').innerHTML = brands.map(brand =>
+    `<div class="admin-brand-group">
+      <div class="admin-brand-label">${esc(brand)}</div>
+      ${byBrand[brand].map(p => {
+        const inStock = stock[p.id] !== false;
+        return `<div class="admin-item${inStock ? '' : ' out-of-stock'}" id="row-${esc(p.id)}">
+          <input type="checkbox" ${inStock ? 'checked' : ''} onchange="toggleStock('${esc(p.id)}', this.checked)">
+          <div class="admin-item-name">${esc(p.name)}</div>
+        </div>`;
+      }).join('')}
+    </div>`
+  ).join('');
+}
+
+function toggleStock(id, inStock) {
+  const s = getStock();
+  if (inStock) { delete s[id]; } else { s[id] = false; }
+  setStock(s);
+  const row = document.getElementById('row-' + id);
+  if (row) row.classList.toggle('out-of-stock', !inStock);
+  const all = loadProducts();
+  const inStockCount = all.filter(p => getStock()[p.id] !== false).length;
+  document.getElementById('admin-stats').innerHTML =
+    `<span>${inStockCount}</span> of <span>${all.length}</span> items in stock`;
+}
+
+document.getElementById('pw-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') submitPassword();
+});
+document.getElementById('admin-search').addEventListener('input', e => {
+  renderAdminList(e.target.value);
+});
 </script>
+
+<!-- Password Modal -->
+<div id="pw-modal">
+  <div id="pw-box">
+    <h3>ADMIN ACCESS</h3>
+    <input id="pw-input" type="password" placeholder="Password" autocomplete="off">
+    <button id="pw-submit" onclick="submitPassword()">ENTER</button>
+    <div id="pw-error"></div>
+  </div>
+</div>
+
+<!-- Admin Panel -->
+<div id="admin-overlay">
+  <div id="admin-header">
+    <h2>STOCK MANAGER</h2>
+    <button id="admin-logout" onclick="closeAdminPanel()">EXIT</button>
+  </div>
+  <div id="admin-body">
+    <input id="admin-search" type="text" placeholder="Search items or brands...">
+    <div id="admin-stats"></div>
+    <div id="admin-list"></div>
+  </div>
+</div>
+
 </body>
 </html>
