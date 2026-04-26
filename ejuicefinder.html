@@ -571,9 +571,8 @@
 
     /* ── Admin ─────────────────────────────────────────────── */
     #admin-overlay {
-      display: none; position: fixed; inset: 0; z-index: 9000;
-      background: #0d0d0d; overflow-y: scroll; -webkit-overflow-scrolling: touch;
-      height: 100%;
+      display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 9000;
+      background: #0d0d0d; overflow-y: auto; -webkit-overflow-scrolling: touch;
     }
     #admin-overlay.open { display: block; }
     #stock-header {
@@ -2109,9 +2108,6 @@ function toggleStock(id, inStock) {
 document.getElementById('pw-input').addEventListener('keydown', e => {
   if (e.key === 'Enter') submitPassword();
 });
-document.getElementById('stock-search').addEventListener('input', e => {
-  renderAdminList(e.target.value);
-});
 </script>
 
 <!-- Password Modal -->
@@ -2131,7 +2127,7 @@ document.getElementById('stock-search').addEventListener('input', e => {
     <button id="admin-logout" onclick="closeAdminPanel()">EXIT</button>
   </div>
   <div id="stock-body">
-    <input id="stock-search" type="text" placeholder="Search items or brands...">
+    <input id="stock-search" type="text" placeholder="Search items or brands..." oninput="renderAdminList(this.value)">
     <div id="admin-stats"></div>
     <div id="admin-list"></div>
   </div>
