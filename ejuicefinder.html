@@ -1703,7 +1703,6 @@ function showAdmin() {
   document.getElementById('customer-view').classList.add('hidden');
   document.getElementById('admin-gate').classList.add('hidden');
   document.getElementById('admin-view').classList.remove('hidden');
-  document.getElementById('gear-btn').classList.add('hidden');
   prefillSettings();
   renderAdminProducts();
   renderStats();
@@ -1712,7 +1711,6 @@ function showAdmin() {
 function closeAdmin() {
   document.getElementById('admin-view').classList.add('hidden');
   document.getElementById('customer-view').classList.remove('hidden');
-  document.getElementById('gear-btn').classList.remove('hidden');
   switchTab(activeTab);
 }
 
@@ -1851,8 +1849,7 @@ document.getElementById('search-clear').addEventListener('click', clearSearch);
 // Brand back
 document.getElementById('brand-back-btn').addEventListener('click', closeBrandDrill);
 
-// Gear / Admin gate
-document.getElementById('gear-btn').addEventListener('click', openAdmin);
+// Admin gate
 document.getElementById('gate-cancel-btn').addEventListener('click', () => {
   document.getElementById('admin-gate').classList.add('hidden');
 });
