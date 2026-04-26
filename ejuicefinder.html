@@ -259,6 +259,7 @@
     .brand-card:hover { border-color: var(--purple); background: var(--elevated); }
     .brand-card-name { font-family: var(--font-head); font-size: 1.2rem; letter-spacing: 0.05em; color: var(--text); margin-bottom: 6px; }
     .brand-card-count { font-size: 0.78rem; color: var(--muted); }
+    .brand-card-logo { width: 80px; height: 80px; object-fit: contain; margin: 0 auto 12px; display: block; filter: invert(1); opacity: 0.85; }
 
     /* ── Brand Drill-in ──────────────────────────────────────── */
     #brand-back-bar { margin-bottom: 16px; }
@@ -1502,28 +1503,30 @@ let activeBrand = null;
 function renderBrandGrid() {
   const products = filteredProducts();
   const brandMap = {};
-  products.forEach(p => { brandMap[p.brand] = (brandMap[p.brand] || 0) + 1; });
+  let razSeen = false;
+  products.forEach(p => {
+    if (p.brand.startsWith('RAZ')) { razSeen = true; return; }
+    brandMap[p.brand] = (brandMap[p.brand] || 0) + 1;
+  });
   const brands = Object.entries(brandMap).sort((a,b) => a[0].localeCompare(b[0]));
   const grid = document.getElementById('brand-grid');
-  if (!brands.length) {
+  if (!brands.length && !razSeen) {
     grid.innerHTML = emptyState('🏷', 'No brands yet.');
     return;
   }
-  grid.innerHTML = brands.map(([brand, count]) => {
-    const displayName = brand === 'RAZ TN9000' ? 'RAZ' : brand;
-    return `<div class="brand-card" data-brand="${esc(brand)}">
-      <div class="brand-card-name">${esc(displayName)}</div>
+  const razCard = razSeen ? `<div class="brand-card" data-brand="RAZ" onclick="window.location.href='raz.html'">
+    <img class="brand-card-logo" src="images/raz-logo.png" alt="RAZ">
+    <div class="brand-card-name">RAZ</div>
+    <div class="brand-card-count">3 types of devices</div>
+  </div>` : '';
+  grid.innerHTML = razCard + brands.map(([brand, count]) =>
+    `<div class="brand-card" data-brand="${esc(brand)}">
+      <div class="brand-card-name">${esc(brand)}</div>
       <div class="brand-card-count">${count} product${count !== 1 ? 's' : ''}</div>
-    </div>`;
-  }).join('');
-  grid.querySelectorAll('.brand-card').forEach(card => {
-    card.addEventListener('click', () => {
-      if (card.dataset.brand === 'RAZ TN9000') {
-        window.location.href = 'raz.html';
-      } else {
-        openBrandDrill(card.dataset.brand);
-      }
-    });
+    </div>`
+  ).join('');
+  grid.querySelectorAll('.brand-card:not([data-brand="RAZ"])').forEach(card => {
+    card.addEventListener('click', () => openBrandDrill(card.dataset.brand));
   });
 }
 
