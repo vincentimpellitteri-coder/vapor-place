@@ -2026,7 +2026,7 @@ async function init() {
   seedIfEmpty();
   renderShopHeader();
   switchTab('flavor');
-  if (new URLSearchParams(window.location.search).has('admin')) openAdminLogin();
+  if (new URLSearchParams(window.location.search).has('admin')) window.location.href = 'admin-stock.html';
 }
 init();
 

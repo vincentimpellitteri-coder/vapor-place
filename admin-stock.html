@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stock Manager — The Vapor Place</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0d0d0d; color: #f0f0f0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; height: 100vh; overflow: hidden; }
+
+    #pw-screen {
+      display: flex; align-items: center; justify-content: center; height: 100vh;
+    }
+    #pw-box {
+      background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 12px;
+      padding: 40px 32px; width: 320px; text-align: center;
+    }
+    #pw-box h2 {
+      font-size: 0.8rem; letter-spacing: 0.15em; color: #00e5ff;
+      text-transform: uppercase; margin-bottom: 24px; font-family: monospace;
+    }
+    #pw-input {
+      width: 100%; background: #111; border: 1px solid #333; border-radius: 7px;
+      color: #f0f0f0; padding: 12px 14px; font-size: 1rem; outline: none;
+      margin-bottom: 12px; text-align: center; letter-spacing: 0.1em;
+    }
+    #pw-input:focus { border-color: #00e5ff55; }
+    #pw-btn {
+      width: 100%; padding: 12px; background: #00e5ff; color: #111;
+      border: none; border-radius: 7px; font-size: 0.75rem; letter-spacing: 0.1em;
+      font-weight: 700; cursor: pointer; text-transform: uppercase;
+    }
+    #pw-btn:hover { background: #00c8e0; }
+    #pw-error { color: #f87171; font-size: 0.8rem; margin-top: 10px; min-height: 18px; }
+
+    #admin-screen { display: none; height: 100vh; flex-direction: column; }
+    #admin-screen.visible { display: flex; }
+
+    #top-bar {
+      background: #111; border-bottom: 1px solid #222;
+      padding: 14px 20px; display: flex; align-items: center;
+      justify-content: space-between; flex-shrink: 0; gap: 16px; flex-wrap: wrap;
+    }
+    #top-bar h1 {
+      font-size: 0.75rem; letter-spacing: 0.15em; color: #00e5ff;
+      text-transform: uppercase; font-family: monospace; white-space: nowrap;
+    }
+    #search-bar {
+      background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 7px;
+      color: #f0f0f0; padding: 8px 12px; font-size: 0.85rem; outline: none; width: 220px;
+    }
+    #search-bar:focus { border-color: #00e5ff44; }
+    #stats { font-size: 0.75rem; color: #555; white-space: nowrap; }
+    #stats span { color: #00e5ff; }
+    #exit-btn {
+      background: none; border: 1px solid #333; border-radius: 6px;
+      color: #888; padding: 7px 16px; font-size: 0.7rem; letter-spacing: 0.08em;
+      cursor: pointer; text-transform: uppercase; white-space: nowrap;
+    }
+    #exit-btn:hover { color: #f0f0f0; border-color: #666; }
+
+    #list-wrap { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 0 20px 60px; }
+
+    .brand-label {
+      font-size: 0.65rem; letter-spacing: 0.12em; color: #444;
+      text-transform: uppercase; padding: 18px 0 6px;
+      border-bottom: 1px solid #1a1a1a; margin-bottom: 2px; font-family: monospace;
+    }
+    .item-row {
+      display: flex; align-items: center; gap: 14px;
+      padding: 10px 4px; border-bottom: 1px solid #111;
+    }
+    .item-row:hover { background: #111; }
+    .item-row input[type=checkbox] { width: 18px; height: 18px; accent-color: #00e5ff; cursor: pointer; flex-shrink: 0; }
+    .item-name { font-size: 0.9rem; color: #f0f0f0; flex: 1; }
+    .item-row.oos .item-name { color: #3a3a3a; text-decoration: line-through; }
+  </style>
+</head>
+<body>
+
+<div id="pw-screen">
+  <div id="pw-box">
+    <h2>Stock Manager</h2>
+    <input id="pw-input" type="password" placeholder="Password" autocomplete="off">
+    <button id="pw-btn" onclick="checkPw()">Enter</button>
+    <div id="pw-error"></div>
+  </div>
+</div>
+
+<div id="admin-screen">
+  <div id="top-bar">
+    <h1>Stock Manager</h1>
+    <input id="search-bar" type="text" placeholder="Search..." oninput="renderList(this.value)">
+    <div id="stats"></div>
+    <button id="exit-btn" onclick="window.location.href='ejuicefinder.html'">Exit</button>
+  </div>
+  <div id="list-wrap">
+    <div id="product-list"></div>
+  </div>
+</div>
+
+<script>
+const PW = 'vape123';
+const STOCK_KEY = 'tvp_stock';
+
+const PRODUCTS = [
+  { id: "b3194bc6-8252-4907-b07f-6e26a1e62d5f", name: "B Pop", brand: "Geek Bar Pulse" },
+  { id: "3f84e334-1d51-4831-97e2-f80e8efcff08", name: "Blue Razz Ice", brand: "Geek Bar Pulse" },
+  { id: "f9bd3d65-a15f-4c2e-a696-5a4f072f4e9d", name: "Meta Moon", brand: "Geek Bar Pulse" },
+  { id: "c2fe09d7-450c-4d92-90b6-0b6cd73afac5", name: "Pink Lemonade", brand: "Geek Bar Pulse" },
+  { id: "62d4c87a-8374-48cd-84f2-cc619667dac7", name: "Strawberry Banana", brand: "Geek Bar Pulse" },
+  { id: "bd7537ce-668f-4ebe-9668-2dc723baf3e5", name: "Tropical Rainbow Blast", brand: "Geek Bar Pulse" },
+  { id: "7e5e9ec5-b0aa-4f78-a399-b8743dfa65be", name: "Watermelon Ice", brand: "Geek Bar Pulse" },
+  { id: "300d571e-2dfd-4418-93b4-5078eea2efcd", name: "Black Cherry", brand: "Geek Bar Pulse" },
+  { id: "e3d723e8-d155-4b39-810c-74d2b39a921c", name: "Blue Mint", brand: "Geek Bar Pulse" },
+  { id: "124dd716-e7ed-4eaf-aecb-fc61865a7895", name: "California Cherry", brand: "Geek Bar Pulse" },
+  { id: "b28cc6e5-a564-49f1-9eba-f7478fbe07a1", name: "Dragon Melon", brand: "Geek Bar Pulse" },
+  { id: "c0d271eb-e873-4f0b-8584-ec02f61f2e4e", name: "Grape B Pop", brand: "Geek Bar Pulse" },
+  { id: "55471b4d-2044-4057-a43f-deca0cb344fd", name: "Juicy Peach Ice", brand: "Geek Bar Pulse" },
+  { id: "b5fb356f-aaf9-49b7-a5bd-bdb48121d2e8", name: "Mexico Mango", brand: "Geek Bar Pulse" },
+  { id: "bac8b813-0956-43ad-8cec-51bdd1d4af00", name: "Miami Mint", brand: "Geek Bar Pulse" },
+  { id: "651b8354-49b4-4097-9d88-fab9457e78ae", name: "Sour Apple Ice", brand: "Geek Bar Pulse" },
+  { id: "7462e29f-58a6-4d02-a16b-94459116e9a3", name: "Strawberry Mango", brand: "Geek Bar Pulse" },
+  { id: "1e9ac8bf-c76a-4bfc-964e-f15f27eb86f2", name: "White Gummy Ice", brand: "Geek Bar Pulse" },
+  { id: "32ad9e61-b2df-48a6-988b-2b1828e8960e", name: "Cherry Bomb", brand: "Geek Bar Pulse" },
+  { id: "334b7397-2f72-4436-92a5-e67064b4ad8a", name: "Fcuking Fab", brand: "Geek Bar Pulse" },
+  { id: "a6bdb7ff-6360-4c53-8b86-3e5c9a7180e5", name: "Blue Raz Ice", brand: "RAZ TN9000" },
+  { id: "975a777b-7f0f-476a-b4e7-06c0f94c618a", name: "Blueberry Watermelon", brand: "RAZ TN9000" },
+  { id: "7aa1269a-f4c2-40f0-9ae2-1ccd72f338d6", name: "Cherry Lemon", brand: "RAZ TN9000" },
+  { id: "6be63725-28ea-48ce-92fd-9f35d2da2aa7", name: "Dragon Fruit Lemonade", brand: "RAZ TN9000" },
+  { id: "5d071e81-17cb-4a5e-a3b0-3fd69b447579", name: "Graham Twist", brand: "RAZ TN9000" },
+  { id: "3e663093-0ddf-48b6-a20d-f3df2c664a3e", name: "Grape Ice", brand: "RAZ TN9000" },
+  { id: "0e61b9c3-4067-4022-ab2c-f3174756be81", name: "Mango Colada", brand: "RAZ TN9000" },
+  { id: "5f9e9e8a-1104-4adf-8261-3f43de2d40e4", name: "Miami Mint", brand: "RAZ TN9000" },
+  { id: "f0a4fb28-c7da-446e-96bf-7faa453add1e", name: "Night Crawler", brand: "RAZ TN9000" },
+  { id: "dffa649f-ab04-4946-ad30-f4649490d1d8", name: "Polar Ice", brand: "RAZ TN9000" },
+  { id: "41705a58-0649-476c-9c27-db5517f872cd", name: "Strawberry Ice", brand: "RAZ TN9000" },
+  { id: "99727e04-02b6-4f42-92a6-3bc4a29faa79", name: "Strawberry Shortcake", brand: "RAZ TN9000" },
+  { id: "f17b682a-3ec8-4ebf-9977-25efb06c6e7d", name: "Triple Berry Ice", brand: "RAZ TN9000" },
+  { id: "bfa83580-9b8e-48ab-a587-eb59a4058c21", name: "Watermelon Ice", brand: "RAZ TN9000" },
+  { id: "0bfd65be-9f15-4720-9c8f-45aff68e10ba", name: "Orange Raspberry", brand: "RAZ TN9000" },
+  { id: "ltx-001", name: "Banana Candy", brand: "RAZ LTX25000" },
+  { id: "ltx-002", name: "Bangin\' Sour Berries", brand: "RAZ LTX25000" },
+  { id: "ltx-003", name: "Black Cherry Peach", brand: "RAZ LTX25000" },
+  { id: "ltx-004", name: "Black & Blue Lime", brand: "RAZ LTX25000" },
+  { id: "ltx-005", name: "Blue Raz (Gush Edition)", brand: "RAZ LTX25000" },
+  { id: "ltx-006", name: "Blue Razz Ice", brand: "RAZ LTX25000" },
+  { id: "ltx-007", name: "Blueberry (Punch Edition)", brand: "RAZ LTX25000" },
+  { id: "ltx-008", name: "Blueberry Watermelon", brand: "RAZ LTX25000" },
+  { id: "ltx-009", name: "Cherry Strapple", brand: "RAZ LTX25000" },
+  { id: "ltx-010", name: "Clear", brand: "RAZ LTX25000" },
+  { id: "ltx-011", name: "Clear Diamond", brand: "RAZ LTX25000" },
+  { id: "ltx-012", name: "Clear Sapphire", brand: "RAZ LTX25000" },
+  { id: "ltx-013", name: "Fire & Ice", brand: "RAZ LTX25000" },
+  { id: "ltx-014", name: "Frozen Edition — Banana", brand: "RAZ LTX25000" },
+  { id: "ltx-015", name: "Frozen Edition — Cherry Apple", brand: "RAZ LTX25000" },
+  { id: "ltx-016", name: "Frozen Edition — Dragonfruit Lemon", brand: "RAZ LTX25000" },
+  { id: "ltx-017", name: "Frozen Edition — Juicy Strawberry", brand: "RAZ LTX25000" },
+  { id: "ltx-018", name: "Frozen Edition — Raspberry Watermelon", brand: "RAZ LTX25000" },
+  { id: "ltx-019", name: "Georgia Peach", brand: "RAZ LTX25000" },
+  { id: "ltx-020", name: "Hawaiian (Punch Edition)", brand: "RAZ LTX25000" },
+  { id: "ltx-021", name: "Ice Blue Dragon", brand: "RAZ LTX25000" },
+  { id: "ltx-022", name: "Mango Loco", brand: "RAZ LTX25000" },
+  { id: "ltx-023", name: "Miami Mint", brand: "RAZ LTX25000" },
+  { id: "ltx-024", name: "New York Mint", brand: "RAZ LTX25000" },
+  { id: "ltx-025", name: "Night Crawler", brand: "RAZ LTX25000" },
+  { id: "ltx-026", name: "Orange Berry Lime Ice", brand: "RAZ LTX25000" },
+  { id: "ltx-027", name: "Orange Mango", brand: "RAZ LTX25000" },
+  { id: "ltx-028", name: "Orange Mango (Fall Edition)", brand: "RAZ LTX25000" },
+  { id: "ltx-029", name: "Orange Pineapple (Punch Edition)", brand: "RAZ LTX25000" },
+  { id: "ltx-030", name: "Peppermint Candy Cane", brand: "RAZ LTX25000" },
+  { id: "ltx-031", name: "Pink Lemonade Mint", brand: "RAZ LTX25000" },
+  { id: "ltx-032", name: "Pink Lemonade Mint (Fall Edition)", brand: "RAZ LTX25000" },
+  { id: "ltx-033", name: "Rainbow Rain", brand: "RAZ LTX25000" },
+  { id: "ltx-034", name: "Raspberry Limeade", brand: "RAZ LTX25000" },
+  { id: "ltx-035", name: "Razzle Dazzle", brand: "RAZ LTX25000" },
+  { id: "ltx-036", name: "Sour Apple Ice", brand: "RAZ LTX25000" },
+  { id: "ltx-037", name: "Sour Apple Watermelon", brand: "RAZ LTX25000" },
+  { id: "ltx-038", name: "Sour Raspberry (Punch Edition)", brand: "RAZ LTX25000" },
+  { id: "ltx-039", name: "Sour Raspberry Watermelon", brand: "RAZ LTX25000" },
+  { id: "ltx-040", name: "Sour Watermelon Peach", brand: "RAZ LTX25000" },
+  { id: "ltx-041", name: "Strawberry Burst", brand: "RAZ LTX25000" },
+  { id: "ltx-042", name: "Strawberry Kiwi Pear", brand: "RAZ LTX25000" },
+  { id: "ltx-043", name: "Strawberry Orange Tang", brand: "RAZ LTX25000" },
+  { id: "ltx-044", name: "Strawberry Peach (Gush Edition)", brand: "RAZ LTX25000" },
+  { id: "ltx-045", name: "Tobacco", brand: "RAZ LTX25000" },
+  { id: "ltx-046", name: "Triple Berry (Gush Edition)", brand: "RAZ LTX25000" },
+  { id: "ltx-047", name: "Triple Berry (Punch Edition)", brand: "RAZ LTX25000" },
+  { id: "ltx-048", name: "Tropical (Gush Edition)", brand: "RAZ LTX25000" },
+  { id: "ltx-049", name: "Watermelon Ice", brand: "RAZ LTX25000" },
+  { id: "ltx-050", name: "White Grape (Gush Edition)", brand: "RAZ LTX25000" },
+  { id: "ltx-051", name: "Wintergreen", brand: "RAZ LTX25000" },
+  { id: "b63e23bc-ec02-486c-9a62-37d1c67b35e0", name: "Menthol", brand: "Air Factory" },
+  { id: "4150de42-ccde-4a10-8eea-a4572f1c7152", name: "Mint", brand: "Air Factory" },
+  { id: "8055a684-d9b9-45ba-992a-c04546e7aa62", name: "Just Blues", brand: "Alt Zero" },
+  { id: "3f5ed59f-8d82-4b34-9540-5552fc7748f4", name: "Just Reds", brand: "Alt Zero" },
+  { id: "caa780de-cd69-4911-97a3-ac00152b8407", name: "Paradox", brand: "Alt Zero" },
+  { id: "c3246bcf-cc3d-432e-8ad2-90747efed389", name: "Paradox on the Rocks", brand: "Alt Zero" },
+  { id: "c9e3ae38-48f2-4679-9a8f-bd0f217c4c53", name: "Bad Blood", brand: "Bad Drip" },
+  { id: "83bef63c-0127-497d-b350-a6ca51f07a93", name: "Don\'t Care Bear", brand: "Bad Drip" },
+  { id: "361e3357-bd53-47ce-8b78-01c2d4653de3", name: "Drooly", brand: "Bad Drip" },
+  { id: "54232e04-b1b5-4f56-ae4e-839a2ec42b20", name: "God Nectar", brand: "Bad Drip" },
+  { id: "2471388b-0817-4f5a-ae02-eb273c98054d", name: "Salted Caramel Macchiato", brand: "Barista Brew" },
+  { id: "ddc516ee-a62c-4082-bc1e-4e0a982c9ad5", name: "#32", brand: "Beard Vape Co." },
+  { id: "c248bf0b-e65a-4138-8746-643f8480348e", name: "Classic", brand: "Brewed Awakening" },
+  { id: "12f04b11-e0fb-4b36-95fc-c245f57a39b8", name: "Purp", brand: "Chubby Vapes" },
+  { id: "c69cfad6-69b0-4f08-b2f9-2ae4ecb88182", name: "Cereal Science", brand: "Cloud Chemist" },
+  { id: "f9e9e01c-d8eb-4c28-aa0d-0637db4cd54f", name: "Claws", brand: "Cloud Chemist" },
+  { id: "1c20f5f8-56ab-4fdb-bdc7-7dee5093f6e9", name: "Frosty Science", brand: "Cloud Chemist" },
+  { id: "c7f9f254-c094-4e1d-8c90-dc09d317e2f1", name: "Heisenberry Crunch", brand: "Cloud Chemist" },
+  { id: "10ad2bd7-871c-4ae4-91f1-f1ab2f835ea3", name: "Loopy Science", brand: "Cloud Chemist" },
+  { id: "d2c25646-b91c-4d1c-84c1-17510e3f7b7a", name: "Pebble Science", brand: "Cloud Chemist" },
+  { id: "95cfd3ae-cf56-4ce7-b6fa-a2c2e63e0083", name: "The Alchemist", brand: "Cloud Chemist" },
+  { id: "798393d4-357e-4122-b39a-7283f8232256", name: "The Final Experiment", brand: "Cloud Chemist" },
+  { id: "7ebc0b53-aa96-4661-8ff2-383c175e8483", name: "Corn Bread Puddin\'", brand: "Country Clouds" },
+  { id: "3bc94798-6759-4a11-8a0b-2969f81edf79", name: "Bird Brains", brand: "Cuttwood" },
+  { id: "4630fd25-b6e4-4f7c-b986-67d4fd788649", name: "Boss Reserve", brand: "Cuttwood" },
+  { id: "534f5e69-ee2f-48e4-abf9-3765da011155", name: "Mega Melons", brand: "Cuttwood" },
+  { id: "a7fad597-98d1-4a23-b006-f45352d9209e", name: "Sugar Drizzle", brand: "Cuttwood" },
+  { id: "24eaf9c5-42fe-472c-9e89-38cea857a53e", name: "Tobacco Trail", brand: "Cuttwood" },
+  { id: "c9e124b2-2a37-4187-80eb-9884853a9afb", name: "Unicorn Milk", brand: "Cuttwood" },
+  { id: "d06a70d6-2ead-4a6a-9c8d-f43a432faaf2", name: "Lemon Tart", brand: "Dinner Lady" },
+  { id: "818d8796-3838-4dc3-93a7-90f126e72704", name: "Apple Kiwi", brand: "Fruitia" },
+  { id: "5d4a91d8-c53f-4fec-bcbe-8273ffadb29c", name: "Banana Ice", brand: "Fruitia" },
+  { id: "a660bc7f-f23f-4fde-bff6-bfea52c2fb6d", name: "Blood Orange Cactus", brand: "Fruitia" },
+  { id: "610a9fb3-9ed7-4029-beab-3d29cbf1ebf7", name: "Jus Blue Raspberry Cotton Candy", brand: "Fruitia" },
+  { id: "63cffc84-f91b-4545-8896-0abe7c0bda5c", name: "Pineapple Citrus", brand: "Fruitia" },
+  { id: "fd88da45-8dda-4441-a54e-f0cbf88ac479", name: "Strawberry Coconut", brand: "Fruitia" },
+  { id: "5211edcd-7c79-4f53-a0ef-071a01dd1b13", name: "Banana Cream Pie", brand: "Glas Basix" },
+  { id: "77ca1e86-1c06-40e9-8ef3-66e3f27af44b", name: "Blue Razz", brand: "Glas Basix" },
+  { id: "6b1a1188-47c2-497a-8239-ca9c92894134", name: "Blueberry Cake", brand: "Glas Basix" },
+  { id: "63eb9755-da08-4985-9f76-acac9f44c0e8", name: "Butterscotch Reserve", brand: "Glas Basix" },
+  { id: "3bac846d-91f8-4c2e-ab68-cab3b8688b01", name: "Carribean Punch", brand: "Glas Basix" },
+  { id: "777e8b97-8913-4f02-a884-8428106a036c", name: "Cool Melon", brand: "Glas Basix" },
+  { id: "418cf1c8-c834-46ee-89c5-ad0010edb716", name: "Fizzy Lemonade", brand: "Glas Basix" },
+  { id: "afc67672-880c-46d0-a636-5bbe08406a7b", name: "Blueberry", brand: "Gost Vapor" },
+  { id: "2d316f4e-a72c-41b4-8edb-e9147f12b8b9", name: "Caramelized Apple", brand: "Gost Vapor" },
+  { id: "ca639dd4-79fb-4eac-8468-9212df8a5dbd", name: "Golden Maple", brand: "Gost Vapor" },
+  { id: "fc1fdedf-a6e0-4766-9356-3e830331f6a7", name: "Strawberry", brand: "Gost Vapor" },
+  { id: "5545a587-a7bf-4d9d-a82c-7465fc6b7622", name: "Coffee", brand: "Gost Vapor" },
+  { id: "95ce14cc-4fb4-4438-920e-d18864ddedec", name: "Kringle\'s Curse", brand: "Halo" },
+  { id: "b8bacd68-3a9f-4560-ad8e-270a5b657366", name: "Sub Zero", brand: "Halo" },
+  { id: "101370b4-303d-4cc5-ba2b-343fde5c7a1b", name: "Tribeca", brand: "Halo" },
+  { id: "2a13665a-7709-4122-96d5-f984c85fe848", name: "Looking Glass", brand: "Kaleidoscopic Clouds" },
+  { id: "09697fcd-e458-4510-bce2-78b2742c4fda", name: "Optical Illusion", brand: "Kaleidoscopic Clouds" },
+  { id: "829cb6f9-9f91-4ada-aa8c-c9eccad7b691", name: "Ruby\'s Eyes", brand: "Kaleidoscopic Clouds" },
+  { id: "d818c883-be6e-4fa7-8888-b8313cc84c12", name: "Sunset", brand: "Kaleidoscopic Clouds" },
+  { id: "047f9349-5e1b-4a88-aee6-6c4d0bfec960", name: "Devil\'s Punchbowl", brand: "Khali" },
+  { id: "d38add1b-6e36-4473-a661-c16633b258b4", name: "Devil\'s Punchbowl Ice", brand: "Khali" },
+  { id: "2a0a913d-2700-43ae-b9dc-688192b1a398", name: "The Fairmont", brand: "Khali" },
+  { id: "8816b148-e35a-4f3d-932b-d2d72f7b8e96", name: "Blue Razz", brand: "Killer Fruits" },
+  { id: "8ebdd489-f93a-415d-bb6e-21ef39909291", name: "Trapple", brand: "Killer Fruits" },
+  { id: "8ef65ff3-31e8-4f73-9320-4f9b4c067cfe", name: "Fair Grounds", brand: "Met4" },
+  { id: "822fe5e4-5b2f-4d19-b5a6-fa15e23c245c", name: "Golden Ticket", brand: "Met4" },
+  { id: "038a1fce-5011-44e4-9952-f6310dbb9e41", name: "Custard Monster Banana", brand: "Monster Labs" },
+  { id: "0b57c44a-5669-4dff-ac19-29f71156e4d8", name: "Custard Monster Blackberry", brand: "Monster Labs" },
+  { id: "f2cd6b4b-9663-44f4-b79a-6bc27d668b65", name: "Custard Monster Blueberry", brand: "Monster Labs" },
+  { id: "8ce27562-b436-41e0-834a-de77e56be73b", name: "Custard Monster Butterscotch", brand: "Monster Labs" },
+  { id: "9d6f08f5-daae-45d8-86d3-1329a71b7ed0", name: "Custard Monster Mixed Berry", brand: "Monster Labs" },
+  { id: "121de2e5-952a-425d-93cf-4599262c55cc", name: "Custard Monster Strawberry", brand: "Monster Labs" },
+  { id: "7542d031-9356-4c95-a606-d166272121ab", name: "Custard Monster Vanilla", brand: "Monster Labs" },
+  { id: "8172b1a0-af8d-4318-b1fd-31dba735a8a8", name: "Frozen Fruit Monster Banana Ice", brand: "Monster Labs" },
+  { id: "ff50b00c-df1f-4b41-a423-2070d22e0d33", name: "Frozen Fruit Monster Black Cherry Ice", brand: "Monster Labs" },
+  { id: "8e330e01-501d-4073-9d68-1e996c7ac550", name: "Frozen Fruit Monster Blueberry Raspberry Lemon Ice", brand: "Monster Labs" },
+  { id: "e52cc12b-ee05-4810-9a64-4a2e5878ea33", name: "Frozen Fruit Monster Mango Peach Guava Ice", brand: "Monster Labs" },
+  { id: "480c783f-f902-41e1-ba38-f3595cd5e937", name: "Frozen Fruit Monster Mixed Berry Ice", brand: "Monster Labs" },
+  { id: "7363c8a2-48e6-4faf-b84a-7011e4946273", name: "Frozen Fruit Monster Passionfruit Orange Guava Ice", brand: "Monster Labs" },
+  { id: "3e26774b-2e30-4350-9513-155a32c315e1", name: "Frozen Fruit Monster Strawberry Banana Ice", brand: "Monster Labs" },
+  { id: "9c016d0b-cffe-466a-bfb2-cb89f0425aef", name: "Frozen Fruit Monster Strawberry Kiwi Pomegranate Ice", brand: "Monster Labs" },
+  { id: "f153402b-2506-42f7-9b05-740cb84854db", name: "Frozen Fruit Monster Strawberry Lime Ice", brand: "Monster Labs" },
+  { id: "2b77596c-8757-44f2-9076-ba8dceac54b4", name: "Fruit Monster Black Cherry", brand: "Monster Labs" },
+  { id: "bab45a1f-16f1-4898-886c-915392f08f3f", name: "Fruit Monster Blueberry Raspberry Lemon", brand: "Monster Labs" },
+  { id: "0630c0bb-ea1e-4063-86c6-508bb331d11c", name: "Fruit Monster Mango Peach Guava", brand: "Monster Labs" },
+  { id: "1142170c-f629-46e7-aec8-94a14a146a7d", name: "Fruit Monster Mixed Berry", brand: "Monster Labs" },
+  { id: "9decf150-99f7-4780-8f6c-3b10fab45c2e", name: "Fruit Monster Passionfruit Orange Guava", brand: "Monster Labs" },
+  { id: "01da1137-61c0-461f-bf09-621966c7147c", name: "Fruit Monster Strawberry Banana", brand: "Monster Labs" },
+  { id: "04ae5dfc-b1d6-40f7-b11e-ffcac93cbdad", name: "Fruit Monster Strawberry Kiwi Pomegranate", brand: "Monster Labs" },
+  { id: "81155c19-7b63-4e58-a276-ea582dab96ce", name: "Fruit Monster Strawberry Lime", brand: "Monster Labs" },
+  { id: "0f268da7-1c44-4a75-bf34-1e9ace5cc60c", name: "Jam Monster Banana", brand: "Monster Labs" },
+  { id: "94608a3a-f1a3-4287-b741-5522524de71b", name: "Jam Monster Black Cherry", brand: "Monster Labs" },
+  { id: "8ffee6a2-83e0-4fe0-8f52-85d466e1d468", name: "Jam Monster Blackberry", brand: "Monster Labs" },
+  { id: "3dbaac04-6ca4-4904-b67e-8d7acfd51808", name: "Jam Monster Blueberry", brand: "Monster Labs" },
+  { id: "3a650ac0-0b2a-47ab-a1bb-56db12534673", name: "Jam Monster Grape", brand: "Monster Labs" },
+  { id: "5b2a8bc2-9f80-4a43-8488-375db20317ae", name: "Jam Monster Mixed Berry", brand: "Monster Labs" },
+  { id: "79d429dd-9531-4b35-940f-8b5c3c8ab914", name: "Jam Monster PB & Banana", brand: "Monster Labs" },
+  { id: "2bf1d3a5-3689-4de0-9d24-3328fb976099", name: "Jam Monster PB & Grape", brand: "Monster Labs" },
+  { id: "d41fd01b-a8d8-4d16-bcb9-c29b7b5f0d9b", name: "Jam Monster PB & Strawberry", brand: "Monster Labs" },
+  { id: "e2c52bc0-f122-4820-ac6e-439066ac5cfc", name: "Jam Monster Raspberry", brand: "Monster Labs" },
+  { id: "b3ffb4bd-e435-4cf4-873b-af97dc9e274e", name: "Jam Monster Strawberry", brand: "Monster Labs" },
+  { id: "5b025bfd-7ac0-44e2-9b51-86bfdc75bfd8", name: "Blueberry Lemonade", brand: "Lemon Monster" },
+  { id: "8af1829c-a749-491b-a9cf-bb4514f69ab1", name: "Pink Lemonade", brand: "Lemon Monster" },
+  { id: "bffd3da6-dee7-4ed3-94fb-c3168cd33419", name: "Strawberry Lemonade", brand: "Lemon Monster" },
+  { id: "ac498696-e6ff-49f8-97ce-c0205a92be85", name: "Watermelon Lemonade", brand: "Lemon Monster" },
+  { id: "30f962e1-bcd3-4159-a0b8-b2a3a4690df5", name: "The Milk Berry Crunch", brand: "Monster Labs" },
+  { id: "29fdad1c-0246-4c25-8ec0-f703dac0ffb5", name: "The Milk Cinnamon", brand: "Monster Labs" },
+  { id: "e8f72915-a8a6-477d-9515-26b277150cc2", name: "The Milk Fruity", brand: "Monster Labs" },
+  { id: "b1088882-425d-40be-911d-8e4b22306e31", name: "The Milk Jax", brand: "Monster Labs" },
+  { id: "c1b1f141-4698-4360-97eb-432c11eb3a4c", name: "The Milk Strawberry", brand: "Monster Labs" },
+  { id: "7b9a02a6-ec86-409d-a494-9037b5986f23", name: "Blood Orange Tangoberry", brand: "MRKT PLCE" },
+  { id: "9e351900-4110-41d4-aa40-212860d6bfaf", name: "Fuji Pear Mangoberry", brand: "MRKT PLCE" },
+  { id: "af999225-67f0-4926-9046-48ec56296d17", name: "Forbidden Berry", brand: "MRKT PLCE" },
+  { id: "465111e6-0de8-48d9-8d88-c53b9b75483b", name: "Pineapple Peach Dragonberry", brand: "MRKT PLCE" },
+  { id: "97bfebd4-57a3-4d0c-a207-43fe848b3af7", name: "Watermelon Hula Berry Lime", brand: "MRKT PLCE" },
+  { id: "2d402c7b-9477-4250-806e-e73a370ba4a9", name: "American Patriot", brand: "Naked 100" },
+  { id: "c58a7d8f-097f-4f7f-a8c1-da1a96ea2968", name: "Berry Menthol", brand: "Naked 100" },
+  { id: "bfee8eff-3c80-4d53-b044-169b36780eb2", name: "Cuban Blend", brand: "Naked 100" },
+  { id: "cb4e22c1-48db-480e-8661-ccc34bedd643", name: "Euro Gold", brand: "Naked 100" },
+  { id: "1a575f05-9d4c-4112-b39d-90958f8cb967", name: "Hawaiian POG", brand: "Naked 100" },
+  { id: "572aee5e-acb4-4fa9-8bd8-ce505dceb034", name: "Lava Flow", brand: "Naked 100" },
+  { id: "49b80249-a4f9-4b43-affd-8c6eef6acaf9", name: "Mint Menthol", brand: "Naked 100" },
+  { id: "be73029c-3eec-407a-9011-f23db7ea2eb5", name: "Really Berry", brand: "Naked 100" },
+  { id: "cb753dbb-b25c-4cc3-93c6-472dab4e13b2", name: "Strawberry Pom Menthol", brand: "Naked 100" },
+  { id: "a2c3ef61-0753-45ee-a33d-c2762d58b18d", name: "Cactus Jackfruit Mandarin", brand: "Noms X2" },
+  { id: "e5d4ebdf-ec01-4876-996a-5631303decd3", name: "White Peach Raspberry", brand: "Noms X2" },
+  { id: "b1fdac93-3c7c-4a56-ae2c-a38b7b474fa1", name: "Black Ice", brand: "Pachamama" },
+  { id: "1a6de33e-cade-4149-9ee0-3d79872cda4e", name: "Blue Razz Ice", brand: "Pachamama" },
+  { id: "6862aa7c-7f63-42c2-ae58-a9ddf5fb7d41", name: "Cherry Limeade", brand: "Pachamama" },
+  { id: "be53cbac-d679-4981-96ba-633a90cbcc45", name: "Frosted Cronut", brand: "Pachamama" },
+  { id: "15a32821-2a7c-4656-991d-53cf4f737fa6", name: "Fuji", brand: "Pachamama" },
+  { id: "9c000c11-8d89-4a0b-a40a-3d05d2da1e10", name: "Fuji Ice", brand: "Pachamama" },
+  { id: "42d9b6d8-fbec-4f70-9395-c385ae909147", name: "Golden Peach Pineapple", brand: "Pachamama" },
+  { id: "0811bd8e-98d4-4026-8907-472aa8031ea7", name: "Honeydew Melon", brand: "Pachamama" },
+  { id: "7cf58853-246d-4247-8e17-0d4aba7547b9", name: "Icy Mango", brand: "Pachamama" },
+  { id: "6a5ec97d-216f-4abe-88a6-aa9631635637", name: "Kiwi Berry Ice", brand: "Pachamama" },
+  { id: "83f50088-48bc-47fa-9659-992b9e913ce9", name: "Pink Berry Ice", brand: "Pachamama" },
+  { id: "3e9669a7-1c0f-4f62-a6c2-9871be2294e8", name: "Purple Mango", brand: "Pachamama" },
+  { id: "554b7c70-ff4d-407e-8b0e-e77a36060779", name: "Sorbet", brand: "Pachamama" },
+  { id: "a530adb0-fabf-4471-971e-fde65e85ae6b", name: "Starfruit Grape", brand: "Pachamama" },
+  { id: "e13558ea-3ac3-4912-a47d-179b40b70996", name: "Starfruit Grape Ice", brand: "Pachamama" },
+  { id: "3834ddd7-c064-42f8-8997-4cafde0338f5", name: "Strawberry Watermelon", brand: "Pachamama" },
+  { id: "cc57f22e-8834-4680-9c6a-b314118f483d", name: "Syn Citrus Medley", brand: "Pachamama" },
+  { id: "4e075a82-37c3-4b23-af52-7f68a1f6ff41", name: "Watermelon Ice", brand: "Pachamama" },
+  { id: "c60d3a3f-28db-48ad-a002-bcfbc58ca263", name: "White Peach Ice", brand: "Pachamama" },
+  { id: "c52c0b7c-6992-4b43-8e99-4902a0dcfb9a", name: "Beach Betty", brand: "Pinup Vapors" },
+  { id: "a7e9b3b9-dc98-4c12-a717-0f6c54e0a484", name: "Betty", brand: "Pinup Vapors" },
+  { id: "ec3f6402-13f8-41f1-9bbe-12b001c167a0", name: "Betty Chill", brand: "Pinup Vapors" },
+  { id: "081df86f-d292-4f4f-8d96-4c5d406ec8c8", name: "Christie", brand: "Pinup Vapors" },
+  { id: "8c7b3e3a-35ac-4eed-a722-d4c1a85bf060", name: "Marilyn", brand: "Pinup Vapors" },
+  { id: "883bd5ce-0337-483a-9708-b68421678b46", name: "Rita", brand: "Pinup Vapors" },
+  { id: "9a7f80c1-0e5a-4032-88e8-be0f42a40cf6", name: "Blue Razz Freeze", brand: "Pod Juice" },
+  { id: "695a9468-2781-49d4-9b26-fb3ef0cf4370", name: "Cola Freeze", brand: "Pod Juice" },
+  { id: "fada9891-145b-4c71-8859-d1f595df7851", name: "Cotton Clouds", brand: "Pod Juice" },
+  { id: "ba5748aa-a792-4e8a-8ec7-2df2a8f4efb5", name: "Frozen Strawberry Freeze", brand: "Pod Juice" },
+  { id: "e5b1fa2e-96a3-4343-b1cb-fc78d6d7695b", name: "Jewel Mint", brand: "Pod Juice" },
+  { id: "26f769e4-f214-4bef-b5f2-f5d48acada90", name: "Jewel Mint Diamond", brand: "Pod Juice" },
+  { id: "c4a22e70-e94a-4018-bee5-8d9e6e734a2d", name: "Jewel Mint Lush Freeze", brand: "Pod Juice" },
+  { id: "2f19bb88-6a98-4491-b63d-7d00c31f2d43", name: "Jewel Mint Sapphire", brand: "Pod Juice" },
+  { id: "afe0c032-d458-404d-a4e3-498d9c7234f7", name: "Sour Fruity Worms", brand: "Pod Juice" },
+  { id: "0c73bf75-226d-42f4-997b-40301dc11d16", name: "Virginia Tobacco", brand: "Pod Juice" },
+  { id: "5747a84e-6642-4a43-8cf0-9cc2652dd3af", name: "Blue Frost", brand: "Propaganda" },
+  { id: "34aa76ff-84af-45bd-b1c9-0811d8b8e3ea", name: "Cookie Butter", brand: "Propaganda" },
+  { id: "2913810d-19c5-4e68-847d-852b76e363e0", name: "Bangin Sour Berries", brand: "RAZ LTX" },
+  { id: "afab2c95-39d6-4fef-909a-b070ff1c2ac4", name: "Blueberry Watermelon", brand: "RAZ LTX" },
+  { id: "29107eba-ecd7-4712-a21c-91577ef78b01", name: "Georgia Peach", brand: "RAZ LTX" },
+  { id: "2aa4e943-7288-4e23-bb60-fe057bc831bb", name: "Strawberry Burst", brand: "RAZ LTX" },
+  { id: "58d716f9-4d96-4e65-aa70-067570aef82d", name: "Night Crawler", brand: "RAZ LTX" },
+  { id: "8f39b77f-2c8e-48a6-bd7d-a48ec8f4a24c", name: "Polar Ice", brand: "RAZ LTX" },
+  { id: "da38b4c4-a209-4c61-ac25-f13e32d88674", name: "Blue Razz", brand: "RAZ Gush" },
+  { id: "aef3e62b-d2f7-4828-8cbe-5a1dc8d5b40c", name: "Green Apple", brand: "RAZ Gush" },
+  { id: "c68fe7a0-b89f-4aba-bfc0-74b02d2d73cd", name: "Tropical", brand: "RAZ Gush" },
+  { id: "6ca47b1e-06ae-470b-a5ea-07c29ffc027f", name: "Watermelon", brand: "RAZ Gush" },
+  { id: "f4874936-98d2-4a99-a897-3bf45880582d", name: "Strawberry Glazed Donut", brand: "RAZ" },
+  { id: "ebfc4c87-0fa8-427e-a88a-8883954452c5", name: "White Gummy Ice", brand: "RAZ" },
+  { id: "6cd09449-d1ef-481c-8485-1204294b3d05", name: "Pink Berries", brand: "RAZ" },
+  { id: "bfc160a8-a47d-4014-a3f3-1ac41fbb6767", name: "Miami Mint", brand: "RAZ" },
+  { id: "3d855df3-9cb1-4304-8102-7128d43368d7", name: "B Coconut Cake", brand: "Sadboy" },
+  { id: "1fa711ff-1ad5-4b29-b41d-dd14af1941cd", name: "B Strawberry Cheesecake", brand: "Sadboy" },
+  { id: "ee4c8eba-54fc-40d4-8a4b-66c48f604368", name: "C Blueberry Cookie", brand: "Sadboy" },
+  { id: "3544f09c-7f00-4e09-b97a-1ead32ca65f8", name: "C Butter Cookie", brand: "Sadboy" },
+  { id: "fbe24ab0-088b-4b1e-801c-29512bbc083b", name: "C Custard Cookie", brand: "Sadboy" },
+  { id: "4269a1dc-c4c7-4258-bc04-388d2a1bb9b6", name: "C Key Lime Cookie", brand: "Sadboy" },
+  { id: "4560d47c-715f-451f-a210-4a1f76846636", name: "Pumpkin Cookie", brand: "Sadboy" },
+  { id: "33f2b6b7-95ae-4ca2-8ff3-69ba6dba8c46", name: "Shamrock Cookie", brand: "Sadboy" },
+  { id: "d7d742d7-507f-4c0d-ae82-5659df9d241e", name: "Unicorn Tears", brand: "Sadboy" },
+  { id: "fe2fb953-a607-4354-acce-6c81d7e8ab49", name: "F Rainbow Blood", brand: "Sadboy" },
+  { id: "f51827cf-d49e-4b99-9c55-60e14dd8b7f4", name: "F Strawberry Blood", brand: "Sadboy" },
+  { id: "d62b573d-0d8f-4923-8b16-cd3e61ca933a", name: "Happy End Blue", brand: "Sadboy" },
+  { id: "e7a2768e-b0a0-4d1d-bee6-a8c93daba385", name: "Happy End Pink", brand: "Sadboy" },
+  { id: "87c1f857-f5d5-4c8c-8932-80c64a319b3f", name: "J Blueberry Jam", brand: "Sadboy" },
+  { id: "86946027-fd8c-49f2-8862-370e1a7ae17a", name: "J Lemon Cookie", brand: "Sadboy" },
+  { id: "b8f2dce4-ccca-4301-92a9-8ffb43228d17", name: "J Strawberry Jam", brand: "Sadboy" },
+  { id: "5fff7fc7-313e-4a4f-a5bf-370aca133668", name: "Nola Berry", brand: "Sadboy" },
+  { id: "ff4811e8-da2c-4283-9edc-57e7337bf4f7", name: "Nola Bar Strawberry", brand: "Sadboy" },
+  { id: "2bfc458f-b37a-43d6-9625-2f628fbd896a", name: "Killer Kustard", brand: "Vapetasia" },
+  { id: "63007452-e327-4744-9f49-0f6b61fdb65b", name: "Royalty 2", brand: "Vapetasia" },
+  { id: "b2ed7be6-16ea-4f0c-b78c-a08f02e08244", name: "Mints Chocomint", brand: "Verdict Vapors" },
+  { id: "ad49ebcd-a061-4dfd-8c69-b7c4c262aa5c", name: "Mints Peppermint", brand: "Verdict Vapors" },
+  { id: "567f1a29-201c-4d2e-ab1b-73ad395eefc5", name: "Mints Spearmint", brand: "Verdict Vapors" },
+  { id: "3a9eeedf-9c58-47b3-9888-6649a9b3cc89", name: "Mints Wintergreen", brand: "Verdict Vapors" },
+  { id: "1172cd05-c969-44f1-9d30-e46ecb27f5a6", name: "Apple Bomb", brand: "VGod" },
+  { id: "329b7480-2b19-48c6-9e69-6232f8818483", name: "Berry Bomb", brand: "VGod" },
+  { id: "41afcc0e-6b5e-4279-a0ba-c1eb423a550e", name: "Cubano", brand: "VGod" },
+  { id: "babc58e7-ac04-45d1-820f-5210e633a101", name: "Cubano Black", brand: "VGod" },
+  { id: "93ba024d-933f-4c27-8195-7d3742ae3851", name: "Cubano Silver", brand: "VGod" },
+  { id: "c1c6d466-272e-4655-8ae6-501c8d6f7ad2", name: "Dry Tobacco", brand: "VGod" },
+  { id: "b1c58011-4613-46c4-9c84-299a64c439ca", name: "Iced Apple Bomb", brand: "VGod" },
+  { id: "c423cb64-a0bd-44f9-b836-050db4c414c9", name: "Iced Berry Bomb", brand: "VGod" },
+  { id: "932d8ced-bdc9-41b8-b126-e1a2d135c0a2", name: "Iced Mango Bomb", brand: "VGod" },
+  { id: "d7ad059f-dabb-4842-aa7b-5f1309253762", name: "Iced Purple Bomb", brand: "VGod" },
+  { id: "eba13a7d-b4d2-4b81-b3c7-fa7b41381649", name: "Lucious", brand: "VGod" },
+  { id: "c1b1a865-1d4f-4f28-b387-15d93fdf5a6b", name: "Lush Ice Eliquids", brand: "VGod" },
+  { id: "cf043653-2fce-425c-ad76-c859988db240", name: "Mango Bomb", brand: "VGod" },
+  { id: "8d426083-5e09-4abe-9d95-9389067efd04", name: "Mighty Mint", brand: "VGod" },
+  { id: "2ae225ef-166e-407a-8788-a0fa9a2427dc", name: "Purple Bomb", brand: "VGod" },
+  { id: "4c9a5e91-1185-4633-9e1c-f9c4bf3f10f8", name: "Summer Strawberry", brand: "VGod" },
+  { id: "ae0b3bae-6afe-4238-95af-aff1da08655e", name: "Apple Cinnamon Granola Bar", brand: "Yogi" },
+  { id: "8f560a0e-bf1f-41d7-9099-1e8913fe7eb1", name: "Blueberry Granola Bar", brand: "Yogi" },
+  { id: "22064a1c-97b9-40fe-8f84-bb5ba583d7f6", name: "Java Granola Bar", brand: "Yogi" },
+  { id: "babc202f-4405-4cf0-9cf6-327eef2fdffb", name: "Original Granola Bar", brand: "Yogi" },
+  { id: "5fe9beb3-2c17-4dae-9dbd-bea34ad6c5db", name: "Peanut Butter Banana Granola Bar", brand: "Yogi" },
+  { id: "65ffcd2f-cb26-43a7-b480-5e0ec74810da", name: "Strawberry Granola Bar", brand: "Yogi" },
+  { id: "aafece47-592e-4e12-9184-6550388b2e49", name: "Vanilla Tobacco Granola Bar", brand: "Yogi" },
+  { id: "dc3e8353-de8b-48a0-9128-09c3a19c9fc0", name: "Unflavored", brand: "Air Factory" },
+  { id: "b0cbef17-14f9-494f-a375-453480bbaf0f", name: "Excision Virus", brand: "Alt Zero" },
+  { id: "e3145a40-77cc-488d-8f0e-2f375df89374", name: "Excision X Rated", brand: "Alt Zero" },
+  { id: "65895b9c-4205-4783-9085-b0c89d371356", name: "Dont Care Bear", brand: "Bad Drip" },
+  { id: "50faf6b3-78f3-4c64-a00d-a801adeab405", name: "Drooly", brand: "Bad Drip" },
+  { id: "f7744e0a-9891-4d25-a4c6-f7b1c7678048", name: "Apple Cinnamon The One", brand: "Beard Vape Co." },
+  { id: "3ba54b9c-623b-45c0-bd3f-271fab11e048", name: "Blueberry The One", brand: "Beard Vape Co." },
+  { id: "182088b3-7dfc-4d4a-ae90-93b8adaae199", name: "Marshmellow The One", brand: "Beard Vape Co." },
+  { id: "2119c869-43b8-4807-ba4b-ec36ef7c8fe9", name: "Strawberry The One", brand: "Beard Vape Co." },
+  { id: "71cf3f15-ca25-4b10-9e00-8bb4dd36ff2f", name: "Milky Loops The One", brand: "Beard Vape Co." },
+  { id: "1344392b-a08c-46b9-9463-5ccc1ff266c7", name: "Butterbean The One", brand: "Beard Vape Co." },
+  { id: "a47fb5d2-1d31-4f18-a3b4-de8634fa51c5", name: "Purp", brand: "Chubby Vapes" },
+  { id: "b6324b29-6634-4fa9-bf78-73a568b48d38", name: "Graham\'s Law", brand: "Cloud Chemist" },
+  { id: "73ed6de0-fe5e-4275-a87f-038767f7e172", name: "Sunset", brand: "Cloud Chemist" },
+  { id: "6c05c3e0-eb83-4aa4-b052-7798b7c72fd3", name: "Ruby\'s Eyes", brand: "Cloud Chemist" },
+  { id: "6841e8ec-c4b1-436a-9b47-af80070c7302", name: "Optical Illusion", brand: "Cloud Chemist" },
+  { id: "60366cc0-d41c-49d3-ac9d-5f2090befe8c", name: "Looking Glass", brand: "Cloud Chemist" },
+  { id: "d61b14f5-d197-447c-8755-b3e299ee3f92", name: "Caramel Butterscotch Classic", brand: "Nomenon" },
+  { id: "ad2f7d39-9cdd-450e-b89e-41b3fb60a5b8", name: "Passion Fruit Guava", brand: "Fruitia" },
+  { id: "1e5b17ff-ed9b-4ec4-8234-9e5237a19315", name: "Sweet Peach", brand: "Fruitia" },
+  { id: "2a5e5a8e-6d3b-452a-8268-dabb03a3c8bb", name: "Blue Razz Cotton Candy", brand: "Fruitia" },
+  { id: "dc8484a9-88b7-45dd-835d-fa7578cf77f1", name: "Caribbean Punch", brand: "Glas Basix" },
+  { id: "c89ec935-cca4-4a35-95c5-e545dbbb96d6", name: "Strawberry Blast", brand: "Glas Basix" },
+  { id: "668e9a83-0fb1-487f-a695-2264b983a1e7", name: "Fusion", brand: "Halo" },
+  { id: "0ad89297-ac28-4dc8-a6af-a58fb06120e3", name: "Heisenberg Menthol", brand: "Innevape" },
+  { id: "c0e0047f-ff8f-4f61-af24-f46782762634", name: "Berry Au Lait", brand: "Keep It 100" },
+  { id: "c55bb66b-0c82-400f-bb37-de4795a0d2ea", name: "Maui Blast", brand: "Keep It 100" },
+  { id: "a4f25ea2-30c0-479c-83ea-79d793d77eb1", name: "Blue", brand: "Keep It 100" },
+  { id: "cbe5bd1c-12d2-4cdd-aedf-ccb885f463e2", name: "Blue Ice", brand: "Keep It 100" },
+  { id: "7ff043bf-853e-4e76-855d-e910746a0553", name: "OG Nana Foster", brand: "Keep It 100" },
+  { id: "c9c934fc-ae27-44a2-bcd6-75fcff5affb9", name: "OG Pink", brand: "Keep It 100" },
+  { id: "3b6c81bb-1f49-48a7-9bea-76328d2cac06", name: "OG Summer Blue", brand: "Keep It 100" },
+  { id: "91f3ab5a-29ce-4e62-8290-f66a886f0edf", name: "OG Tropical Blue", brand: "Keep It 100" },
+  { id: "2431194b-6caa-4891-926e-d6a1710464c7", name: "Devil\'s Punchbowl", brand: "Khali" },
+  { id: "e537bfd8-f0c5-4c49-b4b9-086ff5395ebf", name: "Devil\'s Punchbowl ICE", brand: "Khali" },
+  { id: "35ab7c0a-861f-4210-8f84-df018aa6c1f8", name: "Custard Monster Blueberry Vanilla", brand: "Monster Labs" },
+  { id: "9eccaf1b-e6e1-4d44-af68-dfdb6650094e", name: "Custard Monster Creamsicle", brand: "Monster Labs" },
+  { id: "8408cf31-5c68-4752-ae72-f9dece3b5bdd", name: "Custard Monster Strawberry Vanilla", brand: "Monster Labs" },
+  { id: "3dfe0205-6e5b-41f1-b548-b1c09c0df02e", name: "Crisp Menthol", brand: "Naked 100" },
+  { id: "ab797966-64a4-4f5b-ad41-7433a921c7e0", name: "Arctic Wintergreen Freeze", brand: "Nomenon" },
+  { id: "183754d3-5ae8-4bd9-a7cc-47c08cf57b9a", name: "Free Noms Green Apple Strawberry Peach Ice", brand: "Nomenon" },
+  { id: "ddc7a960-b72f-4b38-9a2d-52cbe4124404", name: "Grapenomenon", brand: "Nomenon" },
+  { id: "2bb5f20e-cd88-4cc0-94ab-e1ffbd3680c4", name: "Lychee Cherry Blossom Raspberry", brand: "Nomenon" },
+  { id: "3fdd43e0-d475-4543-be55-b113cf9438fc", name: "Pear Green Apple Peach", brand: "Nomenon" },
+  { id: "f27d56cb-436c-40c0-b4b3-22acec43caa0", name: "Phenomenon", brand: "Nomenon" },
+  { id: "ab18184b-2d30-435a-a9c3-9bc1bc65621c", name: "Pineapple Coconut Spiced Rum", brand: "Nomenon" },
+  { id: "e76a49d5-4fdc-41ca-a786-0a8cf9c60c62", name: "Tobacco Caramel Vanilla", brand: "Nomenon" },
+  { id: "4fe4ffe2-e269-4b31-8223-8c571960886e", name: "Watanomenon", brand: "Nomenon" },
+  { id: "73e7efac-7966-4081-bc37-674b25ef9069", name: "Watanomenon ICE", brand: "Nomenon" },
+  { id: "4d51c896-6f5c-4485-ad53-3398a1678d64", name: "Black Cherry Sour Apple", brand: "Noms 100" },
+  { id: "ef5d8809-f819-409d-a48f-d72b6a73ff55", name: "Blue Razz Shark", brand: "Noms 100" },
+  { id: "7cdaae6b-c66a-4bbf-b977-44ffc3c0a0a0", name: "Pixie Dip", brand: "Noms 100" },
+  { id: "18a2110a-d8e1-4136-87dd-665f6e76331a", name: "Strawberry Cream", brand: "Noms 100" },
+  { id: "547fec4b-12a3-4f8f-afaf-e124d18b7239", name: "Vanilla Toffee", brand: "Noms 100" },
+  { id: "6612888e-3e5e-4363-a43f-ec2d54023dc1", name: "Watermelon Blackberry Plum", brand: "Noms 100" },
+  { id: "ce8bccd0-e3e8-4353-a060-ac55fe8f8051", name: "Blunomenom", brand: "Noms" },
+  { id: "aed99f7a-6212-4642-bd33-77316d1207a3", name: "Blueberry Papaya Strawberry", brand: "Noms X2" },
+  { id: "92bd045a-66e2-4e00-b87f-ae6a34448156", name: "Cherry Lime Ginger", brand: "Noms X2" },
+  { id: "9c9560b8-8e1d-448f-941f-59beb41149b8", name: "Kiwi Passionfruit Nectarine", brand: "Noms X2" },
+  { id: "47b2c597-2296-43a5-83c5-7a189c7bd264", name: "Fuji Apple Strawberry", brand: "Pachamama" },
+  { id: "b539f8a0-048b-40ef-a665-15c90ba95194", name: "Mint Leaf", brand: "Pachamama" },
+  { id: "8605a0fc-8ddb-4cfe-803e-90bcd5a47f51", name: "The Hype America", brand: "Propaganda" },
+  { id: "fe5731da-6497-4b99-b217-605aa9807fc4", name: "The Hype Cool Blue Frost", brand: "Propaganda" },
+  { id: "5798df9c-bf1c-4388-be8d-f9a597e0eba7", name: "The Hype Pink and Blue", brand: "Propaganda" },
+  { id: "f31351c6-a956-49bd-9471-b76cf5e3795c", name: "The Hype Sour Apple", brand: "Propaganda" },
+  { id: "6bedccee-035f-4703-b1f9-0157d78cdaf7", name: "The Hype Strawberries A La Mode", brand: "Propaganda" },
+  { id: "30dece4f-6e52-47a7-b37e-38f8f00f9eae", name: "Strawberry Peach", brand: "RAZ Gush" },
+  { id: "424b7624-ae80-49a7-8837-a879db3672ef", name: "Crossroads Carolina Red", brand: "Smoke" },
+  { id: "e1d35176-24f2-4411-92fe-90f1175d0eb3", name: "Mother\'s Milk", brand: "Suicide Bunny" },
+  { id: "3a6c6072-983f-44e2-ba25-9e1e89b800c3", name: "Sucker Punch", brand: "Suicide Bunny" },
+  { id: "c325c676-28f0-4617-aa78-59bd5103180a", name: "Cool Mint", brand: "Geek Bar Pulse X" },
+  { id: "8b5c8eb8-7825-48a9-b122-a2b622b9a02c", name: "White Peach Raspberry", brand: "Geek Bar Pulse X" },
+  { id: "fe76ccce-9566-4308-8e6a-fc87eb222c85", name: "Blackberry Blueberry", brand: "Geek Bar Pulse X" },
+  { id: "7dfa0719-c3b7-473f-8560-44697284c35e", name: "Sour Straws", brand: "Geek Bar Pulse X" },
+  { id: "51ccb4f0-5170-4545-a28c-3faf24ea1852", name: "Sour Apple Ice", brand: "Geek Bar Pulse X" },
+  { id: "3595ffa7-c102-4b19-836c-195ed6d3dcfe", name: "Watermelon Ice", brand: "Geek Bar Pulse X" },
+  { id: "c6e3b9e5-1625-4546-b60c-99e6c7e85829", name: "Blue Razz Ice", brand: "Geek Bar Pulse X" },
+  { id: "682d85d3-7248-4538-ae20-de64d67f4986", name: "Blue Rancher", brand: "Geek Bar Pulse X" },
+  { id: "3fdb4077-7613-4ed8-8733-29e20f65f077", name: "Raspberry Peach Lime", brand: "Geek Bar Pulse X" },
+  { id: "17191b2f-726b-4b68-9c28-0d7a82db98d4", name: "Lime Berry Orange", brand: "Geek Bar Pulse X" },
+  { id: "7bb6a46b-ff53-4daf-8a37-c0f37b88d9ce", name: "Grapefruit Refresher", brand: "Geek Bar Pulse X" },
+  { id: "d11db9d6-ab4c-4409-990f-895a3016d05e", name: "Sour Mango Pineapple", brand: "Geek Bar Pulse X" },
+  { id: "f3e89805-8cf3-465e-916e-d4ab3aa94666", name: "Banana Taffy Freeze", brand: "Geek Bar Pulse X" },
+  { id: "8b92bfc4-90a1-4996-aad3-68dbc0d9563e", name: "Lemon Heads", brand: "Geek Bar Pulse X" },
+  { id: "d77be4ed-6c15-458c-81d4-b1ba70f0317f", name: "Meteor ATL Mint", brand: "Geek Bar Pulse X" },
+  { id: "252796f1-bcf0-4707-8011-acda9bca74e1", name: "Meteor Orange Dragon", brand: "Geek Bar Pulse X" },
+  { id: "79c68bc7-2d63-4517-9cb8-132a221c19dc", name: "Meteor Pink Blue", brand: "Geek Bar Pulse X" },
+  { id: "3eb31d98-9335-4c0e-9a0e-ef202afe87f3", name: "Slush Grape", brand: "Geek Bar Pulse X" },
+  { id: "ead51160-88c1-45c5-ab5b-2a6962289fbf", name: "Slush Orange", brand: "Geek Bar Pulse X" },
+  { id: "4b2ee00f-573b-4293-9458-0bed46ca4c07", name: "Slush Wild Cherry", brand: "Geek Bar Pulse X" },
+  { id: "1bab1e3f-21d1-4253-a5ac-98a376f13f28", name: "Slush Cola", brand: "Geek Bar Pulse X" },
+  { id: "58145bb8-f5e5-4e9c-8cde-f3f453626d23", name: "Slush Peach Perfect", brand: "Geek Bar Pulse X" },
+  { id: "146d4bc0-bcde-4736-96fe-c3f1fe785e29", name: "Jam Orange", brand: "Geek Bar Pulse X" },
+  { id: "97d69def-ec85-4a13-a06c-2c45cb67388b", name: "Jam Blueberry", brand: "Geek Bar Pulse X" },
+  { id: "94dc3c1c-01a9-4b1f-81db-bb4c74628c61", name: "Jam Peach", brand: "Geek Bar Pulse X" },
+  { id: "058addf7-145d-43bf-937c-7b6cb9b702de", name: "Jam Raspberry", brand: "Geek Bar Pulse X" },
+  { id: "9a64ab99-621b-44c0-8e52-0758985a8d11", name: "Savers Drop Sour", brand: "Geek Bar Pulse" },
+  { id: "c6649aa1-ba14-45d6-a1a5-4b02d84c141a", name: "Savers Wild Berry", brand: "Geek Bar Pulse" },
+  { id: "71ae6b29-538c-4388-84ab-d81e6629f1bf", name: "Savers Pineapple", brand: "Geek Bar Pulse" },
+  { id: "ce9bd753-795e-45ec-873f-a7c492317e24", name: "Savers Orange Mint", brand: "Geek Bar Pulse" },
+  { id: "c4361c1a-b661-478f-b3c7-323c6d48a3cb", name: "Illuminati", brand: "Propaganda" },
+  { id: "da7450eb-ebb8-4b92-bb5e-37854896103c", name: "Apple Bomb Iced", brand: "VGod" },
+  { id: "13d956b2-1fa4-4555-9cb7-a667076f8f4c", name: "Berry Bomb Iced", brand: "VGod" },
+  { id: "85f5c655-f065-4a30-9ae5-568225d46e8e", name: "Mango Bomb Iced", brand: "VGod" },
+  { id: "1af28ef5-ad41-4917-bcca-d43eaf258f1e", name: "Purple Bomb Iced", brand: "VGod" },
+  { id: "e0bd83c2-877a-4ace-947b-30222eb73746", name: "Tobacco Monster Bold", brand: "Monster Labs" },
+  { id: "ab5cf972-7bab-4588-b0e2-1e9cf6b1da4d", name: "Tobacco Monster Rich", brand: "Monster Labs" },
+  { id: "5bee5441-144b-468d-9830-227accfce033", name: "Tobacco Monster Smooth", brand: "Monster Labs" },
+  { id: "2cda8077-1234-48e7-8516-a55111d80dc0", name: "Blend No.1", brand: "Twist" },
+  { id: "55c99393-bae9-4313-b3bd-f34cecb0d167", name: "Green No.1", brand: "Twist" },
+  { id: "b36ae5f8-22a9-4c84-ac82-c64e9a3037c2", name: "Menthol No.1", brand: "Twist" },
+  { id: "33fff510-f897-4ed8-b4d8-0432b5ce7118", name: "Mint 0", brand: "Twist" },
+  { id: "b7ff6662-fde3-4cf8-9796-6c268b7889b3", name: "Mint No.1", brand: "Twist" },
+  { id: "ed61e6ec-0cef-4bc0-86ae-1b8272a57199", name: "Purple Grape", brand: "Twist" },
+  { id: "1b8297bd-c03c-4c9a-badc-69d001c8cccd", name: "Purple No. 1", brand: "Twist" },
+  { id: "caf9197f-d935-4a9a-8314-5a8755c41826", name: "Red No.1", brand: "Twist" },
+  { id: "9cfc6ccd-3331-4c9c-81c0-00018bcbcc7c", name: "Tobacco Gold No.1", brand: "Twist" },
+  { id: "a8806a99-3d6c-4231-933f-4076370de318", name: "Frosted Amber", brand: "Twist" },
+  { id: "2ca8700c-828a-4ddf-8998-95d17273dda3", name: "Pink Punch No. 1", brand: "Twist" },
+  { id: "51b24897-4f9f-46c2-8994-edb28aff5a04", name: "Glacial Mint", brand: "7 Daze" },
+  { id: "a84bf124-1ba3-40b9-89e2-b89e97d954d4", name: "Pineapple Coconut Banana & Pineapple Coconut Banana Iced", brand: "Fusion" },
+  { id: "d79fe65d-0eaa-4b1d-849e-8aa7a739a854", name: "Raspberry Green Apple Watermelon & Raspberry Green Apple Watermelon Iced", brand: "Fusion" },
+  { id: "9401813a-18ff-401b-9812-0205026f53db", name: "& Slapple Ice", brand: "Slapple" },
+  { id: "f246c9cd-84a9-4514-b971-64422ddf739a", name: "Thai Apple Melon Razz", brand: "MRKT PLCE" },
+  { id: "aafafb74-d320-45da-83cc-c95001571c55", name: "Iced Fuji Pear Mangoberry", brand: "MRKT PLCE" },
+  { id: "da706645-8644-4e69-acc7-5e56f646a10b", name: "Iced Forbidden Berry", brand: "MRKT PLCE" },
+  { id: "e1a00001-reds-0001-0000-000000000001", name: "Apple Berries", brand: "Reds Apple" },
+  { id: "e1a00001-reds-0001-0000-000000000002", name: "Apple Berries Iced", brand: "Reds Apple" },
+  { id: "e1a00001-reds-0001-0000-000000000003", name: "Apple Gold Kiwi", brand: "Reds Apple" },
+  { id: "e1a00001-reds-0001-0000-000000000004", name: "Apple Gold Kiwi Iced", brand: "Reds Apple" },
+  { id: "e1a00001-reds-0001-0000-000000000005", name: "Apple Grape", brand: "Reds Apple" },
+  { id: "e1a00001-reds-0001-0000-000000000006", name: "Apple Grape Iced", brand: "Reds Apple" },
+  { id: "e1a00001-reds-0001-0000-000000000007", name: "Apple Original", brand: "Reds Apple" },
+  { id: "e1a00001-reds-0001-0000-000000000008", name: "Apple Original Iced", brand: "Reds Apple" },
+  { id: "e1a00001-reds-0001-0000-000000000009", name: "Apple Strawberry", brand: "Reds Apple" },
+  { id: "e1a00001-reds-0001-0000-000000000010", name: "Apple Strawberry Iced", brand: "Reds Apple" },
+  { id: "e1a00001-reds-0001-0000-000000000011", name: "Apple Watermelon", brand: "Reds Apple" },
+  { id: "e1a00001-reds-0001-0000-000000000012", name: "Apple Watermelon Iced", brand: "Reds Apple" }
+];
+
+function getStock() {
+  try { return JSON.parse(localStorage.getItem(STOCK_KEY)) || {}; } catch { return {}; }
+}
+function setStock(s) { localStorage.setItem(STOCK_KEY, JSON.stringify(s)); }
+
+function checkPw() {
+  if (document.getElementById('pw-input').value === PW) {
+    document.getElementById('pw-screen').style.display = 'none';
+    document.getElementById('admin-screen').classList.add('visible');
+    renderList('');
+  } else {
+    document.getElementById('pw-error').textContent = 'Incorrect password.';
+    document.getElementById('pw-input').value = '';
+  }
+}
+document.getElementById('pw-input').addEventListener('keydown', e => { if (e.key === 'Enter') checkPw(); });
+
+function updateStats() {
+  const s = getStock();
+  const inStock = PRODUCTS.filter(p => s[p.id] !== false).length;
+  document.getElementById('stats').innerHTML = '<span>' + inStock + '</span> / ' + PRODUCTS.length + ' in stock';
+}
+
+function renderList(query) {
+  const q = query.toLowerCase();
+  const s = getStock();
+  const filtered = q ? PRODUCTS.filter(p =>
+    p.name.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q)
+  ) : PRODUCTS;
+
+  const byBrand = {};
+  filtered.forEach(p => { (byBrand[p.brand] = byBrand[p.brand] || []).push(p); });
+  const brands = Object.keys(byBrand).sort();
+
+  document.getElementById('product-list').innerHTML = brands.map(brand =>
+    '<div class="brand-label">' + brand + '</div>' +
+    byBrand[brand].map(p => {
+      const inStock = s[p.id] !== false;
+      return '<div class="item-row' + (inStock ? '' : ' oos') + '" id="r-' + p.id + '">' +
+        '<input type="checkbox" ' + (inStock ? 'checked' : '') + ' onchange="toggle('' + p.id + '',this.checked)">' +
+        '<div class="item-name">' + p.name + '</div></div>';
+    }).join('')
+  ).join('');
+  updateStats();
+}
+
+function toggle(id, inStock) {
+  const s = getStock();
+  if (inStock) { delete s[id]; } else { s[id] = false; }
+  setStock(s);
+  const row = document.getElementById('r-' + id);
+  if (row) row.classList.toggle('oos', !inStock);
+  updateStats();
+}
+</script>
+</body>
+</html>
