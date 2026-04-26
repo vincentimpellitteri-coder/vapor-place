@@ -2043,7 +2043,8 @@ document.querySelectorAll('[data-nic]').forEach(btn => {
 // ══════════════════════════════════════════════════════════
 // INIT
 // ══════════════════════════════════════════════════════════
-function init() {
+async function init() {
+  await loadFromServer();
   seedIfEmpty();
   renderShopHeader();
   switchTab('flavor');
