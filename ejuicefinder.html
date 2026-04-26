@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script>if(new URLSearchParams(location.search).get('theme')==='light')document.documentElement.classList.add('light-theme');</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>E-Juice Finder</title>
@@ -38,18 +37,6 @@
       --font-body: 'DM Sans', sans-serif;
       --radius: 10px;
       --shadow: 0 4px 20px rgba(0,0,0,0.4);
-    }
-    .light-theme {
-      --bg:       #f8f8f8;
-      --surface:  #ffffff;
-      --elevated: #f0f0f0;
-      --border:   #d0d0d8;
-      --purple:   #7b5ea7;
-      --purple-l: #6a4e96;
-      --cyan:     #0284c7;
-      --text:     #111827;
-      --muted:    #6b7280;
-      --shadow: 0 4px 20px rgba(0,0,0,0.1);
     }
     html, body { height: 100%; background: var(--bg); color: var(--text); font-family: var(--font-body); font-size: 15px; }
     button { cursor: pointer; font-family: var(--font-body); }
@@ -949,10 +936,14 @@ function savePassword(p) {
 
 async function loadFromServer() {
   try {
-    const shop = await fetch(API + '/shop').then(r => r.json());
-    EJF.shop = shop || { name: 'The Vapor Place', address: '', phone: '' };
+    const [prods, shop] = await Promise.all([
+      fetch(API + '/products').then(r => r.json()),
+      fetch(API + '/shop').then(r => r.json()),
+    ]);
+    EJF.products = Array.isArray(prods) ? prods : [];
+    EJF.shop     = shop || { name: 'The Vapor Place', address: '', phone: '' };
   } catch(e) {
-    // shop info unavailable, use defaults
+    toast('Could not load data from server.', 'danger');
   }
 }
 
@@ -1417,7 +1408,16 @@ function seedIfEmpty() {
     {"id":"e1a00001-reds-0001-0000-000000000011","name":"Apple Watermelon","brand":"Reds Apple","category":"Fruit","flavorNotes":"Apple, Watermelon","type":"SALT+SUB","size":"Salt 30ml / Sub 100ml","nicotine":"Salt: 30mg / 50mg · Sub: 0mg / 3mg / 6mg","vgpg":"","price":0,"isDeal":false,"dealNote":"","isTop10":false,"image":"7daze-reds-apple-watermelon.png","notes":""},
     {"id":"e1a00001-reds-0001-0000-000000000012","name":"Apple Watermelon Iced","brand":"Reds Apple","category":"Menthol/Ice","flavorNotes":"Apple, Watermelon, Ice","type":"SALT+SUB","size":"Salt 30ml / Sub 100ml","nicotine":"Salt: 30mg / 50mg · Sub: 0mg / 3mg / 6mg","vgpg":"","price":0,"isDeal":false,"dealNote":"","isTop10":false,"image":"7daze-reds-iced-apple-watermelon-iced.png","notes":""}
   ];
-  EJF.products = seed;
+  if (!existing.length) {
+    saveProducts(seed);
+    return;
+  }
+  // Restore any seed products accidentally deleted (matched by brand + name)
+  const existingKeys = new Set(existing.map(p => p.brand + '|' + p.name));
+  const missing = seed.filter(p => !existingKeys.has(p.brand + '|' + p.name));
+  if (missing.length) {
+    saveProducts([...existing, ...missing]);
+  }
 }
 
 // ══════════════════════════════════════════════════════════
