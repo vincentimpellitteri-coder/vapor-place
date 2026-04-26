@@ -84,10 +84,7 @@
 
 <div id="pw-screen">
   <div id="pw-box">
-    <h2>Stock Manager</h2>
-    <input id="pw-input" type="text" placeholder="Password" autocomplete="off" style="-webkit-text-security:disc;text-security:disc;" spellcheck="false">
-    <button id="pw-btn" onclick="checkPw()">Enter</button>
-    <div id="pw-error"></div>
+    <h2>Access Denied</h2>
   </div>
 </div>
 
@@ -559,17 +556,12 @@ function getStock() {
 }
 function setStock(s) { localStorage.setItem(STOCK_KEY, JSON.stringify(s)); }
 
-function checkPw() {
-  if (document.getElementById('pw-input').value === PW) {
-    document.getElementById('pw-screen').style.display = 'none';
-    document.getElementById('admin-screen').classList.add('visible');
-    renderList('');
-  } else {
-    document.getElementById('pw-error').textContent = 'Incorrect password.';
-    document.getElementById('pw-input').value = '';
-  }
+const urlKey = new URLSearchParams(window.location.search).get('key');
+if (urlKey === PW) {
+  document.getElementById('pw-screen').style.display = 'none';
+  document.getElementById('admin-screen').classList.add('visible');
+  renderList('');
 }
-document.getElementById('pw-input').addEventListener('keydown', e => { if (e.key === 'Enter') checkPw(); });
 document.getElementById('product-list').addEventListener('change', e => {
   if (e.target.type === 'checkbox') toggle(e.target.dataset.id, e.target.checked);
 });
