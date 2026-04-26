@@ -589,12 +589,12 @@
       transition: all 0.2s;
     }
     #admin-logout:hover { color: #f0f0f0; border-color: #666; }
-    #admin-search {
+    #stock-search {
       width: 100%; box-sizing: border-box; margin: 16px 0 8px;
       background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 8px;
       color: #f0f0f0; padding: 10px 14px; font-size: 0.9rem; outline: none;
     }
-    #admin-search:focus { border-color: #00e5ff44; }
+    #stock-search:focus { border-color: #00e5ff44; }
     #admin-stats { font-size: 0.78rem; color: #555; margin-bottom: 16px; }
     #admin-stats span { color: #00e5ff; }
     .admin-brand-group { margin-bottom: 24px; }
@@ -2109,7 +2109,7 @@ function toggleStock(id, inStock) {
 document.getElementById('pw-input').addEventListener('keydown', e => {
   if (e.key === 'Enter') submitPassword();
 });
-document.getElementById('admin-search').addEventListener('input', e => {
+document.getElementById('stock-search').addEventListener('input', e => {
   renderAdminList(e.target.value);
 });
 </script>
@@ -2131,7 +2131,7 @@ document.getElementById('admin-search').addEventListener('input', e => {
     <button id="admin-logout" onclick="closeAdminPanel()">EXIT</button>
   </div>
   <div id="admin-body">
-    <input id="admin-search" type="text" placeholder="Search items or brands...">
+    <input id="stock-search" type="text" placeholder="Search items or brands...">
     <div id="admin-stats"></div>
     <div id="admin-list"></div>
   </div>
