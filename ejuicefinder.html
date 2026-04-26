@@ -38,6 +38,18 @@
       --radius: 10px;
       --shadow: 0 4px 20px rgba(0,0,0,0.4);
     }
+    .light-theme {
+      --bg:       #f8f8f8;
+      --surface:  #ffffff;
+      --elevated: #f0f0f0;
+      --border:   #d0d0d8;
+      --purple:   #7b5ea7;
+      --purple-l: #6a4e96;
+      --cyan:     #0284c7;
+      --text:     #111827;
+      --muted:    #6b7280;
+      --shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
     html, body { height: 100%; background: var(--bg); color: var(--text); font-family: var(--font-body); font-size: 15px; }
     button { cursor: pointer; font-family: var(--font-body); }
     input, select, textarea { font-family: var(--font-body); }
@@ -2142,6 +2154,11 @@ document.getElementById('pw-input').addEventListener('keydown', e => {
   </div>
 </div>
 
+<script>
+if (new URLSearchParams(window.location.search).get('theme') === 'light') {
+  document.documentElement.classList.add('light-theme');
+}
+</script>
 
 </body>
 </html>
