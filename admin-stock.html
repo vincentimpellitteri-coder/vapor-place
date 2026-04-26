@@ -566,6 +566,9 @@ function checkPw() {
   }
 }
 document.getElementById('pw-input').addEventListener('keydown', e => { if (e.key === 'Enter') checkPw(); });
+document.getElementById('product-list').addEventListener('change', e => {
+  if (e.target.type === 'checkbox') toggle(e.target.dataset.id, e.target.checked);
+});
 
 function updateStats() {
   const s = getStock();
@@ -589,7 +592,7 @@ function renderList(query) {
     byBrand[brand].map(p => {
       const inStock = s[p.id] !== false;
       return '<div class="item-row' + (inStock ? '' : ' oos') + '" id="r-' + p.id + '">' +
-        '<input type="checkbox" ' + (inStock ? 'checked' : '') + ' onchange="toggle('' + p.id + '',this.checked)">' +
+        '<input type="checkbox" ' + (inStock ? 'checked' : '') + ' data-id="' + p.id + '">' +
         '<div class="item-name">' + p.name + '</div></div>';
     }).join('')
   ).join('');
