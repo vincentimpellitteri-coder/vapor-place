@@ -949,14 +949,10 @@ function savePassword(p) {
 
 async function loadFromServer() {
   try {
-    const [prods, shop] = await Promise.all([
-      fetch(API + '/products').then(r => r.json()),
-      fetch(API + '/shop').then(r => r.json()),
-    ]);
-    EJF.products = Array.isArray(prods) ? prods : [];
-    EJF.shop     = shop || { name: 'The Vapor Place', address: '', phone: '' };
+    const shop = await fetch(API + '/shop').then(r => r.json());
+    EJF.shop = shop || { name: 'The Vapor Place', address: '', phone: '' };
   } catch(e) {
-    toast('Could not load data from server.', 'danger');
+    // shop info unavailable, use defaults
   }
 }
 
