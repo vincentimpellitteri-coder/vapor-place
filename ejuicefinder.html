@@ -1516,8 +1516,7 @@ function renderBrandGrid() {
   }
   const razCard = razSeen ? `<div class="brand-card" data-brand="RAZ" onclick="window.location.href='raz.html'">
     <img class="brand-card-logo" src="images/raz-logo.png" alt="RAZ">
-    <div class="brand-card-name">RAZ</div>
-    <div class="brand-card-count">3 types of devices</div>
+    <div class="brand-card-count" style="line-height:1.8;">TN9000<br>LTX25000<br>RX VUE 50K</div>
   </div>` : '';
   grid.innerHTML = razCard + brands.map(([brand, count]) =>
     `<div class="brand-card" data-brand="${esc(brand)}">
