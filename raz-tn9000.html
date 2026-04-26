@@ -22,44 +22,94 @@
     }
     .back-btn:hover { background: rgba(0,229,255,0.1); }
     .back-bar { margin: 24px 0; }
-    .flavor-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    h1 span { color: #00e5ff; }
+
+    /* List */
+    .flavor-list { list-style: none; padding: 0; margin: 24px 0; }
+    .flavor-row {
+      display: flex;
+      align-items: center;
       gap: 16px;
-      margin: 32px 0;
+      padding: 12px 14px;
+      border-bottom: 1px solid #222;
+      transition: background 0.15s;
     }
-    .flavor-card {
-      background: #1a1a1a;
-      border: 1px solid #2a2a2a;
-      border-radius: 10px;
-      padding: 20px 16px;
-      text-align: center;
-      transition: border-color 0.2s;
-    }
-    .flavor-card:hover { border-color: #00e5ff44; }
-    .flavor-card img {
-      width: 100%;
-      max-height: 240px;
-      object-fit: contain;
+    .flavor-row:hover { background: #1a1a1a; }
+    .thumb-wrap { flex-shrink: 0; cursor: pointer; }
+    .thumb-wrap img {
+      width: 56px;
+      height: 56px;
+      object-fit: cover;
       border-radius: 6px;
       background: #111;
-      margin-bottom: 14px;
+      border: 1px solid #2a2a2a;
+      display: block;
+      transition: border-color 0.2s;
     }
-    .flavor-name { font-size: 1.1rem; font-weight: 700; color: #f0f0f0; margin-bottom: 6px; }
-    .flavor-desc { font-size: 0.85rem; color: #ffcc00; margin-bottom: 6px; }
-    .badge-row { display: flex; gap: 6px; justify-content: center; margin-top: 10px; }
-    .badge {
+    .thumb-wrap:hover img { border-color: #00e5ff; }
+    .thumb-wrap.no-img img { opacity: 0.3; cursor: default; }
+    .col-brand {
       font-family: 'Orbitron', sans-serif;
-      font-size: 0.55rem;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: #00e5ff;
+      text-transform: uppercase;
+      flex-shrink: 0;
+      width: 36px;
+    }
+    .col-model {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.6rem;
       font-weight: 700;
       letter-spacing: 0.08em;
-      padding: 3px 8px;
-      border-radius: 4px;
+      color: #555;
       text-transform: uppercase;
-      background: rgba(0,229,255,0.12);
-      color: #00e5ff;
+      flex-shrink: 0;
+      width: 64px;
     }
-    h1 span { color: #00e5ff; }
+    .col-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #f0f0f0;
+      flex-shrink: 0;
+      min-width: 160px;
+    }
+    .col-desc {
+      font-size: 0.82rem;
+      color: #888;
+    }
+
+    /* Lightbox */
+    #lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.88);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
+    #lightbox.open { display: flex; }
+    #lightbox img {
+      max-width: 90vw;
+      max-height: 88vh;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 0 40px rgba(0,229,255,0.15);
+    }
+    #lightbox-close {
+      position: fixed;
+      top: 18px;
+      right: 22px;
+      font-size: 2rem;
+      color: #fff;
+      cursor: pointer;
+      line-height: 1;
+      opacity: 0.7;
+      transition: opacity 0.15s;
+    }
+    #lightbox-close:hover { opacity: 1; }
   </style>
 </head>
 <body id="inner-page">
@@ -99,116 +149,182 @@
     <h1>RAZ <span>TN9000</span></h1>
     <p style="color:#888;margin-bottom:8px;">9,000 Puffs &nbsp;&middot;&nbsp; Disposable</p>
 
-    <div class="flavor-grid">
+    <ul class="flavor-list">
 
-      <div class="flavor-card">
-        <img src="images/raz-tn9000-blue-raz-ice.jpg" alt="Blue Raz Ice">
-        <div class="flavor-name">Blue Raz Ice</div>
-        <div class="flavor-desc">Blue Raspberry, Blue Razz</div>
-        <div class="badge-row"><span class="badge">Disposable</span></div>
-      </div>
+      <li class="flavor-row">
+        <div class="thumb-wrap" onclick="openLightbox('images/raz-tn9000-blue-raz-ice.jpg')">
+          <img src="images/raz-tn9000-blue-raz-ice.jpg" alt="Blue Raz Ice">
+        </div>
+        <div class="col-brand">RAZ</div>
+        <div class="col-model">TN9000</div>
+        <div class="col-name">Blue Raz Ice</div>
+        <div class="col-desc">Blue Raspberry, Blue Razz</div>
+      </li>
 
-      <div class="flavor-card">
-        <img src="images/raz-tn9000-blueberry-watermelon.jpg" alt="Blueberry Watermelon">
-        <div class="flavor-name">Blueberry Watermelon</div>
-        <div class="flavor-desc">Blueberry, Watermelon</div>
-        <div class="badge-row"><span class="badge">Disposable</span></div>
-      </div>
+      <li class="flavor-row">
+        <div class="thumb-wrap" onclick="openLightbox('images/raz-tn9000-blueberry-watermelon.jpg')">
+          <img src="images/raz-tn9000-blueberry-watermelon.jpg" alt="Blueberry Watermelon">
+        </div>
+        <div class="col-brand">RAZ</div>
+        <div class="col-model">TN9000</div>
+        <div class="col-name">Blueberry Watermelon</div>
+        <div class="col-desc">Blueberry, Watermelon</div>
+      </li>
 
-      <div class="flavor-card">
-        <img src="images/raz-tn9000-cherry-lemon.jpg" alt="Cherry Lemon">
-        <div class="flavor-name">Cherry Lemon</div>
-        <div class="flavor-desc">Cherry, Lemon</div>
-        <div class="badge-row"><span class="badge">Disposable</span></div>
-      </div>
+      <li class="flavor-row">
+        <div class="thumb-wrap" onclick="openLightbox('images/raz-tn9000-cherry-lemon.jpg')">
+          <img src="images/raz-tn9000-cherry-lemon.jpg" alt="Cherry Lemon">
+        </div>
+        <div class="col-brand">RAZ</div>
+        <div class="col-model">TN9000</div>
+        <div class="col-name">Cherry Lemon</div>
+        <div class="col-desc">Cherry, Lemon</div>
+      </li>
 
-      <div class="flavor-card">
-        <img src="images/raz-tn9000-dragon-fruit-lemonade.jpg" alt="Dragon Fruit Lemonade">
-        <div class="flavor-name">Dragon Fruit Lemonade</div>
-        <div class="flavor-desc">Dragon Fruit, Lemonade, Lemon</div>
-        <div class="badge-row"><span class="badge">Disposable</span></div>
-      </div>
+      <li class="flavor-row">
+        <div class="thumb-wrap" onclick="openLightbox('images/raz-tn9000-dragon-fruit-lemonade.jpg')">
+          <img src="images/raz-tn9000-dragon-fruit-lemonade.jpg" alt="Dragon Fruit Lemonade">
+        </div>
+        <div class="col-brand">RAZ</div>
+        <div class="col-model">TN9000</div>
+        <div class="col-name">Dragon Fruit Lemonade</div>
+        <div class="col-desc">Dragon Fruit, Lemonade, Lemon</div>
+      </li>
 
-      <div class="flavor-card">
-        <img src="images/raz-tn9000-graham-twist.jpg" alt="Graham Twist">
-        <div class="flavor-name">Graham Twist</div>
-        <div class="flavor-desc">Graham, Honey</div>
-        <div class="badge-row"><span class="badge">Disposable</span></div>
-      </div>
+      <li class="flavor-row">
+        <div class="thumb-wrap" onclick="openLightbox('images/raz-tn9000-graham-twist.jpg')">
+          <img src="images/raz-tn9000-graham-twist.jpg" alt="Graham Twist">
+        </div>
+        <div class="col-brand">RAZ</div>
+        <div class="col-model">TN9000</div>
+        <div class="col-name">Graham Twist</div>
+        <div class="col-desc">Graham, Honey</div>
+      </li>
 
-      <div class="flavor-card">
-        <img src="images/raz-tn9000-grape-ice.jpg" alt="Grape Ice">
-        <div class="flavor-name">Grape Ice</div>
-        <div class="flavor-desc">Grape</div>
-        <div class="badge-row"><span class="badge">Disposable</span></div>
-      </div>
+      <li class="flavor-row">
+        <div class="thumb-wrap no-img">
+          <img src="images/raz-tn9000-grape-ice.jpg" alt="Grape Ice">
+        </div>
+        <div class="col-brand">RAZ</div>
+        <div class="col-model">TN9000</div>
+        <div class="col-name">Grape Ice</div>
+        <div class="col-desc">Grape</div>
+      </li>
 
-      <div class="flavor-card">
-        <img src="images/raz-tn9000-mango-colada.jpg" alt="Mango Colada">
-        <div class="flavor-name">Mango Colada</div>
-        <div class="flavor-desc">Mango, Coconut, Pineapple</div>
-        <div class="badge-row"><span class="badge">Disposable</span></div>
-      </div>
+      <li class="flavor-row">
+        <div class="thumb-wrap" onclick="openLightbox('images/raz-tn9000-mango-colada.jpg')">
+          <img src="images/raz-tn9000-mango-colada.jpg" alt="Mango Colada">
+        </div>
+        <div class="col-brand">RAZ</div>
+        <div class="col-model">TN9000</div>
+        <div class="col-name">Mango Colada</div>
+        <div class="col-desc">Mango, Coconut, Pineapple</div>
+      </li>
 
-      <div class="flavor-card">
-        <img src="images/raz-tn9000-miami-mint.jpg" alt="Miami Mint">
-        <div class="flavor-name">Miami Mint</div>
-        <div class="flavor-desc">Mint, Citrus, Lemon, Lime</div>
-        <div class="badge-row"><span class="badge">Disposable</span></div>
-      </div>
+      <li class="flavor-row">
+        <div class="thumb-wrap" onclick="openLightbox('images/raz-tn9000-miami-mint.jpg')">
+          <img src="images/raz-tn9000-miami-mint.jpg" alt="Miami Mint">
+        </div>
+        <div class="col-brand">RAZ</div>
+        <div class="col-model">TN9000</div>
+        <div class="col-name">Miami Mint</div>
+        <div class="col-desc">Mint, Citrus, Lemon, Lime</div>
+      </li>
 
-      <div class="flavor-card">
-        <img src="images/raz-tn9000-night-crawler.jpg" alt="Night Crawler">
-        <div class="flavor-name">Night Crawler</div>
-        <div class="flavor-desc">Mystery, Gummy Worm</div>
-        <div class="badge-row"><span class="badge">Disposable</span></div>
-      </div>
+      <li class="flavor-row">
+        <div class="thumb-wrap" onclick="openLightbox('images/raz-tn9000-night-crawler.jpg')">
+          <img src="images/raz-tn9000-night-crawler.jpg" alt="Night Crawler">
+        </div>
+        <div class="col-brand">RAZ</div>
+        <div class="col-model">TN9000</div>
+        <div class="col-name">Night Crawler</div>
+        <div class="col-desc">Mystery, Gummy Worm</div>
+      </li>
 
-      <div class="flavor-card">
-        <img src="images/raz-tn9000-polar-ice.jpg" alt="Polar Ice">
-        <div class="flavor-name">Polar Ice</div>
-        <div class="flavor-desc">Mint, Cool</div>
-        <div class="badge-row"><span class="badge">Disposable</span></div>
-      </div>
+      <li class="flavor-row">
+        <div class="thumb-wrap" onclick="openLightbox('images/raz-tn9000-polar-ice.jpg')">
+          <img src="images/raz-tn9000-polar-ice.jpg" alt="Polar Ice">
+        </div>
+        <div class="col-brand">RAZ</div>
+        <div class="col-model">TN9000</div>
+        <div class="col-name">Polar Ice</div>
+        <div class="col-desc">Mint, Cool</div>
+      </li>
 
-      <div class="flavor-card">
-        <img src="images/raz-tn9000-strawberry-ice.jpg" alt="Strawberry Ice">
-        <div class="flavor-name">Strawberry Ice</div>
-        <div class="flavor-desc">Strawberry</div>
-        <div class="badge-row"><span class="badge">Disposable</span></div>
-      </div>
+      <li class="flavor-row">
+        <div class="thumb-wrap" onclick="openLightbox('images/raz-tn9000-strawberry-ice.jpg')">
+          <img src="images/raz-tn9000-strawberry-ice.jpg" alt="Strawberry Ice">
+        </div>
+        <div class="col-brand">RAZ</div>
+        <div class="col-model">TN9000</div>
+        <div class="col-name">Strawberry Ice</div>
+        <div class="col-desc">Strawberry</div>
+      </li>
 
-      <div class="flavor-card">
-        <img src="images/raz-tn9000-strawberry-shortcake.jpg" alt="Strawberry Shortcake">
-        <div class="flavor-name">Strawberry Shortcake</div>
-        <div class="flavor-desc">Strawberry, Cake, Cream, Vanilla</div>
-        <div class="badge-row"><span class="badge">Disposable</span></div>
-      </div>
+      <li class="flavor-row">
+        <div class="thumb-wrap" onclick="openLightbox('images/raz-tn9000-strawberry-shortcake.jpg')">
+          <img src="images/raz-tn9000-strawberry-shortcake.jpg" alt="Strawberry Shortcake">
+        </div>
+        <div class="col-brand">RAZ</div>
+        <div class="col-model">TN9000</div>
+        <div class="col-name">Strawberry Shortcake</div>
+        <div class="col-desc">Strawberry, Cake, Cream, Vanilla</div>
+      </li>
 
-      <div class="flavor-card">
-        <img src="images/raz-tn9000-triple-berry-ice.jpg" alt="Triple Berry Ice">
-        <div class="flavor-name">Triple Berry Ice</div>
-        <div class="flavor-desc">Raspberry, Blueberry, Blackberry</div>
-        <div class="badge-row"><span class="badge">Disposable</span></div>
-      </div>
+      <li class="flavor-row">
+        <div class="thumb-wrap" onclick="openLightbox('images/raz-tn9000-triple-berry-ice.jpg')">
+          <img src="images/raz-tn9000-triple-berry-ice.jpg" alt="Triple Berry Ice">
+        </div>
+        <div class="col-brand">RAZ</div>
+        <div class="col-model">TN9000</div>
+        <div class="col-name">Triple Berry Ice</div>
+        <div class="col-desc">Raspberry, Blueberry, Blackberry</div>
+      </li>
 
-      <div class="flavor-card">
-        <img src="images/raz-tn9000-watermelon-ice.jpg" alt="Watermelon Ice">
-        <div class="flavor-name">Watermelon Ice</div>
-        <div class="flavor-desc">Watermelon, Lush Ice</div>
-        <div class="badge-row"><span class="badge">Disposable</span></div>
-      </div>
+      <li class="flavor-row">
+        <div class="thumb-wrap" onclick="openLightbox('images/raz-tn9000-watermelon-ice.jpg')">
+          <img src="images/raz-tn9000-watermelon-ice.jpg" alt="Watermelon Ice">
+        </div>
+        <div class="col-brand">RAZ</div>
+        <div class="col-model">TN9000</div>
+        <div class="col-name">Watermelon Ice</div>
+        <div class="col-desc">Watermelon, Lush Ice</div>
+      </li>
 
-      <div class="flavor-card">
-        <img src="images/raz-tn9000-orange-raspberry.jpg" alt="Orange Raspberry">
-        <div class="flavor-name">Orange Raspberry</div>
-        <div class="flavor-desc">Orange, Raspberry, Citrus</div>
-        <div class="badge-row"><span class="badge">Disposable</span></div>
-      </div>
+      <li class="flavor-row">
+        <div class="thumb-wrap" onclick="openLightbox('images/raz-tn9000-orange-raspberry.jpg')">
+          <img src="images/raz-tn9000-orange-raspberry.jpg" alt="Orange Raspberry">
+        </div>
+        <div class="col-brand">RAZ</div>
+        <div class="col-model">TN9000</div>
+        <div class="col-name">Orange Raspberry</div>
+        <div class="col-desc">Orange, Raspberry, Citrus</div>
+      </li>
 
-    </div>
+    </ul>
   </main>
 
 </div>
+
+<!-- Lightbox -->
+<div id="lightbox" onclick="closeLightbox()">
+  <span id="lightbox-close" onclick="closeLightbox()">&times;</span>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.getElementById('lightbox-img').src = '';
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+</script>
+
 </body>
 </html>
