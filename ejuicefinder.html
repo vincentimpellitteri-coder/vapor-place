@@ -936,14 +936,10 @@ function savePassword(p) {
 
 async function loadFromServer() {
   try {
-    const [prods, shop] = await Promise.all([
-      fetch(API + '/products').then(r => r.json()),
-      fetch(API + '/shop').then(r => r.json()),
-    ]);
-    EJF.products = Array.isArray(prods) ? prods : [];
-    EJF.shop     = shop || { name: 'The Vapor Place', address: '', phone: '' };
+    const shop = await fetch(API + '/shop').then(r => r.json());
+    EJF.shop = shop || { name: 'The Vapor Place', address: '', phone: '' };
   } catch(e) {
-    toast('Could not load data from server.', 'danger');
+    // shop info unavailable, use defaults
   }
 }
 
@@ -1408,16 +1404,7 @@ function seedIfEmpty() {
     {"id":"e1a00001-reds-0001-0000-000000000011","name":"Apple Watermelon","brand":"Reds Apple","category":"Fruit","flavorNotes":"Apple, Watermelon","type":"SALT+SUB","size":"Salt 30ml / Sub 100ml","nicotine":"Salt: 30mg / 50mg · Sub: 0mg / 3mg / 6mg","vgpg":"","price":0,"isDeal":false,"dealNote":"","isTop10":false,"image":"7daze-reds-apple-watermelon.png","notes":""},
     {"id":"e1a00001-reds-0001-0000-000000000012","name":"Apple Watermelon Iced","brand":"Reds Apple","category":"Menthol/Ice","flavorNotes":"Apple, Watermelon, Ice","type":"SALT+SUB","size":"Salt 30ml / Sub 100ml","nicotine":"Salt: 30mg / 50mg · Sub: 0mg / 3mg / 6mg","vgpg":"","price":0,"isDeal":false,"dealNote":"","isTop10":false,"image":"7daze-reds-iced-apple-watermelon-iced.png","notes":""}
   ];
-  if (!existing.length) {
-    saveProducts(seed);
-    return;
-  }
-  // Restore any seed products accidentally deleted (matched by brand + name)
-  const existingKeys = new Set(existing.map(p => p.brand + '|' + p.name));
-  const missing = seed.filter(p => !existingKeys.has(p.brand + '|' + p.name));
-  if (missing.length) {
-    saveProducts([...existing, ...missing]);
-  }
+  EJF.products = seed;
 }
 
 // ══════════════════════════════════════════════════════════
