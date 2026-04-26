@@ -572,13 +572,13 @@
     /* ── Admin ─────────────────────────────────────────────── */
     #admin-overlay {
       display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 9000;
-      background: #0d0d0d; overflow-y: auto; -webkit-overflow-scrolling: touch;
+      background: #0d0d0d; flex-direction: column;
     }
-    #admin-overlay.open { display: block; }
+    #admin-overlay.open { display: flex; }
     #stock-header {
       display: flex; align-items: center; justify-content: space-between;
       padding: 18px 24px; border-bottom: 1px solid #222;
-      position: sticky; top: 0; background: #0d0d0d; z-index: 1;
+      flex-shrink: 0; background: #0d0d0d;
     }
     #stock-header h2 { font-family: var(--font-head); font-size: 1rem; letter-spacing: 0.1em; color: #00e5ff; margin: 0; }
     #admin-logout {
@@ -612,7 +612,7 @@
     .admin-item-name { font-size: 0.9rem; color: #f0f0f0; flex: 1; }
     .admin-item-brand { font-size: 0.72rem; color: #555; }
     .admin-item.out-of-stock .admin-item-name { color: #444; text-decoration: line-through; }
-    #stock-body { padding: 0 24px 40px; max-width: 800px; margin: 0 auto; }
+    #stock-body { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 0 24px 40px; max-width: 800px; margin: 0 auto; }
 
     #pw-modal {
       display: none; position: fixed; inset: 0; z-index: 9999;
