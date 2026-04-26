@@ -46,6 +46,14 @@
       transition: border-color 0.2s;
     }
     .thumb-wrap:hover img { border-color: #00e5ff; }
+    .no-img {
+      width: 56px;
+      height: 56px;
+      border-radius: 6px;
+      background: #1a1a1a;
+      border: 1px dashed #333;
+      flex-shrink: 0;
+    }
     .col-brand {
       font-family: 'Orbitron', sans-serif;
       font-size: 0.6rem;
@@ -71,7 +79,7 @@
       font-weight: 700;
       color: #f0f0f0;
       flex-shrink: 0;
-      min-width: 180px;
+      min-width: 200px;
     }
     .col-desc { font-size: 0.82rem; color: #888; }
 
@@ -146,12 +154,19 @@
     <ul class="flavor-list">
 
       <li class="flavor-row">
+        <div class="no-img"></div>
+        <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
+        <div class="col-name">Banana Candy</div>
+        <div class="col-desc">Sweet, nostalgic banana candy flavor.</div>
+      </li>
+
+      <li class="flavor-row">
         <div class="thumb-wrap" onclick="openLightbox('images/raz-ltx25000-bangin-sour-berries.jpg')">
           <img src="images/raz-ltx25000-bangin-sour-berries.jpg" alt="Bangin Sour Berries">
         </div>
         <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
-        <div class="col-name">Bangin Sour Berries</div>
-        <div class="col-desc">Sour, Berry, Blueberry, Raspberry, Strawberry</div>
+        <div class="col-name">Bangin' Sour Berries</div>
+        <div class="col-desc">A punch of tangy mixed berries.</div>
       </li>
 
       <li class="flavor-row">
@@ -160,16 +175,37 @@
         </div>
         <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
         <div class="col-name">Black Cherry Peach</div>
-        <div class="col-desc">Black Cherry, Peach</div>
+        <div class="col-desc">Bold black cherry with juicy peach.</div>
+      </li>
+
+      <li class="flavor-row">
+        <div class="no-img"></div>
+        <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
+        <div class="col-name">Black&amp;Blue Lime</div>
+        <div class="col-desc">Blackberries, blueberries, and a twist of lime.</div>
+      </li>
+
+      <li class="flavor-row">
+        <div class="no-img"></div>
+        <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
+        <div class="col-name">Blue Raz (Gush Edition)</div>
+        <div class="col-desc">Juicy blue raspberry with a candy kick.</div>
       </li>
 
       <li class="flavor-row">
         <div class="thumb-wrap" onclick="openLightbox('images/raz-ltx25000-blue-raz-ice.jpg')">
-          <img src="images/raz-ltx25000-blue-raz-ice.jpg" alt="Blue Raz Ice">
+          <img src="images/raz-ltx25000-blue-raz-ice.jpg" alt="Blue Razz Ice">
         </div>
         <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
-        <div class="col-name">Blue Raz Ice</div>
-        <div class="col-desc">Blue Raspberry, Ice</div>
+        <div class="col-name">Blue Razz Ice</div>
+        <div class="col-desc">Tangy blue raspberry with an icy exhale.</div>
+      </li>
+
+      <li class="flavor-row">
+        <div class="no-img"></div>
+        <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
+        <div class="col-name">Blueberry (Punch Edition)</div>
+        <div class="col-desc">Bold blueberry in a juicy punch style.</div>
       </li>
 
       <li class="flavor-row">
@@ -178,7 +214,7 @@
         </div>
         <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
         <div class="col-name">Blueberry Watermelon</div>
-        <div class="col-desc">Blueberry, Watermelon</div>
+        <div class="col-desc">Sweet blueberries blended with crisp watermelon.</div>
       </li>
 
       <li class="flavor-row">
@@ -187,7 +223,7 @@
         </div>
         <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
         <div class="col-name">Cherry Strapple</div>
-        <div class="col-desc">Cherry, Strawberry, Apple</div>
+        <div class="col-desc">A mix of cherry, strawberry, and crisp apple.</div>
       </li>
 
       <li class="flavor-row">
@@ -196,7 +232,7 @@
         </div>
         <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
         <div class="col-name">Clear</div>
-        <div class="col-desc">Pure, Smooth, Unflavored</div>
+        <div class="col-desc">Pure, smooth, and clean taste.</div>
       </li>
 
       <li class="flavor-row">
@@ -205,7 +241,7 @@
         </div>
         <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
         <div class="col-name">Clear Diamond</div>
-        <div class="col-desc">Refined, Crisp, Unflavored</div>
+        <div class="col-desc">Refined, crisp, and crystal-clear smoothness.</div>
       </li>
 
       <li class="flavor-row">
@@ -214,7 +250,7 @@
         </div>
         <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
         <div class="col-name">Clear Sapphire</div>
-        <div class="col-desc">Smooth, Clean, Unflavored</div>
+        <div class="col-desc">Smooth, clean, and crystal-cool finish.</div>
       </li>
 
       <li class="flavor-row">
@@ -223,52 +259,52 @@
         </div>
         <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
         <div class="col-name">Fire &amp; Ice</div>
-        <div class="col-desc">Spicy Warmth, Icy Chill</div>
+        <div class="col-desc">A bold mix of spicy warmth and icy chill.</div>
       </li>
 
       <li class="flavor-row">
         <div class="thumb-wrap" onclick="openLightbox('images/raz-ltx25000-frozen-banana.jpg')">
-          <img src="images/raz-ltx25000-frozen-banana.jpg" alt="Frozen Banana">
+          <img src="images/raz-ltx25000-frozen-banana.jpg" alt="Frozen Edition - Banana">
         </div>
         <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
-        <div class="col-name">Frozen Banana</div>
-        <div class="col-desc">Banana, Ice</div>
+        <div class="col-name">Frozen Edition — Banana</div>
+        <div class="col-desc">Creamy banana with a frosty chill.</div>
       </li>
 
       <li class="flavor-row">
         <div class="thumb-wrap" onclick="openLightbox('images/raz-ltx25000-frozen-cherry-apple.jpg')">
-          <img src="images/raz-ltx25000-frozen-cherry-apple.jpg" alt="Frozen Cherry Apple">
+          <img src="images/raz-ltx25000-frozen-cherry-apple.jpg" alt="Frozen Edition - Cherry Apple">
         </div>
         <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
-        <div class="col-name">Frozen Cherry Apple</div>
-        <div class="col-desc">Cherry, Apple, Ice</div>
+        <div class="col-name">Frozen Edition — Cherry Apple</div>
+        <div class="col-desc">Sweet cherry and tart apple over ice.</div>
       </li>
 
       <li class="flavor-row">
         <div class="thumb-wrap" onclick="openLightbox('images/raz-ltx25000-frozen-dragonfruit-lemon.jpg')">
-          <img src="images/raz-ltx25000-frozen-dragonfruit-lemon.jpg" alt="Frozen Dragonfruit Lemon">
+          <img src="images/raz-ltx25000-frozen-dragonfruit-lemon.jpg" alt="Frozen Edition - Dragonfruit Lemon">
         </div>
         <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
-        <div class="col-name">Frozen Dragonfruit Lemon</div>
-        <div class="col-desc">Dragonfruit, Lemon, Ice</div>
+        <div class="col-name">Frozen Edition — Dragonfruit Lemon</div>
+        <div class="col-desc">Exotic dragonfruit with zesty lemon ice.</div>
       </li>
 
       <li class="flavor-row">
         <div class="thumb-wrap" onclick="openLightbox('images/raz-ltx25000-frozen-juicy-strawberry.jpg')">
-          <img src="images/raz-ltx25000-frozen-juicy-strawberry.jpg" alt="Frozen Juicy Strawberry">
+          <img src="images/raz-ltx25000-frozen-juicy-strawberry.jpg" alt="Frozen Edition - Juicy Strawberry">
         </div>
         <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
-        <div class="col-name">Frozen Juicy Strawberry</div>
-        <div class="col-desc">Strawberry, Ice</div>
+        <div class="col-name">Frozen Edition — Juicy Strawberry</div>
+        <div class="col-desc">Lush strawberry chilled to perfection.</div>
       </li>
 
       <li class="flavor-row">
         <div class="thumb-wrap" onclick="openLightbox('images/raz-ltx25000-frozen-raspberry-watermelon.jpg')">
-          <img src="images/raz-ltx25000-frozen-raspberry-watermelon.jpg" alt="Frozen Raspberry Watermelon">
+          <img src="images/raz-ltx25000-frozen-raspberry-watermelon.jpg" alt="Frozen Edition - Raspberry Watermelon">
         </div>
         <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
-        <div class="col-name">Frozen Raspberry Watermelon</div>
-        <div class="col-desc">Raspberry, Watermelon, Ice</div>
+        <div class="col-name">Frozen Edition — Raspberry Watermelon</div>
+        <div class="col-desc">Sweet raspberry and watermelon on ice.</div>
       </li>
 
       <li class="flavor-row">
@@ -277,16 +313,23 @@
         </div>
         <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
         <div class="col-name">Georgia Peach</div>
-        <div class="col-desc">Peach</div>
+        <div class="col-desc">Ripe, juicy peach with Southern sweetness.</div>
+      </li>
+
+      <li class="flavor-row">
+        <div class="no-img"></div>
+        <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
+        <div class="col-name">Hawaiian (Punch Edition)</div>
+        <div class="col-desc">A tropical punch with island fruits.</div>
       </li>
 
       <li class="flavor-row">
         <div class="thumb-wrap" onclick="openLightbox('images/raz-ltx25000-iced-blue-dragon.jpg')">
-          <img src="images/raz-ltx25000-iced-blue-dragon.jpg" alt="Iced Blue Dragon">
+          <img src="images/raz-ltx25000-iced-blue-dragon.jpg" alt="Ice Blue Dragon">
         </div>
         <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
-        <div class="col-name">Iced Blue Dragon</div>
-        <div class="col-desc">Dragonfruit, Ice</div>
+        <div class="col-name">Ice Blue Dragon</div>
+        <div class="col-desc">Exotic dragonfruit chilled with icy coolness.</div>
       </li>
 
       <li class="flavor-row">
@@ -295,7 +338,7 @@
         </div>
         <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
         <div class="col-name">Mango Loco</div>
-        <div class="col-desc">Mango, Tropical</div>
+        <div class="col-desc">Tropical, sweet, and juicy mango madness.</div>
       </li>
 
       <li class="flavor-row">
@@ -304,7 +347,7 @@
         </div>
         <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
         <div class="col-name">Miami Mint</div>
-        <div class="col-desc">Mint, Citrus</div>
+        <div class="col-desc">Smooth, cooling mint with a tropical flair.</div>
       </li>
 
       <li class="flavor-row">
@@ -313,7 +356,7 @@
         </div>
         <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
         <div class="col-name">New York Mint</div>
-        <div class="col-desc">Mint, Cool</div>
+        <div class="col-desc">Fresh, cool, city-smooth mint.</div>
       </li>
 
       <li class="flavor-row">
@@ -322,7 +365,14 @@
         </div>
         <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
         <div class="col-name">Night Crawler</div>
-        <div class="col-desc">Gummy Worm, Candy</div>
+        <div class="col-desc">A bold sweet-and-sour gummy-inspired blend with a tangy kick and smooth, candy-like finish.</div>
+      </li>
+
+      <li class="flavor-row">
+        <div class="no-img"></div>
+        <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
+        <div class="col-name">Orange Berry Lime Ice</div>
+        <div class="col-desc">Citrus orange, sweet berries, and lime ice.</div>
       </li>
 
       <li class="flavor-row">
@@ -331,7 +381,21 @@
         </div>
         <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
         <div class="col-name">Orange Mango</div>
-        <div class="col-desc">Orange, Mango</div>
+        <div class="col-desc">Bright orange fused with tropical mango.</div>
+      </li>
+
+      <li class="flavor-row">
+        <div class="no-img"></div>
+        <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
+        <div class="col-name">Orange Mango (Fall Edition)</div>
+        <div class="col-desc">Seasonal twist of citrus orange and ripe mango.</div>
+      </li>
+
+      <li class="flavor-row">
+        <div class="no-img"></div>
+        <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
+        <div class="col-name">Orange Pineapple (Punch Edition)</div>
+        <div class="col-desc">Zesty orange with tropical pineapple punch.</div>
       </li>
 
       <li class="flavor-row">
@@ -340,7 +404,7 @@
         </div>
         <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
         <div class="col-name">Peppermint Candy Cane</div>
-        <div class="col-desc">Peppermint, Candy Cane</div>
+        <div class="col-desc">Cool peppermint with sweet candy cane.</div>
       </li>
 
       <li class="flavor-row">
@@ -349,7 +413,14 @@
         </div>
         <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
         <div class="col-name">Pink Lemonade Mint</div>
-        <div class="col-desc">Pink Lemonade, Mint</div>
+        <div class="col-desc">Tart pink lemonade with cooling mint.</div>
+      </li>
+
+      <li class="flavor-row">
+        <div class="no-img"></div>
+        <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
+        <div class="col-name">Pink Lemonade Mint (Fall Edition)</div>
+        <div class="col-desc">Tart lemonade balanced with cool mint refresh.</div>
       </li>
 
       <li class="flavor-row">
@@ -358,7 +429,7 @@
         </div>
         <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
         <div class="col-name">Rainbow Rain</div>
-        <div class="col-desc">Mixed Fruit, Candy</div>
+        <div class="col-desc">A colorful burst of fruity sweetness.</div>
       </li>
 
       <li class="flavor-row">
@@ -367,7 +438,7 @@
         </div>
         <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
         <div class="col-name">Raspberry Limeade</div>
-        <div class="col-desc">Raspberry, Lime</div>
+        <div class="col-desc">Tart raspberries splashed with zesty lime.</div>
       </li>
 
       <li class="flavor-row">
@@ -376,7 +447,7 @@
         </div>
         <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
         <div class="col-name">Razzle Dazzle</div>
-        <div class="col-desc">Mixed Berry, Tangy</div>
+        <div class="col-desc">Bright mixed berry sweetness with a tangy kick.</div>
       </li>
 
       <li class="flavor-row">
@@ -385,7 +456,7 @@
         </div>
         <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
         <div class="col-name">Sour Apple Ice</div>
-        <div class="col-desc">Green Apple, Sour, Ice</div>
+        <div class="col-desc">Crisp green apple with a frosty bite.</div>
       </li>
 
       <li class="flavor-row">
@@ -394,7 +465,21 @@
         </div>
         <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
         <div class="col-name">Sour Apple Watermelon</div>
-        <div class="col-desc">Green Apple, Watermelon, Sour</div>
+        <div class="col-desc">Tart green apple with sweet watermelon.</div>
+      </li>
+
+      <li class="flavor-row">
+        <div class="no-img"></div>
+        <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
+        <div class="col-name">Sour Raspberry (Punch Edition)</div>
+        <div class="col-desc">Tangy raspberry with punchy sour notes.</div>
+      </li>
+
+      <li class="flavor-row">
+        <div class="no-img"></div>
+        <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
+        <div class="col-name">Sour Raspberry Watermelon</div>
+        <div class="col-desc">Tangy raspberry mixed with juicy watermelon.</div>
       </li>
 
       <li class="flavor-row">
@@ -403,7 +488,7 @@
         </div>
         <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
         <div class="col-name">Sour Watermelon Peach</div>
-        <div class="col-desc">Watermelon, Peach, Sour</div>
+        <div class="col-desc">Tangy watermelon paired with sweet peach.</div>
       </li>
 
       <li class="flavor-row">
@@ -412,7 +497,7 @@
         </div>
         <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
         <div class="col-name">Strawberry Burst</div>
-        <div class="col-desc">Strawberry</div>
+        <div class="col-desc">Sweet, ripe strawberry explosion.</div>
       </li>
 
       <li class="flavor-row">
@@ -421,7 +506,7 @@
         </div>
         <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
         <div class="col-name">Strawberry Kiwi Pear</div>
-        <div class="col-desc">Strawberry, Kiwi, Pear</div>
+        <div class="col-desc">Sweet strawberry, tart kiwi, and crisp pear blend.</div>
       </li>
 
       <li class="flavor-row">
@@ -430,7 +515,14 @@
         </div>
         <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
         <div class="col-name">Strawberry Orange Tang</div>
-        <div class="col-desc">Strawberry, Orange, Citrus</div>
+        <div class="col-desc">Strawberry blended with citrusy orange zest.</div>
+      </li>
+
+      <li class="flavor-row">
+        <div class="no-img"></div>
+        <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
+        <div class="col-name">Strawberry Peach (Gush Edition)</div>
+        <div class="col-desc">Juicy strawberry and peach candy fusion.</div>
       </li>
 
       <li class="flavor-row">
@@ -439,7 +531,28 @@
         </div>
         <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
         <div class="col-name">Tobacco</div>
-        <div class="col-desc">Tobacco</div>
+        <div class="col-desc">Classic, rich, and smooth tobacco.</div>
+      </li>
+
+      <li class="flavor-row">
+        <div class="no-img"></div>
+        <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
+        <div class="col-name">Triple Berry (Gush Edition)</div>
+        <div class="col-desc">Sweet berry medley with candy sweetness.</div>
+      </li>
+
+      <li class="flavor-row">
+        <div class="no-img"></div>
+        <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
+        <div class="col-name">Triple Berry (Punch Edition)</div>
+        <div class="col-desc">Berry trio blended into a fruity punch.</div>
+      </li>
+
+      <li class="flavor-row">
+        <div class="no-img"></div>
+        <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
+        <div class="col-name">Tropical (Gush Edition)</div>
+        <div class="col-desc">A candy-inspired tropical fruit blend.</div>
       </li>
 
       <li class="flavor-row">
@@ -448,7 +561,14 @@
         </div>
         <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
         <div class="col-name">Watermelon Ice</div>
-        <div class="col-desc">Watermelon, Ice</div>
+        <div class="col-desc">Juicy watermelon with a refreshing icy chill.</div>
+      </li>
+
+      <li class="flavor-row">
+        <div class="no-img"></div>
+        <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
+        <div class="col-name">White Grape (Gush Edition)</div>
+        <div class="col-desc">Sweet white grape with candy notes.</div>
       </li>
 
       <li class="flavor-row">
@@ -457,7 +577,7 @@
         </div>
         <div class="col-brand">RAZ</div><div class="col-model">LTX25000</div>
         <div class="col-name">Wintergreen</div>
-        <div class="col-desc">Wintergreen, Mint</div>
+        <div class="col-desc">Classic cool wintergreen freshness.</div>
       </li>
 
     </ul>
