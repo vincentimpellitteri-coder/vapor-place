@@ -572,7 +572,8 @@
     /* ── Admin ─────────────────────────────────────────────── */
     #admin-overlay {
       display: none; position: fixed; inset: 0; z-index: 9000;
-      background: #0d0d0d; overflow-y: auto;
+      background: #0d0d0d; overflow-y: scroll; -webkit-overflow-scrolling: touch;
+      height: 100%;
     }
     #admin-overlay.open { display: block; }
     #admin-header {
