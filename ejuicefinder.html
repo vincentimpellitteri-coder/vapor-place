@@ -2017,8 +2017,8 @@ document.querySelectorAll('[data-nic]').forEach(btn => {
 // ══════════════════════════════════════════════════════════
 // INIT
 // ══════════════════════════════════════════════════════════
-async function init() {
-  await loadFromServer();
+function init() {
+  loadFromServer(); // fire and forget — shop info only, non-blocking
   seedIfEmpty();
   renderShopHeader();
   switchTab('flavor');
