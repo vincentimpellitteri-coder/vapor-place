@@ -23,6 +23,95 @@
     .back-btn:hover { background: rgba(0,229,255,0.1); }
     .back-bar { margin: 24px 0; }
     h1 span { color: #00e5ff; }
+
+    .flavor-list { list-style: none; padding: 0; margin: 24px 0; }
+    .flavor-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 14px;
+      border-bottom: 1px solid #222;
+      transition: background 0.15s;
+    }
+    .flavor-row:hover { background: #1a1a1a; }
+    .thumb-wrap { flex-shrink: 0; cursor: pointer; }
+    .thumb-wrap img {
+      width: 56px;
+      height: 56px;
+      object-fit: cover;
+      border-radius: 6px;
+      background: #111;
+      border: 1px solid #2a2a2a;
+      display: block;
+      transition: border-color 0.2s;
+    }
+    .thumb-wrap:hover img { border-color: #00e5ff; }
+    .no-img {
+      width: 56px;
+      height: 56px;
+      border-radius: 6px;
+      background: #1a1a1a;
+      border: 1px dashed #333;
+      flex-shrink: 0;
+    }
+    .col-brand {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: #00e5ff;
+      text-transform: uppercase;
+      flex-shrink: 0;
+      width: 36px;
+    }
+    .col-model {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: #555;
+      text-transform: uppercase;
+      flex-shrink: 0;
+      width: 80px;
+    }
+    .col-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #f0f0f0;
+      flex-shrink: 0;
+      min-width: 200px;
+    }
+    .col-desc { font-size: 0.82rem; color: #888; }
+
+    #lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.88);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
+    #lightbox.open { display: flex; }
+    #lightbox img {
+      max-width: 90vw;
+      max-height: 88vh;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 0 40px rgba(0,229,255,0.15);
+    }
+    #lightbox-close {
+      position: fixed;
+      top: 18px;
+      right: 22px;
+      font-size: 2rem;
+      color: #fff;
+      cursor: pointer;
+      line-height: 1;
+      opacity: 0.7;
+      transition: opacity 0.15s;
+    }
+    #lightbox-close:hover { opacity: 1; }
   </style>
 </head>
 <body id="inner-page">
@@ -30,27 +119,14 @@
 
   <header>
     <div class="header-inner">
-      <a href="home.html" class="logo-link">
+      <a href="index.html" class="logo-link">
         <img src="images/logo.png" alt="The Vapor Place" class="logo-img">
       </a>
       <span class="badge-21">21+</span>
     </div>
     <nav>
-      <a href="home.html">Home</a>
-      <a href="hours.html">Hours</a>
-      <a href="menu.html">Menu</a>
-      <a href="menu2.html">Menu #2</a>
-      <a href="disp-menu.html">Disp. Menu</a>
-      <a href="menu3.html">Menu #3</a>
-      <a href="brands.html">Brands</a>
-      <a href="featured.html">Featured</a>
-      <a href="top-sellers.html">Top Sellers</a>
-      <a href="locations.html">Locations</a>
-      <a href="contact.html">Contact</a>
-      <a href="info.html">Info</a>
-      <a href="rewards.html">Rewards</a>
-      <a href="kits.html">Kits</a>
-      <a href="https://vapor.menu" target="_blank">E-Juice Finder</a>
+      <a href="ejuicefinder.html">E-Juice Finder</a>
+      <a href="https://tvp.aglots.com" target="_blank">Full Store</a>
     </nav>
   </header>
 
@@ -60,10 +136,101 @@
     </div>
 
     <h1>RAZ RX <span>VUE 50K</span></h1>
-    <p style="color:#888;margin-bottom:8px;">50,000 Puffs &nbsp;&middot;&nbsp; Disposable</p>
-    <p style="color:#666;margin-top:48px;text-align:center;">Flavors coming soon.</p>
+    <p style="color:#888;margin-bottom:24px;">50,000 Puffs &nbsp;&middot;&nbsp; 13mL per Pod &nbsp;&middot;&nbsp; 5% Nicotine &nbsp;&middot;&nbsp; Disposable Kit</p>
+
+    <ul class="flavor-list">
+
+      <li class="flavor-row">
+        <div class="thumb-wrap" onclick="openLightbox('images/raz-vue50k-blue-raz-ice.jpg')"><img src="images/raz-vue50k-blue-raz-ice.jpg" alt="Blue Raz Ice"></div>
+        <div class="col-brand">RAZ</div><div class="col-model">VUE 50K</div>
+        <div class="col-name">Blue Raz Ice</div>
+        <div class="col-desc">Tangy blue raspberry balanced with icy coolness.</div>
+      </li>
+
+      <li class="flavor-row">
+        <div class="thumb-wrap" onclick="openLightbox('images/raz-vue50k-hawaiian-punch.jpg')"><img src="images/raz-vue50k-hawaiian-punch.jpg" alt="Hawaiian Punch"></div>
+        <div class="col-brand">RAZ</div><div class="col-model">VUE 50K</div>
+        <div class="col-name">Hawaiian Punch</div>
+        <div class="col-desc">Tropical fruit blend inspired by island flavors.</div>
+      </li>
+
+      <li class="flavor-row">
+        <div class="thumb-wrap" onclick="openLightbox('images/raz-vue50k-miami-mint.jpg')"><img src="images/raz-vue50k-miami-mint.jpg" alt="Miami Mint"></div>
+        <div class="col-brand">RAZ</div><div class="col-model">VUE 50K</div>
+        <div class="col-name">Miami Mint</div>
+        <div class="col-desc">Fresh mint with a cool, clean finish.</div>
+      </li>
+
+      <li class="flavor-row">
+        <div class="thumb-wrap" onclick="openLightbox('images/raz-vue50k-pineapple-mtn-dew.jpg')"><img src="images/raz-vue50k-pineapple-mtn-dew.jpg" alt="Pineapple MTN Dew"></div>
+        <div class="col-brand">RAZ</div><div class="col-model">VUE 50K</div>
+        <div class="col-name">Pineapple MTN Dew</div>
+        <div class="col-desc">Sweet pineapple with a bold citrus soda twist.</div>
+      </li>
+
+      <li class="flavor-row">
+        <div class="thumb-wrap" onclick="openLightbox('images/raz-vue50k-polar-ice.jpg')"><img src="images/raz-vue50k-polar-ice.jpg" alt="Polar Ice"></div>
+        <div class="col-brand">RAZ</div><div class="col-model">VUE 50K</div>
+        <div class="col-name">Polar Ice</div>
+        <div class="col-desc">Clean, ultra-cool menthol refreshment.</div>
+      </li>
+
+      <li class="flavor-row">
+        <div class="thumb-wrap" onclick="openLightbox('images/raz-vue50k-sour-apple-ice.jpg')"><img src="images/raz-vue50k-sour-apple-ice.jpg" alt="Sour Apple Ice"></div>
+        <div class="col-brand">RAZ</div><div class="col-model">VUE 50K</div>
+        <div class="col-name">Sour Apple Ice</div>
+        <div class="col-desc">Tart green apple with a frosty exhale.</div>
+      </li>
+
+      <li class="flavor-row">
+        <div class="thumb-wrap" onclick="openLightbox('images/raz-vue50k-strawberry-blast.jpg')"><img src="images/raz-vue50k-strawberry-blast.jpg" alt="Strawberry Blast"></div>
+        <div class="col-brand">RAZ</div><div class="col-model">VUE 50K</div>
+        <div class="col-name">Strawberry Blast</div>
+        <div class="col-desc">Ripe strawberry with a sugary punch.</div>
+      </li>
+
+      <li class="flavor-row">
+        <div class="thumb-wrap" onclick="openLightbox('images/raz-vue50k-triple-berry-lime.jpg')"><img src="images/raz-vue50k-triple-berry-lime.jpg" alt="Triple Berry Lime"></div>
+        <div class="col-brand">RAZ</div><div class="col-model">VUE 50K</div>
+        <div class="col-name">Triple Berry Lime</div>
+        <div class="col-desc">Mixed berries with a zesty citrus finish.</div>
+      </li>
+
+      <li class="flavor-row">
+        <div class="thumb-wrap" onclick="openLightbox('images/raz-vue50k-watermelon-ice.jpg')"><img src="images/raz-vue50k-watermelon-ice.jpg" alt="Watermelon Ice"></div>
+        <div class="col-brand">RAZ</div><div class="col-model">VUE 50K</div>
+        <div class="col-name">Watermelon Ice</div>
+        <div class="col-desc">Juicy watermelon with a crisp menthol chill.</div>
+      </li>
+
+      <li class="flavor-row">
+        <div class="thumb-wrap" onclick="openLightbox('images/raz-vue50k-white-gummy.jpg')"><img src="images/raz-vue50k-white-gummy.jpg" alt="White Gummy"></div>
+        <div class="col-brand">RAZ</div><div class="col-model">VUE 50K</div>
+        <div class="col-name">White Gummy</div>
+        <div class="col-desc">Smooth, sweet gummy candy flavor.</div>
+      </li>
+
+    </ul>
   </main>
 
 </div>
+
+<div id="lightbox" onclick="closeLightbox()">
+  <span id="lightbox-close" onclick="closeLightbox()">&times;</span>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+function openLightbox(src) {
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+</script>
 </body>
 </html>
