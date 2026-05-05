@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lost Mary — The Vapor Place</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .back-btn {
+      display: inline-block;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #00e5ff;
+      border: 1px solid #00e5ff;
+      border-radius: 6px;
+      padding: 10px 20px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .back-btn:hover { background: rgba(0,229,255,0.1); }
+    .back-bar { margin: 24px 0; }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(174px, 1fr));
+      gap: 14px;
+      margin: 22px 0;
+    }
+    .product-card {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 9px;
+      padding: 22px 14px;
+      text-align: center;
+      text-decoration: none;
+      display: block;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .product-card:hover { border-color: #00e5ff; background: #1e1e1e; }
+    .product-card img {
+      width: 100%;
+      max-height: 134px;
+      object-fit: contain;
+      border-radius: 5px;
+      margin-bottom: 11px;
+    }
+    .product-name {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #f0f0f0;
+      margin-bottom: 8px;
+    }
+    .product-sub { font-size: 0.85rem; color: #888; }
+    h1 span { color: #00e5ff; }
+    .more-info-btn {
+      display: inline-block;
+      margin-top: 14px;
+      padding: 8px 20px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #00e5ff;
+      border: 1px solid #00e5ff;
+      border-radius: 6px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .product-card:hover .more-info-btn {
+      background: #00e5ff;
+      color: #000;
+    }
+
+    .flavor-table-wrap { margin: 40px 0 20px; overflow-x: auto; }
+    .flavor-table-wrap h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #374151;
+      margin-bottom: 16px;
+    }
+    .flavor-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+    .flavor-table thead th {
+      background: #e5e7eb;
+      color: #111827;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 10px 14px;
+      text-align: left;
+      border: 1px solid #d1d1d6;
+    }
+    .flavor-table tbody td {
+      padding: 8px 14px;
+      border: 1px solid #e5e7eb;
+      color: #374151;
+      vertical-align: top;
+    }
+    .flavor-table tbody tr:nth-child(even) td { background: #f9fafb; }
+    .flavor-table tbody tr:hover td { background: #eff6ff; }
+    .td-model {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 700;
+      color: #0284c7;
+      white-space: nowrap;
+    }
+    .td-num { color: #9ca3af; font-size: 0.78rem; text-align: center; }
+  </style>
+</head>
+<body id="inner-page">
+<div style="position:relative;z-index:1;">
+
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="logo-link">
+        <img src="images/logo.png" alt="The Vapor Place" class="logo-img">
+      </a>
+      <span class="badge-21">21+</span>
+    </div>
+    <nav>
+      <a href="ejuicefinder.html">E-Juice Finder</a>
+      <a href="menu3.html">Sub Ohm &amp; Salt</a>
+      <a href="https://tvp.aglots.com" target="_blank">Full Store</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="back-bar">
+      <a href="ejuicefinder.html" class="back-btn">&larr; Back to E-Juice Finder</a>
+    </div>
+
+    <h1 style="font-size:2.08rem;text-align:center;"><span>Lost Mary</span> Disposables</h1>
+
+    <div class="product-grid">
+
+      <a href="lost-mary-mt15000.html" class="product-card">
+        <img src="images/lost-mary-mt15000-berry-burst.jpg" alt="Lost Mary MT15000 Turbo">
+        <div class="product-name">MT15000 Turbo</div>
+        <div class="product-sub">15,000 Puffs</div>
+        <span class="more-info-btn">More Info</span>
+      </a>
+
+    </div>
+
+    <div class="flavor-table-wrap">
+      <h2>All Lost Mary Flavors</h2>
+      <table class="flavor-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Model</th>
+            <th>Flavor</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="td-num">1</td><td class="td-model">MT15000 Turbo</td><td>Berry Burst</td></tr>
+          <tr><td class="td-num">2</td><td class="td-model">MT15000 Turbo</td><td>Black Mint</td></tr>
+          <tr><td class="td-num">3</td><td class="td-model">MT15000 Turbo</td><td>Blue Cotton Candy</td></tr>
+          <tr><td class="td-num">4</td><td class="td-model">MT15000 Turbo</td><td>Blue Razz Ice</td></tr>
+          <tr><td class="td-num">5</td><td class="td-model">MT15000 Turbo</td><td>Cherry Ice</td></tr>
+          <tr><td class="td-num">6</td><td class="td-model">MT15000 Turbo</td><td>Clear</td></tr>
+          <tr><td class="td-num">7</td><td class="td-model">MT15000 Turbo</td><td>Grape</td></tr>
+          <tr><td class="td-num">8</td><td class="td-model">MT15000 Turbo</td><td>Juicy Peach Ice</td></tr>
+          <tr><td class="td-num">9</td><td class="td-model">MT15000 Turbo</td><td>Kiwi Passion Guava</td></tr>
+          <tr><td class="td-num">10</td><td class="td-model">MT15000 Turbo</td><td>Lemon Mint</td></tr>
+          <tr><td class="td-num">11</td><td class="td-model">MT15000 Turbo</td><td>Mango Peach Watermelon</td></tr>
+          <tr><td class="td-num">12</td><td class="td-model">MT15000 Turbo</td><td>Miami Mint</td></tr>
+          <tr><td class="td-num">13</td><td class="td-model">MT15000 Turbo</td><td>Pineapple Mango</td></tr>
+          <tr><td class="td-num">14</td><td class="td-model">MT15000 Turbo</td><td>Sakura Grape</td></tr>
+          <tr><td class="td-num">15</td><td class="td-model">MT15000 Turbo</td><td>Sakura Watermelon</td></tr>
+          <tr><td class="td-num">16</td><td class="td-model">MT15000 Turbo</td><td>Sour Apple Ice</td></tr>
+          <tr><td class="td-num">17</td><td class="td-model">MT15000 Turbo</td><td>Strawberry Kiwi</td></tr>
+          <tr><td class="td-num">18</td><td class="td-model">MT15000 Turbo</td><td>Strawberry Mango</td></tr>
+          <tr><td class="td-num">19</td><td class="td-model">MT15000 Turbo</td><td>Watermelon Ice</td></tr>
+          <tr><td class="td-num">20</td><td class="td-model">MT15000 Turbo</td><td>White Gummy</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+
+</div>
+</body>
+</html>
