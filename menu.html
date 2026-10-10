@@ -10,13 +10,8 @@
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
+      margin-bottom: 24px;
       align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: #0d0d0d;
-      padding: 12px 0;
-      margin-bottom: 16px;
     }
     #menu-search {
       flex: 1;
@@ -58,8 +53,8 @@
       margin-bottom: 16px;
     }
     .menu-list {
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 12px;
     }
     .menu-item {
@@ -71,7 +66,7 @@
     }
     .menu-item:hover { border-color: #00e5ff44; }
     .menu-item-name {
-      font-size: 1.19rem;
+      font-size: 0.95rem;
       color: #f0f0f0;
       margin-bottom: 4px;
       font-weight: 600;
@@ -119,6 +114,7 @@
     <nav>
       <a href="home.html">Home</a>
       <a href="hours.html">Hours</a>
+      <a href="menu.html" class="active">Menu</a>
       <a href="featured.html">Featured</a>
       <a href="top-sellers.html">Top Sellers</a>
       <a href="locations.html">Locations</a>
@@ -126,7 +122,6 @@
       <a href="info.html">Info</a>
       <a href="rewards.html">Rewards</a>
       <a href="kits.html">Kits</a>
-      <a href="https://vapor.menu" target="_blank">E-Juice Finder</a>
     </nav>
   </header>
 
@@ -134,7 +129,7 @@
     <h1>Our Menu</h1>
 
     <div class="menu-controls">
-      <input id="menu-search" type="text" placeholder="Search by name or flavor..." spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
+      <input id="menu-search" type="text" placeholder="Search by name or flavor...">
       <div class="filter-btns">
         <button class="filter-btn active" data-type="ALL">All</button>
         <button class="filter-btn" data-type="DISP">Disposables</button>
@@ -154,22 +149,12 @@
   </footer>
 
   <script src="js/app.js"></script>
-  <script src="js/menu-data.js?v=4"></script>
+  <script src="js/menu-data.js"></script>
   <script>
     let allItems = MENU_DATA;
     let activeType = 'ALL';
 
     const typeLabels = { DISP: 'Disposable', SALT: 'Salt Nic', SUB: 'Sub-Ohm', KIT: 'Kit' };
-
-    const PINNED_NAMES = [
-      "SALT Slapple",
-      "SALT MRKT PLCE Fuji Pear Mangoberry"
-    ];
-
-    function itemTypeMatch(item, type) {
-      if (type === 'ALL') return true;
-      return item.types ? item.types.includes(type) : item.name.startsWith(type);
-    }
 
     render();
 
@@ -180,73 +165,34 @@
       const noResults = document.getElementById('no-results');
 
       const filtered = allItems.filter(item => {
-        const typeMatch = itemTypeMatch(item, activeType);
+        const typeMatch = activeType === 'ALL' || item.name.startsWith(activeType);
         const searchMatch = !query ||
           item.name.toLowerCase().includes(query) ||
-          item.profile.toLowerCase().includes(query) ||
-          (item.tags && item.tags.toLowerCase().includes(query));
+          item.profile.toLowerCase().includes(query);
         return typeMatch && searchMatch;
-      }).sort((a, b) => {
-        const nameA = a.name.replace(/^(DISP|SALT|SUB|KIT)\s+/, '').toLowerCase();
-        const nameB = b.name.replace(/^(DISP|SALT|SUB|KIT)\s+/, '').toLowerCase();
-        return nameA.localeCompare(nameB);
       });
-
-      const pinned = PINNED_NAMES
-        .map(name => allItems.find(i => i.name === name))
-        .filter(item => item && itemTypeMatch(item, activeType) && (
-          !query ||
-          item.name.toLowerCase().includes(query) ||
-          item.profile.toLowerCase().includes(query) ||
-          (item.tags && item.tags.toLowerCase().includes(query))
-        ));
 
       count.textContent = filtered.length + ' item' + (filtered.length !== 1 ? 's' : '');
       list.innerHTML = '';
       noResults.style.display = filtered.length === 0 ? 'block' : 'none';
 
-      const pinnedNames = new Set(pinned.map(i => i.name));
-      [...pinned, ...filtered.filter(i => !pinnedNames.has(i.name))].forEach(item => {
+      filtered.forEach(item => {
         const type = item.name.split(' ')[0];
-        const displayName = item.name.replace(/^(DISP|SALT|SUB|KIT)\s+/, '');
-        const isDual = item.types && item.types.length > 1;
-        const badgeHtml = isDual
-          ? item.types.map(t => `<div class="menu-item-type type-${t}" style="display:inline-block;margin-right:4px;">${typeLabels[t] || t}</div>`).join('')
-          : `<div class="menu-item-type type-${type}">${typeLabels[type] || type}</div>`;
-        let profileHtml = '';
-        if (item.profile) {
-          if (item.profile.includes('|')) {
-            const [sizes, flavor] = item.profile.split('|').map(s => s.trim());
-            profileHtml = `<div class="menu-item-profile" style="font-size:0.98rem;color:#ffcc00;text-align:center;margin-bottom:6px;">${flavor}</div>
-                           <div class="menu-item-profile" style="font-size:0.82rem;color:#aaa;text-align:center;margin-bottom:8px;">${sizes}</div>`;
-          } else {
-            profileHtml = `<div class="menu-item-profile" style="font-size:0.98rem;color:#ffcc00;text-align:center;margin-bottom:6px;">${item.profile}</div>`;
-          }
-        }
+        const displayName = item.name.replace(/^(DISP|SALT|SUB)\s+/, '');
         const div = document.createElement('div');
         div.className = 'menu-item';
-
-        if (item.name === 'SALT MRKT PLCE Forbidden Berry' && item.profile && item.profile.includes('|')) {
-          const [sizes, flavor] = item.profile.split('|').map(s => s.trim());
-          div.innerHTML = `
-            <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;margin-bottom:10px;">
-              <div class="menu-item-name" style="text-align:center;font-size:1.3rem;">MRKT PLCE<br>Forbidden Berry</div>
-              ${item.image ? `<img src="images/${item.image}" alt="${displayName}" style="width:180px;border-radius:6px;object-fit:contain;max-height:140px;background:#111;">` : ''}
-              <div style="font-size:0.98rem;color:#ffcc00;text-align:right;">${flavor}</div>
-            </div>
-            <div style="font-size:0.82rem;color:#aaa;text-align:center;margin-bottom:6px;">${sizes}</div>
-            <div style="display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-top:4px;">${badgeHtml}</div>
-          `;
-        } else {
-          div.innerHTML = `
-            <div class="menu-item-name" style="text-align:center;margin-bottom:10px;">${displayName}</div>
-            ${item.image ? `<img src="images/${item.image}" alt="${displayName}" style="width:100%;border-radius:6px;margin-bottom:10px;object-fit:contain;max-height:160px;background:#111;">` : ''}
-            ${profileHtml}
-            <div style="display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-top:4px;">${badgeHtml}</div>
-            ${item.price ? `<div style="font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:700;color:#aaff00;margin-top:8px;text-align:center;">${item.price}</div>` : ''}
-            ${item.link ? `<a href="${item.link}" style="display:block;margin-top:10px;font-size:0.75rem;color:#00e5ff;text-decoration:none;font-family:'Orbitron',sans-serif;letter-spacing:0.05em;text-align:center;">Learn More &rarr;</a>` : ''}
-          `;
-        }
+        div.innerHTML = `
+          ${item.image ? `<img src="images/${item.image}" alt="${displayName}" style="width:100%;border-radius:6px;margin-bottom:10px;object-fit:contain;max-height:160px;background:#111;">` : ''}
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;flex-wrap:wrap;">
+            <div class="menu-item-type type-${type}" style="margin-bottom:0;">${typeLabels[type] || type}</div>
+            ${item.size ? `<div style="font-family:'Orbitron',sans-serif;font-size:0.55rem;font-weight:700;letter-spacing:0.08em;padding:2px 7px;border-radius:4px;background:rgba(255,255,255,0.06);color:#aaa;">${item.size}</div>` : ''}
+            ${item.strength ? `<div style="font-family:'Orbitron',sans-serif;font-size:0.55rem;font-weight:700;letter-spacing:0.08em;padding:2px 7px;border-radius:4px;background:rgba(255,170,0,0.1);color:#ffaa00;">${item.strength}</div>` : ''}
+          </div>
+          <div class="menu-item-name">${displayName}</div>
+          ${item.profile ? `<div class="menu-item-profile">${item.profile}</div>` : ''}
+          ${item.price ? `<div style="font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:700;color:#aaff00;margin-top:8px;">${item.price}</div>` : ''}
+          ${item.link ? `<a href="${item.link}" style="display:inline-block;margin-top:10px;font-size:0.75rem;color:#00e5ff;text-decoration:none;font-family:'Orbitron',sans-serif;letter-spacing:0.05em;">Learn More &rarr;</a>` : ''}
+        `;
         list.appendChild(div);
       });
     }

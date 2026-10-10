@@ -189,7 +189,7 @@
 
     <p>
       Connecticut's destination for premium vaping products — devices, e-liquids,
-      salts, disposables, accessories, and CBD. Our knowledgeable staff is
+      salts, disposables, and accessories. Our knowledgeable staff is
       here to help you find exactly what you're looking for.
     </p>
 
@@ -206,6 +206,7 @@
       </form>
     </div>
 
+
     <h2>Featured Products</h2>
 
     <div class="card-grid">
@@ -221,13 +222,13 @@
         <img src="images/mrktplce.png" alt="MRKT PLCE E-Liquid" style="width:100%;border-radius:8px;margin-bottom:12px;">
         <h2>MRKT E-Liquids</h2>
         <p>Premium e-liquid crafted for bold flavor and smooth delivery. Explore a wide range of profiles from fruity to dessert and beyond.</p>
-        <a href="menu.html?q=mrkt">Shop Now &rarr;</a>
+        <a href="https://vapor.menu" target="_blank">Shop Now &rarr;</a>
       </div>
 
       <div class="card">
         <img src="images/xros/xros5-mini.jpg" alt="Vaporesso XROS 5 Mini" style="width:100%;border-radius:8px;margin-bottom:12px;">
         <h2>Vaporesso XROS 5 Mini</h2>
-        <p>Minimalist MTL pod powered by COREX 3.0 Tech — richer aroma, smoother draws, and a 1500mAh battery with 2A fast charging..</p>
+        <p>Minimalist MTL pod powered by COREX 3.0 Tech — richer aroma, smoother draws, and a 1500mAh battery with 2A fast charging.</p>
         <p style="font-family:'Orbitron',sans-serif;font-size:1.1rem;color:#00e5ff;margin:8px 0;">$29.99</p><a href="xros5mini.html">Learn More &rarr;</a>
       </div>
 
@@ -373,8 +374,7 @@
   <script>
     function doSearch(e) {
       e.preventDefault();
-      const q = document.getElementById('home-search-input').value.trim();
-      if (q) window.location.href = 'menu.html?q=' + encodeURIComponent(q);
+      window.open('https://vapor.menu', '_blank');
     }
     function toggleGuide(header) {
       const item = header.parentElement;
