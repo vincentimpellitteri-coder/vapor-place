@@ -5,6 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Vapor Place — Age Verification</title>
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    .age-gate-page { flex-direction: column; gap: 44px; }
+    .gate-stores { width: 100%; max-width: 760px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; border-top: 1px solid #222; padding-top: 26px; text-align: center; }
+    .gate-store { padding: 4px 8px; font-size: 0.78rem; line-height: 1.55; color: #777; }
+    .gate-store h2 { font-family: 'Orbitron', sans-serif; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: #bbb; margin: 0 0 6px; font-weight: 700; }
+    .gate-store a { color: #888; text-decoration: none; }
+    .gate-store a:hover { color: var(--cyan); }
+    .gate-store .hrs { color: #9a9a9a; margin-top: 4px; }
+    .gate-store .now { display: inline-block; margin-top: 6px; font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; }
+    .gate-store .now.open { color: #aaff00; }
+    .gate-store .now.closed { color: #666; }
+    .gate-store .now::before { content: "\25CF  "; }
+    .gate-store .now:empty { display: none; }
+  </style>
 </head>
 <body id="age-gate-page" class="age-gate-page">
 
@@ -25,6 +39,53 @@
       remember your verification within a single browser session.
     </p>
   </div>
+
+  <section class="gate-stores" aria-label="Store locations and hours">
+    <div class="gate-store" data-store="norwich">
+      <h2>Norwich</h2>
+      <a href="https://www.google.com/maps/search/?api=1&query=276+West+Main+St+Norwich+CT+06360" target="_blank" rel="noopener">276 West Main St, Norwich</a><br>
+      <a href="tel:+18608868273">(860) 886-8273</a>
+      <div class="hrs">Mon–Sat 10am–7pm<br>Sun 11am–5pm</div>
+      <span class="now"></span>
+    </div>
+    <div class="gate-store" data-store="groton">
+      <h2>Groton · Drive-Thru</h2>
+      <a href="https://www.google.com/maps/search/?api=1&query=516+Gold+Star+Hwy+Groton+CT+06340" target="_blank" rel="noopener">516 Gold Star Hwy, Groton</a><br>
+      <a href="tel:+18604468273">(860) 446-8273</a>
+      <div class="hrs">Mon–Sat 10am–8pm<br>Sun 11am–5pm</div>
+      <span class="now"></span>
+    </div>
+    <div class="gate-store" data-store="express">
+      <h2>Vapor Express</h2>
+      <a href="https://www.google.com/maps/search/?api=1&query=260+Norwich+New+London+Tpke+Uncasville+CT+06382" target="_blank" rel="noopener">260 Norwich New London Tpke, Uncasville</a><br>
+      <a href="tel:+18604604891">(860) 460-4891</a>
+      <div class="hrs">Thu &amp; Sat 10am–6pm · Fri 10am–3pm<br>Sun 10am–4pm · Mon–Wed closed</div>
+      <span class="now"></span>
+    </div>
+  </section>
+
+  <script>
+  (function () {
+    // Hours by weekday (0 = Sun), [open, close] in 24h, America/New_York
+    var H = {
+      norwich: [[11,17],[10,19],[10,19],[10,19],[10,19],[10,19],[10,19]],
+      groton:  [[11,17],[10,20],[10,20],[10,20],[10,20],[10,20],[10,20]],
+      express: [[10,16],null,null,null,[10,18],[10,15],[10,18]]
+    };
+    try {
+      var p = {}; new Intl.DateTimeFormat('en-US', {timeZone:'America/New_York', weekday:'short', hour:'numeric', minute:'numeric', hourCycle:'h23'})
+        .formatToParts(new Date()).forEach(function (x) { p[x.type] = x.value; });
+      var day = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(p.weekday);
+      var t = parseInt(p.hour, 10) + parseInt(p.minute, 10) / 60;
+      document.querySelectorAll('.gate-store').forEach(function (el) {
+        var h = H[el.dataset.store][day], open = h && t >= h[0] && t < h[1];
+        var s = el.querySelector('.now');
+        s.textContent = open ? 'Open now' : 'Closed now';
+        s.className = 'now ' + (open ? 'open' : 'closed');
+      });
+    } catch (e) {}
+  })();
+  </script>
 
   <script src="js/app.js"></script>
 
