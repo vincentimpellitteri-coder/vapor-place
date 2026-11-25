@@ -382,7 +382,7 @@
     function doSearch(e) {
       e.preventDefault();
       const q = document.getElementById('home-search-input').value.trim();
-      window.open('https://vapor.menu/' + (q ? '?q=' + encodeURIComponent(q) : ''), '_blank');
+      window.open('https://vapor.menu/?src=tvp' + (q ? '&q=' + encodeURIComponent(q) : ''), '_blank');
     }
     function toggleGuide(header) {
       const item = header.parentElement;
